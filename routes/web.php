@@ -18,7 +18,9 @@ Route::get('/', 'PagesController@index');
 
 // Demo routes
 Route::get('/datatables', 'PagesController@datatables');
-Route::get('/ktdatatables', 'PagesController@ktDatatables');
+Route::get('/crud/datatables/basic/basic', 'PagesController@datatables');
+Route::get('/ktdatatable', 'PagesController@ktDatatables');
+Route::get('/crud/ktdatatable/base/html-table', 'PagesController@ktDatatables');
 Route::get('/select2', 'PagesController@select2');
 Route::get('/jquerymask', 'PagesController@jQueryMask');
 Route::get('/icons/custom-icons', 'PagesController@customIcons');

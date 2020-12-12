@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PagesController@index');
 
+Route::get('ajouter/{entreprise_id}/{table}', 'AjouterController@viewTable');
+Route::get('tableau/{entreprise_id}/{table}', 'TableauController@viewTable');
+
+
 
 // Demo routes
 Route::get('/datatables', 'PagesController@datatables');

@@ -73,6 +73,11 @@
         {{-- Responsive --}}
         <script src="{{ asset('https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js') }}" type="text/javascript"></script>
+        {{-- Page length --}}
+        {{-- <script src="{{ asset('https://code.jquery.com/jquery-3.5.1.js') }}" type="text/javascript"></script> --}}
+
+
+
 
     {{-- page scripts --}}
     {{-- <script src="{{ asset('js/pages/crud/datatables/basic/basic.js') }}" type="text/javascript"></script> --}}
@@ -84,7 +89,7 @@
         $(function () {
             //Exportable table
             $('.js-exportable').DataTable({
-                dom: 'Bfrtip',
+                dom: 'Bfrltip',
                 responsive: true,
                 buttons: [
 
@@ -95,6 +100,7 @@
                     {extend: 'print', title: '{{$titre}}'}
 
                 ],
+                "lengthMenu": [[10, 25, 50,100, -1], [10, 25, 50,100, "All"]],
                 "order": [[ 0, "asc" ]],
                 "columnDefs": [
                     { "orderable": false ,    "targets": [4]},

@@ -25,7 +25,7 @@ class TableauController extends Controller
           $entreprises=entreprise::get();
           $type_clients=type_client::get();
           $data=$this->tableauRepository->selection_clients();
-        // return view('test', ['test' =>  $type_clients, 'imputs' => '$a', 'comp' => '$table'.' ']);
+        // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[
               'titre'        => $entreprise['nom'].' - Tableau Client',

@@ -25,6 +25,33 @@ class FormMacroProvider extends ServiceProvider
     public function boot()
     {
 
+    //--------------------------------------------------//
+    //                                                  //
+    //                       Bouton                     //
+    //                                                  //
+    //--------------------------------------------------//
+
+
+        Form::macro('valider', function($nom='Valider',$color='btn-primary')
+        {
+            return sprintf('
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary mr-2">Valider</button>
+                    <button type="reset" class="btn btn-secondary">Effacer</button>
+                </div>'
+            );
+        });
+
+
+    //--------------------------------------------------//
+    //                                                  //
+    //                    Validation                    //
+    //                                                  //
+    //--------------------------------------------------//
+
+
+
+
         Form::macro('validation_checkboxe', function($input, $label, $required=true, $col=6 )
         {
 
@@ -111,13 +138,37 @@ class FormMacroProvider extends ServiceProvider
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2 col-sm-12">%s</label>
                     <div class=" col-lg-%s col-md-9 col-sm-12">
-                        <select class="form-control kt-select2 select2" id="kt_select2_1" name="%s" %s>
+                        <select class="form-control kt-select2 select2" name="%s" %s>
                             <option value="" >-- Please select --</option>
                             %s
                         </select>
                     </div>
                 </div>
                 ',  $label, $col, $name, $required, $options
+            );
+        });
+
+    //--------------------------------------------------//
+    //                                                  //
+    //                        switch                    //
+    //                                                  //
+    //--------------------------------------------------//
+
+        Form::macro('switch', function($name, $label, $col=4)
+        {
+            return sprintf('
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2 col-sm-12">%s</label>
+                    <div class=" col-lg-%s col-md-9 col-sm-12">
+                        <span class="switch switch-icon">
+                            <label>
+                                <input type="checkbox" checked="checked" name="%s"/>
+                                <span></span>
+                            </label>
+                        </span>
+                    </div>
+                </div>
+                ',  $label, $col, $name
             );
         });
 

@@ -16,7 +16,7 @@
         </div>
     </div>
     <!--begin::Form-->
-    <form>
+    {!! Form::open(['url' => url('ajouter/'.$entreprise_id.'/clients'), 'id'=>'form_validation']) !!}
         <div class="card-body">
             <div class="form-group mb-8">
                 <div class="alert alert-custom alert-default" role="alert">
@@ -29,12 +29,13 @@
             {!!Form::validation_select($type_client, 'type_client_id', 'Type',true,4)!!}
             {!!Form::validation_text_maxLength('nom', 'Nom',10,true,6)!!}
             {!!Form::validation_text_maxLength('nom_display', 'Nom Complet',40,true,6)!!}
-            {!!Form::validation_checkboxe($choix_entreprise,'Entreprise',true,6)!!}
+            @foreach ($choix_entreprise as $key => $value)
+                {!!Form::switch('entreprise_'.$value[0], $value[1],4)!!}
+            @endforeach
+
+            {{-- {!!Form::validation_checkboxe($choix_entreprise,'Entreprise',true,6)!!} --}}
         </div>
-        <div class="card-footer">
-            <button type="reset" class="btn btn-primary mr-2">Submit</button>
-            <button type="reset" class="btn btn-secondary">Cancel</button>
-        </div>
+        {!!Form::valider()!!}
     </form>
     <!--end::Form-->
 </div>

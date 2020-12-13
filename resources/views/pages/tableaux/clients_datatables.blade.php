@@ -34,7 +34,15 @@
                             <td>{{$value['nom']}}</td>
                             <td>{{$value['nom_display']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_client']['nom_display']}}">{{$value['type_client']['nom']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['entreprise'][0]['nom_display']}}">{{$value['entreprise'][0]['nom']}}</td>
+                            <td>
+                            @foreach ($value['entreprise'] as $key_2 => $value_2)
+                                @if($loop->first)
+                                    {{$value_2['nom']}}
+                                @else ($entreprises as $key_e => $entreprise)
+                                    {{$value_2['nom']}}
+                                @endif
+                            @endforeach
+                            </td>
                             <td>modifier</td>
                         </tr>
                     @endforeach
@@ -116,14 +124,14 @@
                 "lengthMenu": [[10, 25, 50,100, -1], [10, 25, 50,100, "All"]],
                 "order": [[ 1, "asc" ]],
                 "columnDefs": [
-                    { "orderable": false ,    "targets": [4]},
+                    // { "orderable": false ,    "targets": [4]},
                     // { "width": "54px", "targets": 8 },
                 ],
                 "oLanguage": {
                   "sUrl": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
                 },
                 initComplete: function () {
-                    this.api().columns([1,2,3,4]).every( function () {
+                    this.api().columns([1,2,3,4,5]).every( function () {
                         var column = this;
                         var select = $('<select><option value=""></option></select>')
                             .appendTo( $(column.footer()).empty() )

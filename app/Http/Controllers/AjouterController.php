@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Repositories\TableauRepository;
+use App\Repositories\FormulaireRepository;
+
 use App\Models\entreprise;
 use App\Models\type_client;
 use App\Models\type_devi;
@@ -16,11 +19,12 @@ use Validator;
 
 class AjouterController extends Controller
 {
-    public function __construct(TableauRepository $TableauRepository)
+    public function __construct(TableauRepository $TableauRepository, FormulaireRepository $FormulaireRepository)
     {
         $this->chemin  = 'pages.ajouter.';
         $this->chemin_tableau  = 'pages.tableaux.';
         $this->tableauRepository = $TableauRepository;
+        $this->formulaireRepository = $FormulaireRepository;
     }
 
     public function viewTable($entreprise_id,$table)
@@ -73,23 +77,10 @@ class AjouterController extends Controller
         }elseif ($table=='devis') {
 
           //Selection de données nécessaire au formulaire
-          $chantiers=chantier::with('client')->where('entreprise_id',$entreprise->id)->orderBy('identifiant','desc')->get();
-          foreach ($chantiers as $key_2 => $value) {
-            $chantier[$key_2][0]=$value['id'];
-            $chantier[$key_2][1]=$value['identifiant'];
-          }
+          $chantier  = $this->formulaireRepository->select_chantiers($entreprise);
+          $type_devi = $this->formulaireRepository->select_type_devis();
+          $collaborateur = $this->formulaireRepository->select_collaborateurs();
 
-          $type_devis=type_devi::get();
-          foreach ($type_devis as $key_2 => $value) {
-            $type_devi[$key_2][0]=$value['id'];
-            $type_devi[$key_2][1]=$value['nom_display'];
-          }
-
-          $collaborateurs=collaborateur::orderBy('nom','asc')->get();
-          foreach ($collaborateurs as $key_2 => $value) {
-            $collaborateur[$key_2][0]=$value['id'];
-            $collaborateur[$key_2][1]=$value['nom_display'];
-          }
           // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_select2',[
@@ -103,8 +94,27 @@ class AjouterController extends Controller
 
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
-        }
+        }elseif ($table=='factures') {
 
+          //Selection de données nécessaire au formulaire
+          $chantier      = $this->formulaireRepository->select_chantiers($entreprise);
+          $type_facture  = $this->formulaireRepository->select_type_factures();
+          $collaborateur = $this->formulaireRepository->select_collaborateurs();
+
+          // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+          return view($this->chemin.$table.'_select2',[
+              'titre'          => $entreprise['nom'].' - Ajouter une facture',
+              'descriptif'     => 'La factures sera associée à l\'entreprise '.$entreprise['nom_display'].'.',
+              'chantiers'      => $chantier,
+              'type_factures'     => $type_facture,
+              'collaborateurs' => $collaborateur,
+              'entreprise'     => $entreprise,
+          ]);
+
+          // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+        }
 
 
 
@@ -214,13 +224,14 @@ class AjouterController extends Controller
         $client=chantier::where('id',$request->all()['chantier_id'])->first();
 
         $table_devi = new devi;
-        $table_devi->numero        = $request->all()['numero'];
-        $table_devi->lot           = $request->all()['lot'];
-        $table_devi->chantier_id   = $request->all()['chantier_id'];
-        $table_devi->type_devi_id  = $request->all()['type_devi_id'];
-        $table_devi->total_ht      = $request->all()['total_ht'];
-        $table_devi->total_ttc     = $request->all()['total_ttc'];
-        $table_devi->date_creation = $request->all()['date_creation'];
+        $table_devi->numero           = $request->all()['numero'];
+        $table_devi->lot              = $request->all()['lot'];
+        $table_devi->chantier_id      = $request->all()['chantier_id'];
+        $table_devi->type_devi_id     = $request->all()['type_devi_id'];
+        $table_devi->collaborateur_id = $request->all()['collaborateur_id'];
+        $table_devi->total_ht         = $request->all()['total_ht'];
+        $table_devi->total_ttc        = $request->all()['total_ttc'];
+        $table_devi->date_creation    = $request->all()['date_creation'];
         if(isset($request->all()['date_envoie'])){
           $table_devi->date_envoie   = $request->all()['date_envoie'];
         }
@@ -230,15 +241,62 @@ class AjouterController extends Controller
         $table_devi->tva           = $request->all()['total_ttc']-$request->all()['total_ht'];
         $table_devi->save();
 
-        return view('test', ['test' =>  $table_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
-        $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise->id)->get();
+        // return view('test', ['test' =>  $table_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
+        $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
+        // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
         return view($this->chemin.$table.'_datatables',[
-            'titre'        => $entreprise['nom'].' - Tableau Chantier',
-            'descriptif'   => 'Liste des chantiers appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+            'titre'        => $entreprise['nom'].' - Tableau Devis',
+            'descriptif'   => 'Liste des devis appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
             'data'         => $data,
-            // 'type_clients' => $type_clients,
-            // 'entreprises'  => $entreprises,
+            'colonne_order' => 0,
+            'ordre'         => "desc",
+        ]);
+
+
+      }elseif($table=='factures'){
+
+        $this->validate($request, [
+            'numero'           => 'required|max:15|unique:devis',
+            'lot'              => 'required|max:50',
+            'chantier_id'      => 'required',
+            'type_devi_id'     => 'required',
+            'collaborateur_id' => 'required',
+            'total_ht'         => 'required',
+            'total_ttc'        => 'required',
+            'date_creation'    => 'required',
+        ]);
+        // return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
+
+        //Sauvergarde du nouveau devis
+        $client=chantier::where('id',$request->all()['chantier_id'])->first();
+
+        $table_devi = new devi;
+        $table_devi->numero           = $request->all()['numero'];
+        $table_devi->lot              = $request->all()['lot'];
+        $table_devi->chantier_id      = $request->all()['chantier_id'];
+        $table_devi->type_devi_id     = $request->all()['type_devi_id'];
+        $table_devi->collaborateur_id = $request->all()['collaborateur_id'];
+        $table_devi->total_ht         = $request->all()['total_ht'];
+        $table_devi->total_ttc        = $request->all()['total_ttc'];
+        $table_devi->date_creation    = $request->all()['date_creation'];
+        if(isset($request->all()['date_envoie'])){
+          $table_devi->date_envoie   = $request->all()['date_envoie'];
+        }
+        $table_devi->entreprise_id = $entreprise_id->id;
+        $table_devi->client_id     = $client->client_id;
+        $table_devi->etat_devi_id  = 1;
+        $table_devi->tva           = $request->all()['total_ttc']-$request->all()['total_ht'];
+        $table_devi->save();
+
+        // return view('test', ['test' =>  $table_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
+        $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
+        // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+        return view($this->chemin.$table.'_datatables',[
+            'titre'        => $entreprise['nom'].' - Tableau Devis',
+            'descriptif'   => 'Liste des devis appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+            'data'         => $data,
             'colonne_order' => 0,
             'ordre'         => "desc",
         ]);

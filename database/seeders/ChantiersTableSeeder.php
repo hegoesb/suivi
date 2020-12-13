@@ -51,7 +51,7 @@ class ChantiersTableSeeder extends Seeder
                 'id' => 3,
                 'identifiant' => 'EBX_PJ2012-0006 - Cambes',
                 'libelle' => 'premier chantier',
-                'client_id' => 1,
+                'client_id' => 5,
                 'entreprise_id' => 1,
                 'etat_chantier_id' => 1,
                 'date_debut' => '2020-12-09',

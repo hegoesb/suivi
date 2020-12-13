@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Repositories\TableauRepository;
 use App\Models\entreprise;
 use App\Models\chantier;
+use App\Models\devi;
 use App\Models\type_client;
 
 class TableauController extends Controller
@@ -46,8 +47,18 @@ class TableauController extends Controller
               'titre'        => $entreprise['nom'].' - Tableau Chantier',
               'descriptif'   => 'Liste des chantiers appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
               'data'         => $data,
-              // 'type_clients' => $type_clients,
-              // 'entreprises'  => $entreprises,
+              'colonne_order' => 1,
+              'ordre'         => "desc",
+          ]);
+        }elseif($table=='devis'){
+
+          $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
+          // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+          return view($this->chemin.$table.'_datatables',[
+              'titre'        => $entreprise['nom'].' - Tableau Devis',
+              'descriptif'   => 'Liste des devis appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+              'data'         => $data,
               'colonne_order' => 1,
               'ordre'         => "desc",
           ]);

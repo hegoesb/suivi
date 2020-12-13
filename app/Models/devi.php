@@ -15,6 +15,20 @@ class devi extends Model
   {
       return $this->belongsTo('App\Models\type_devi');
   }
-
-
+  public function etat_devi()
+  {
+      return $this->belongsTo('App\Models\etat_devi');
+  }
+  public function chantier()
+  {
+      return $this->belongsTo('App\Models\chantier');
+  }
+  public function client()
+  {
+      return $this->belongsTo('App\Models\client');
+  }
+  public function collaborateur()
+  {
+      return $this->belongsTo('App\Models\collaborateur');
+  }
 }

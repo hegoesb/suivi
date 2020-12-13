@@ -21,8 +21,9 @@ class EdisTable extends Migration
             $table->increments('id');
             $table->string('nom',10);
             $table->string('nom_display',20);
-            $table->string('prefixe_chantier',6);
+            $table->string('prefixe_chantier',15);
             $table->string('prefixe_devis',15);
+            $table->string('prefixe_facture',15);
             $table->timestamps();
         });
 
@@ -126,7 +127,7 @@ class EdisTable extends Migration
             $table->integer('bilan_id')->nullable();
             $table->integer('etat_devi_id');
             $table->integer('type_devi_id');
-            $table->integer('collaborateur_id')->nullable();
+            $table->integer('collaborateur_id');
             $table->float('total_ht', 10, 2)->nullable();
             $table->float('total_ttc', 10, 2)->nullable();
             $table->float('tva', 10, 2)->nullable();
@@ -148,15 +149,17 @@ class EdisTable extends Migration
             $table->string('numero',4);
             $table->integer('chantier_id');
             $table->integer('client_id');
-            $table->integer('bilan_id');
+            $table->integer('bilan_id')->nullable();
             $table->integer('entreprise_id');
             $table->integer('type_facture_id');
-            $table->float('valeur', 10, 2)->nullable();
+            $table->float('total_ht', 10, 2);
+            $table->float('total_ttc', 10, 2);
             $table->float('tva', 10, 2)->nullable();
-            $table->integer('collaborateur_id')->nullable();
+            $table->integer('collaborateur_id');
+            $table->date('date_creation');
             $table->date('date_echeance');
             $table->date('date_envoie')->nullable();
-            $table->integer('type_reglement_id')->nullable();
+            $table->date('date_paye')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -185,7 +188,12 @@ class EdisTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
+        Schema::create('devi_facture', function (Blueprint $table) {
+            $table->integer('devi_id')->unsigned();
+            $table->integer('facture_id')->unsigned();
+            $table->timestamps();
+            $table->softDeletes();
+        });
 
     }
 

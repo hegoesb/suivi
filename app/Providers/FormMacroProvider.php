@@ -114,6 +114,26 @@ class FormMacroProvider extends ServiceProvider
             );
         });
 
+        Form::macro('validation_text_maxLength_value', function($name, $label, $value, $maxlength=10, $required=true, $col=6 )
+        {
+
+            if($required==true){
+                $required='required';
+            }else{
+                $required='';
+            }
+
+            return sprintf('
+                <div class="form-group row">
+                    <label  class="col-2 col-form-label">%s</label>
+                    <div class="col-%s">
+                        <input class="form-control" type="text" name="%s" maxlength="%s" value="%s" %s/>
+                    </div>
+                    <div class="help-info">Max. %s caractères</div>
+                </div>
+                ',  $label, $col, $name, $maxlength, $value, $required, $maxlength,
+            );
+        });
 
 
         Form::macro('validation_select', function($input, $name, $label, $required=true, $col=4)
@@ -147,6 +167,30 @@ class FormMacroProvider extends ServiceProvider
                 ',  $label, $col, $name, $required, $options
             );
         });
+
+        Form::macro('validation_date', function($name, $label, $required=true, $col=4)
+        {
+
+            if($required==true){
+                $required='required';
+            }else{
+                $required='';
+            }
+
+            return sprintf('
+                <div class="form-group row">
+                    <label for="example-date-input" class="col-2 col-form-label">%s</label>
+                    <div class="col-%s">
+                        <input class="form-control" type="date"  name="%s" %s/>
+                    </div>
+                </div>
+                ',  $label, $col, $name, $required
+            );
+        });
+
+
+
+
 
     //--------------------------------------------------//
     //                                                  //

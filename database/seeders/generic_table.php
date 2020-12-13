@@ -50,6 +50,7 @@ class generic_table extends Seeder
                 'id' => 1,
                 'nom' => 'EBX',
                 'nom_display' => 'EDIS Bordeaux',
+                'prefixe_chantier' => 'EBX_PJ',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
             ),
@@ -58,6 +59,7 @@ class generic_table extends Seeder
                 'id' => 2,
                 'nom' => 'EPB',
                 'nom_display' => 'EDIS Pays Basque',
+                'prefixe_chantier' => 'EPB_PJ',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
             ),
@@ -185,6 +187,23 @@ class generic_table extends Seeder
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
             ),
+            4 =>
+            array (
+                'id' => 5,
+                'nom' => 'P',
+                'nom_display' => 'Perdu',
+                'created_at' => '2020-12-12 00:00:00',
+                'updated_at' => '2020-12-12 00:00:00',
+            ),
+            5 =>
+            array (
+                'id' => 6,
+                'nom' => 'Li',
+                'nom_display' => 'Litige',
+                'created_at' => '2020-12-12 00:00:00',
+                'updated_at' => '2020-12-12 00:00:00',
+            ),
+
         ));
 
         \DB::table('etat_devis')->delete();
@@ -213,6 +232,15 @@ class generic_table extends Seeder
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
             ),
+            3 =>
+            array (
+                'id' => 4,
+                'nom' => 'Rf',
+                'nom_display' => 'Refusé',
+                'created_at' => '2020-12-12 00:00:00',
+                'updated_at' => '2020-12-12 00:00:00',
+            ),
+
         ));
 
     }

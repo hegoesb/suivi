@@ -21,6 +21,7 @@ class EdisTable extends Migration
             $table->increments('id');
             $table->string('nom',10);
             $table->string('nom_display',20);
+            $table->string('prefixe_chantier',6);
             $table->timestamps();
         });
 
@@ -103,11 +104,11 @@ class EdisTable extends Migration
 
         Schema::create('chantiers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('numero',40);
-            $table->string('nom_display',20)->nullable();
+            $table->string('identifiant',50);
+            $table->string('libelle',50)->nullable();
             $table->integer('client_id');
             $table->integer('entreprise_id');
-            $table->integer('etat_entreprise_id');
+            $table->integer('etat_chantier_id');
             $table->date('date_debut')->nullable();
             $table->date('date_fin')->nullable();
             $table->timestamps();

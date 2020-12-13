@@ -27,6 +27,10 @@ return [
                     'page' => 'ajouter/1/clients'
                 ],
                 [
+                    'title' => 'Chantiers',
+                    'page' => 'ajouter/1/chantiers'
+                ],
+                [
                     'title' => 'Devis',
                     'page' => 'ajouter/1/devis'
                 ],
@@ -49,6 +53,10 @@ return [
                 [
                     'title' => 'Clients',
                     'page' => 'tableau/1/clients'
+                ],
+                [
+                    'title' => 'Chantiers',
+                    'page' => 'tableau/1/chantiers'
                 ],
                 [
                     'title' => 'Devis',
@@ -80,6 +88,10 @@ return [
                     'page' => 'ajouter/2/clients'
                 ],
                 [
+                    'title' => 'Chantier',
+                    'page' => 'ajouter/2/chantiers'
+                ],
+                [
                     'title' => 'Devis',
                     'page' => 'ajouter/2/devis'
                 ],
@@ -102,6 +114,10 @@ return [
                 [
                     'title' => 'Clients',
                     'page' => 'tableau/2/clients'
+                ],
+                [
+                    'title' => 'Chantier',
+                    'page' => 'tableau/2/chantiers'
                 ],
                 [
                     'title' => 'Devis',

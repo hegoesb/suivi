@@ -28,14 +28,16 @@ class TableauController extends Controller
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[
-              'titre'        => $entreprise['nom'].' - Tableau Client',
-              'descriptif'   => 'Liste des clients appartenant aux deux entreprises',
-              'data'         => $data,
-              'type_clients' => $type_clients,
-              'entreprises'  => $entreprises,
+              'titre'         => $entreprise['nom'].' - Tableau Client',
+              'descriptif'    => 'Liste des clients appartenant aux deux entreprises',
+              'data'          => $data,
+              'type_clients'  => $type_clients,
+              'entreprises'   => $entreprises,
+              'colonne_order' => 1,
+              'ordre'         => "asc",
           ]);
-        }elseif($table=='devis'){
-          return view($this->chemin.$table.'_ktdatatables',[
+        }elseif($table=='chantiers'){
+          return view($this->chemin.$table.'_datatables',[
               'titre'        => $entreprise['nom'].' - Tableau Client',
               'descriptif'   => 'Liste des clients appartenant aux deux entreprises',
               // 'data'         => $data,

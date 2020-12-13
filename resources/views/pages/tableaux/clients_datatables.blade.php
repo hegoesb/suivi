@@ -17,13 +17,13 @@
 
             <table class="table table-bordered table-hover js-exportable" id="kt_datatable">
                 <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Nom Complet</th>
-                    <th>Type</th>
-                    <th>Entreprise</th>
-                    <th></th>
-                </tr>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Nom Complet</th>
+                        <th>Type</th>
+                        <th>Entreprise</th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $key => $value)
@@ -37,6 +37,16 @@
                         </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Nom Complet</th>
+                        <th>Type</th>
+                        <th>Entreprise</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+
             </table>
 
         </div>
@@ -110,7 +120,7 @@
                   "sUrl": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
                 },
                 initComplete: function () {
-                    this.api().columns([4,5,6]).every( function () {
+                    this.api().columns([0,1,2,3]).every( function () {
                         var column = this;
                         var select = $('<select><option value=""></option></select>')
                             .appendTo( $(column.footer()).empty() )

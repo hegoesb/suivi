@@ -1,0 +1,125 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Form;
+
+class FormMacroProvider extends ServiceProvider
+{
+    /**
+     * Register services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+
+        Form::macro('validation_checkboxe', function($input, $label, $required=true, $col=6 )
+        {
+
+            if($required==true){
+                $required='required';
+            }else{
+                $required='';
+            }
+
+
+            foreach ($input as $key => $value) {
+                if($key==0){
+                    $options =
+                        '<label class="checkbox">
+                            <input type="checkbox"  name="'.$value[0].'"/>
+                            <span></span>
+                            '.$value[1].'
+                        </label>';
+                }else{
+                    $options .=
+                        '<label class="checkbox">
+                            <input type="checkbox"  name="'.$value[0].'"/>
+                            <span></span>
+                            '.$value[1].'
+                        </label>';
+                }
+            }
+
+            return sprintf('
+                <div class="form-group row">
+                    <label class="col-2 col-form-label">%s</label>
+                    <div class="col-%s col-form-label">
+                        <div class="checkbox-list %s">
+                            %s
+                        </div>
+                    </div>
+                </div>
+                ',  $label, $col, $required, $options,
+            );
+        });
+
+        Form::macro('validation_text_maxLength', function($name, $label, $maxlength=10, $required=true, $col=6 )
+        {
+
+            if($required==true){
+                $required='required';
+            }else{
+                $required='';
+            }
+
+            return sprintf('
+                <div class="form-group row">
+                    <label  class="col-2 col-form-label">%s</label>
+                    <div class="col-%s">
+                        <input class="form-control" type="text" name="%s" maxlength="%s" %s/>
+                    </div>
+                    <div class="help-info">Max. %s caractères</div>
+                </div>
+                ',  $label, $col, $name, $maxlength, $required, $maxlength,
+            );
+        });
+
+
+
+        Form::macro('validation_select', function($input, $name, $label, $required=true, $col=4)
+        {
+
+            if($required==true){
+                $required='required';
+            }else{
+                $required='';
+            }
+
+            foreach ($input as $key => $value) {
+                if($key==0){
+                    $options = '<option value="'.$value[0].'">'.$value[1].'</option>';
+                }else{
+                    $options .= '<option value="'.$value[0].'">'.$value[1].'</option>';
+                }
+            }
+
+
+            return sprintf('
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2 col-sm-12">%s</label>
+                    <div class=" col-lg-%s col-md-9 col-sm-12">
+                        <select class="form-control kt-select2 select2" id="kt_select2_1" name="%s" %s>
+                            <option value="" >-- Please select --</option>
+                            %s
+                        </select>
+                    </div>
+                </div>
+                ',  $label, $col, $name, $required, $options
+            );
+        });
+
+    }
+}

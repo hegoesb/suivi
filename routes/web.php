@@ -14,8 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PagesController@index');
+/*
+|--------------------------------------------------------------------------
+| Ajouter
+|--------------------------------------------------------------------------
+*/
 
 Route::get('ajouter/{entreprise_id}/{table}', 'AjouterController@viewTable');
+Route::post('ajouter/{entreprise_id}/{table}', 'AjouterController@postTable');
+
+/*
+|--------------------------------------------------------------------------
+| Tableau
+|--------------------------------------------------------------------------
+*/
 Route::get('tableau/{entreprise_id}/{table}', 'TableauController@viewTable');
 
 

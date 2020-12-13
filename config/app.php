@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         App\Providers\MetronicServiceProvider::class,
+        App\Providers\FormMacroProvider::class,
 
         /*
          * Application Service Providers...

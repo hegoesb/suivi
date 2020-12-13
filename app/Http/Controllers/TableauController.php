@@ -34,16 +34,6 @@ class TableauController extends Controller
               'type_clients' => $type_clients,
               'entreprises'  => $entreprises,
           ]);
-
-          // return view($this->chemin.$table.'_ktdatatables',[
-          //     'titre'        => $entreprise['nom'].' - Tableau Client',
-          //     'descriptif'   => 'Liste des clients appartenant aux deux entreprises',
-          //     'data'         => $data,
-          //     'type_clients' => $type_clients,
-          //     'entreprises'  => $entreprises,
-          // ]);
-
-
         }elseif($table=='devis'){
           return view($this->chemin.$table.'_ktdatatables',[
               'titre'        => $entreprise['nom'].' - Tableau Client',

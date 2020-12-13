@@ -77,19 +77,19 @@ return [
             'submenu' => [
                 [
                     'title' => 'Clients',
-                    'page' => 'ajouter/2/clients/2'
+                    'page' => 'ajouter/2/clients'
                 ],
                 [
                     'title' => 'Devis',
-                    'page' => 'ajouter/2/devis/2'
+                    'page' => 'ajouter/2/devis'
                 ],
                 [
                     'title' => 'Factures',
-                    'page' => 'ajouter/2/factures/2'
+                    'page' => 'ajouter/2/factures'
                 ],
                 [
                     'title' => 'Paiements',
-                    'page' => 'ajouter/2/paiements/2'
+                    'page' => 'ajouter/2/paiements'
                 ],
             ]
         ],
@@ -101,19 +101,19 @@ return [
             'submenu' => [
                 [
                     'title' => 'Clients',
-                    'page' => 'tableau/2/clients/2'
+                    'page' => 'tableau/2/clients'
                 ],
                 [
                     'title' => 'Devis',
-                    'page' => 'tableau/2/devis/2'
+                    'page' => 'tableau/2/devis'
                 ],
                 [
                     'title' => 'Factures',
-                    'page' => 'tableau/2/factures/2'
+                    'page' => 'tableau/2/factures'
                 ],
                 [
                     'title' => 'Paiements',
-                    'page' => 'tableau/2/paiements/2'
+                    'page' => 'tableau/2/paiements'
                 ],
             ]
         ],

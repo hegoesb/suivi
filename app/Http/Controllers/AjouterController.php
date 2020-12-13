@@ -139,8 +139,19 @@ class AjouterController extends Controller
         $table_chantier->etat_chantier_id = 1;
         $table_chantier->save();
 
+        $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise->id)->get();
+        // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
-        return view('test', ['test' =>  '$choix_entrepise', 'imputs' => '$table', 'comp' => $request->except(['_token'])]);
+        return view($this->chemin.$table.'_datatables',[
+            'titre'        => $entreprise['nom'].' - Tableau Chantier',
+            'descriptif'   => 'Liste des chantiers appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+            'data'         => $data,
+            // 'type_clients' => $type_clients,
+            // 'entreprises'  => $entreprises,
+            'colonne_order' => 0,
+            'ordre'         => "desc",
+        ]);
+
 
       }
 

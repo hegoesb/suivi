@@ -13,7 +13,7 @@ class client extends Model
 
   public function entreprise()
   {
-      return $this->belongsToMany('App\Models\entreprise');
+      return $this->belongsToMany('App\Models\entreprise', 'client_entreprise', 'client_id', 'entreprise_id');
   }
   public function type_client()
   {

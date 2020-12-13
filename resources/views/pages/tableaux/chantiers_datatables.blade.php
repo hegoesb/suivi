@@ -19,11 +19,16 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nom</th>
-                        <th>Nom Complet</th>
-                        <th>Type</th>
-                        <th>Entreprise</th>
-                        <th></th>
+                        <th>Identifiant</th>
+                        <th>Libellé</th>
+                        <th>Chantier</th>
+                        <th>Date Début</th>
+                        <th>Devis</th>
+                        <th>Valeur</th>
+                        <th>Factures</th>
+                        <th>Facturé</th>
+                        <th>Rester à facturer</th>
+                        <th>Rester à facturer</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,18 +36,15 @@
                         {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
                         <tr class="gradeX">
                             <td>{{$value['id']}}</td>
-                            <td>{{$value['nom']}}</td>
-                            <td>{{$value['nom_display']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_client']['nom_display']}}">{{$value['type_client']['nom']}}</td>
-                            <td>
-                            @foreach ($value['entreprise'] as $key_2 => $value_2)
-                                @if($loop->first)
-                                    {{$value_2['nom']}}
-                                @else ($entreprises as $key_e => $entreprise)
-                                    {{$value_2['nom']}}
-                                @endif
-                            @endforeach
-                            </td>
+                            <td>{{$value['identifiant']}}</td>
+                            <td>{{$value['libelle']}}</td>
+                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
+                            <td>{{$value['date_debut']}}</td>
+                            <td>modifier</td>
+                            <td>modifier</td>
+                            <td>modifier</td>
+                            <td>modifier</td>
+                            <td>modifier</td>
                             <td>modifier</td>
                         </tr>
                     @endforeach
@@ -50,11 +52,16 @@
                 <tfoot>
                     <tr>
                         <th>ID</th>
-                        <th>Nom</th>
-                        <th>Nom Complet</th>
-                        <th>Type</th>
-                        <th>Entreprise</th>
-                        <th></th>
+                        <th>Identifiant</th>
+                        <th>Libellé</th>
+                        <th>Chantier</th>
+                        <th>Date Début</th>
+                        <th>Devis</th>
+                        <th>Valeur</th>
+                        <th>Factures</th>
+                        <th>Facturé</th>
+                        <th>Rester à facturer</th>
+                        <th>Rester à facturer</th>
                     </tr>
                 </tfoot>
 

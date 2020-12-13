@@ -10,14 +10,18 @@ class chantier extends Model
 {
   use HasFactory;
   use SoftDeletes;
+  protected $table = 'chantiers';
 
   public function entreprise()
   {
-      return $this->belongsToMany('App\Models\entreprise');
+      return $this->belongsTo('App\Models\entreprise');
   }
   public function client()
   {
-      return $this->belongsToMany('App\Models\client');
+      return $this->belongsTo('App\Models\client');
   }
-
+  public function etat_chantier()
+  {
+      return $this->belongsTo('App\Models\etat_chantier');
+  }
 }

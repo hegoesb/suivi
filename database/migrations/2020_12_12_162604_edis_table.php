@@ -22,6 +22,7 @@ class EdisTable extends Migration
             $table->string('nom',10);
             $table->string('nom_display',20);
             $table->string('prefixe_chantier',6);
+            $table->string('prefixe_devis',15);
             $table->timestamps();
         });
 
@@ -117,9 +118,8 @@ class EdisTable extends Migration
 
         Schema::create('devis', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('numero',40);
-            $table->string('nom_display',20);
-            $table->string('intitule',80)->nullable();
+            $table->string('numero',15);
+            $table->string('lot',50)->nullable();
             $table->integer('chantier_id');
             $table->integer('entreprise_id');
             $table->integer('client_id');
@@ -127,8 +127,10 @@ class EdisTable extends Migration
             $table->integer('etat_devis_id');
             $table->integer('type_devis_id');
             $table->integer('collaborateur_id')->nullable();
-            $table->float('valeur_ht', 10, 2)->nullable();
+            $table->float('total_ht', 10, 2)->nullable();
+            $table->float('total_ttc', 10, 2)->nullable();
             $table->float('tva', 10, 2)->nullable();
+            $table->boolean('progbox_sauve')->nullable();
             $table->date('date_creation');
             $table->date('date_signature')->nullable();
             $table->timestamps();

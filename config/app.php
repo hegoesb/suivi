@@ -167,7 +167,7 @@ return [
          */
         App\Providers\MetronicServiceProvider::class,
         App\Providers\FormMacroProvider::class,
-
+        Orangehill\Iseed\IseedServiceProvider::class,
         /*
          * Application Service Providers...
          */

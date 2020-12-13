@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(generic_table::class);
         $this->call(clientSeeder::class);
+        $this->call(ChantiersTableSeeder::class);
     }
 }

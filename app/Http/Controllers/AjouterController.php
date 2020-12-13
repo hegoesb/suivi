@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Repositories\TableauRepository;
 use App\Models\entreprise;
 use App\Models\type_client;
+use App\Models\type_devi;
+use App\Models\devi;
 use App\Models\client;
 use App\Models\client_entreprise;
 use App\Models\chantier;
+use App\Models\collaborateur;
 use Validator;
 
 class AjouterController extends Controller
@@ -67,7 +70,47 @@ class AjouterController extends Controller
 
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
+        }elseif ($table=='devis') {
+
+          //Selection de données nécessaire au formulaire
+          $chantiers=chantier::with('client')->where('entreprise_id',$entreprise->id)->orderBy('identifiant','desc')->get();
+          foreach ($chantiers as $key_2 => $value) {
+            $chantier[$key_2][0]=$value['id'];
+            $chantier[$key_2][1]=$value['identifiant'];
+          }
+
+          $type_devis=type_devi::get();
+          foreach ($type_devis as $key_2 => $value) {
+            $type_devi[$key_2][0]=$value['id'];
+            $type_devi[$key_2][1]=$value['nom_display'];
+          }
+
+          $collaborateurs=collaborateur::orderBy('nom','asc')->get();
+          foreach ($collaborateurs as $key_2 => $value) {
+            $collaborateur[$key_2][0]=$value['id'];
+            $collaborateur[$key_2][1]=$value['nom_display'];
+          }
+          // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+          return view($this->chemin.$table.'_select2',[
+              'titre'          => $entreprise['nom'].' - Ajouter un devis',
+              'descriptif'     => 'Le devis sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+              'chantiers'      => $chantier,
+              'type_devis'     => $type_devi,
+              'collaborateurs' => $collaborateur,
+              'entreprise'     => $entreprise,
+          ]);
+
+          // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
         }
+
+
+
+
+
+
+
     }
 
     public function postTable($entreprise_id, $table, Request $request)
@@ -140,7 +183,55 @@ class AjouterController extends Controller
         $table_chantier->save();
 
         $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise->id)->get();
-        // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
+        // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => $request.' ']);
+
+        return view($this->chemin.$table.'_datatables',[
+            'titre'        => $entreprise['nom'].' - Tableau Chantier',
+            'descriptif'   => 'Liste des chantiers appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+            'data'         => $data,
+            // 'type_clients' => $type_clients,
+            // 'entreprises'  => $entreprises,
+            'colonne_order' => 0,
+            'ordre'         => "desc",
+        ]);
+
+
+      }elseif($table=='devis'){
+
+        $this->validate($request, [
+            'numero'           => 'required|max:15|unique:devis',
+            'lot'              => 'required|max:50',
+            'chantier_id'      => 'required',
+            'type_devi_id'     => 'required',
+            'collaborateur_id' => 'required',
+            'total_ht'         => 'required',
+            'total_ttc'        => 'required',
+            'date_creation'    => 'required',
+        ]);
+        // return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
+
+        //Sauvergarde du nouveau devis
+        $client=chantier::where('id',$request->all()['chantier_id'])->first();
+
+        $table_devi = new devi;
+        $table_devi->numero        = $request->all()['numero'];
+        $table_devi->lot           = $request->all()['lot'];
+        $table_devi->chantier_id   = $request->all()['chantier_id'];
+        $table_devi->type_devi_id  = $request->all()['type_devi_id'];
+        $table_devi->total_ht      = $request->all()['total_ht'];
+        $table_devi->total_ttc     = $request->all()['total_ttc'];
+        $table_devi->date_creation = $request->all()['date_creation'];
+        if(isset($request->all()['date_envoie'])){
+          $table_devi->date_envoie   = $request->all()['date_envoie'];
+        }
+        $table_devi->entreprise_id = $entreprise_id->id;
+        $table_devi->client_id     = $client->client_id;
+        $table_devi->etat_devi_id  = 1;
+        $table_devi->tva           = $request->all()['total_ttc']-$request->all()['total_ht'];
+        $table_devi->save();
+
+        return view('test', ['test' =>  $table_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
+        $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise->id)->get();
 
         return view($this->chemin.$table.'_datatables',[
             'titre'        => $entreprise['nom'].' - Tableau Chantier',

@@ -8,8 +8,19 @@ var KTDatatableHtmlTableDemo = function() {
   var demo = function() {
 
     var datatable = $('#kt_datatable').KTDatatable({
+      dom: 'Bfrtip',
+      "oLanguage": {
+        "sUrl": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
+      },
       data: {
         saveState: {cookie: false},
+      },
+      buttons: {
+          extend: 'copy', title: 'test' ,
+          extend: 'csv', title: 'test' ,
+          extend: 'excel', title: 'test' ,
+          extend: 'pdf', title: 'test',
+          extend: 'print', title: 'test',
       },
       search: {
         input: $('#kt_datatable_search_query'),
@@ -28,8 +39,8 @@ var KTDatatableHtmlTableDemo = function() {
           type: 'date',
           format: 'YYYY-MM-DD',
         }, {
-          field: 'Status',
-          title: 'Status',
+          field: 'Statu',
+          title: 'Statu',
           autoHide: false,
           // callback function support for column rendering
           template: function(row) {
@@ -39,12 +50,12 @@ var KTDatatableHtmlTableDemo = function() {
                 'class': ' label-light-warning',
               },
               2: {
-                'title': 'Delivered',
+                'title': 'Delivd',
                 'class': ' label-light-danger',
               },
               3: {
                 'title': 'Canceled',
-                'class': ' label-light-primary',
+                'class': ' label-light-danger',
               },
               4: {
                 'title': 'Success',

@@ -16,7 +16,7 @@
         </div>
     </div>
     <!--begin::Form-->
-    {!! Form::open(['url' => url('ajouter/'.$entreprise->id.'/devis'), 'id'=>'form_validation']) !!}
+    {!! Form::open(['url' => url('ajouter/'.$entreprise->id.'/factures'), 'id'=>'form_validation']) !!}
         <div class="card-body">
             <div class="form-group mb-8">
                 <div class="alert alert-custom alert-default" role="alert">
@@ -36,7 +36,7 @@
             {!!Form::validation_text_maxLength('total_ht', 'Total HT',25,true,6)!!}
             {!!Form::validation_text_maxLength('total_ttc', 'Total TTC',25,true,6)!!}
             {!!Form::validation_date('date_creation', 'Date de création',true,4)!!}
-            {!!Form::validation_date('date_echeance', 'Date de création',true,4)!!}
+            {!!Form::validation_date('date_echeance', 'Date d\'échéance',true,4)!!}
             {!!Form::validation_date('date_envoie', 'Date d\'envoie',false,4)!!}
         </div>
         {!!Form::valider()!!}

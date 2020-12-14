@@ -146,7 +146,7 @@ class EdisTable extends Migration
 
         Schema::create('factures', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('numero',4);
+            $table->string('numero',15);
             $table->integer('chantier_id');
             $table->integer('client_id');
             $table->integer('bilan_id')->nullable();
@@ -176,7 +176,6 @@ class EdisTable extends Migration
             $table->integer('collaborateur_id')->nullable();
             $table->date('date_echeance');
             $table->date('date_envoie')->nullable();
-            $table->integer('type_facture_id')->nullable();
             $table->integer('type_reglement_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -249,6 +248,7 @@ class EdisTable extends Migration
         Schema::dropIfExists('factures');
         Schema::dropIfExists('paiements');
         Schema::dropIfExists('paiement_facture');
+        Schema::dropIfExists('devi_facture');
 
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Repositories\TableauRepository;
 use App\Repositories\FormulaireRepository;
+use App\Repositories\QueryTableRepository;
 
 use App\Models\entreprise;
 use App\Models\type_client;
@@ -19,12 +20,13 @@ use Validator;
 
 class AjouterController extends Controller
 {
-    public function __construct(TableauRepository $TableauRepository, FormulaireRepository $FormulaireRepository)
+    public function __construct(TableauRepository $TableauRepository, FormulaireRepository $FormulaireRepository, QueryTableRepository $QueryTableRepository)
     {
         $this->chemin  = 'pages.ajouter.';
         $this->chemin_tableau  = 'pages.tableaux.';
         $this->tableauRepository = $TableauRepository;
         $this->formulaireRepository = $FormulaireRepository;
+        $this->QueryTableRepository = $QueryTableRepository;
     }
 
     public function viewTable($entreprise_id,$table)
@@ -35,16 +37,9 @@ class AjouterController extends Controller
         if($table=='clients'){
 
           //Selection de données nécessaire au formulaire
-          $type_clients=type_client::get();
-          foreach ($type_clients as $key_1 => $value) {
-            $type_client[$key_1][0]=$value['id'];
-            $type_client[$key_1][1]=$value['nom_display'];
-          }
-          $entreprises=entreprise::get();
-          foreach ($entreprises as $key_2 => $value) {
-            $choix_entreprise[$key_2][0]=$value['id'];
-            $choix_entreprise[$key_2][1]=$value['nom_display'];
-          }
+          $type_client = $this->formulaireRepository->select_type_clients();
+          $choix_entreprise = $this->formulaireRepository->select_entreprises();
+
 
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
@@ -58,11 +53,8 @@ class AjouterController extends Controller
         }elseif ($table=='chantiers') {
 
           //Selection de données nécessaire au formulaire
-          $clients=entreprise::with('client')->where('id',$entreprise->id)->first();
-          foreach ($clients['client'] as $key_2 => $value) {
-            $client[$key_2][0]=$value['id'];
-            $client[$key_2][1]=$value['nom_display'];
-          }
+          $client = $this->formulaireRepository->select_clients();
+
           // return view('test', ['test' =>  $client, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_select2',[
@@ -77,8 +69,8 @@ class AjouterController extends Controller
         }elseif ($table=='devis') {
 
           //Selection de données nécessaire au formulaire
-          $chantier  = $this->formulaireRepository->select_chantiers($entreprise);
-          $type_devi = $this->formulaireRepository->select_type_devis();
+          $chantier      = $this->formulaireRepository->select_chantiers($entreprise);
+          $type_devi     = $this->formulaireRepository->select_type_devis();
           $collaborateur = $this->formulaireRepository->select_collaborateurs();
 
           // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
@@ -104,7 +96,7 @@ class AjouterController extends Controller
           // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_select2',[
-              'titre'          => $entreprise['nom'].' - Ajouter une facture',
+              'titre'          => $entreprise['nom'].' - Ajouter une facture [Etape 1/2]',
               'descriptif'     => 'La factures sera associée à l\'entreprise '.$entreprise['nom_display'].'.',
               'chantiers'      => $chantier,
               'type_factures'     => $type_facture,
@@ -257,39 +249,24 @@ class AjouterController extends Controller
       }elseif($table=='factures'){
 
         $this->validate($request, [
-            'numero'           => 'required|max:15|unique:devis',
-            'lot'              => 'required|max:50',
+            'numero'           => 'required|max:15|unique:factures',
             'chantier_id'      => 'required',
-            'type_devi_id'     => 'required',
+            'type_facture_id'  => 'required',
             'collaborateur_id' => 'required',
             'total_ht'         => 'required',
             'total_ttc'        => 'required',
             'date_creation'    => 'required',
+            'date_echeance'    => 'required',
         ]);
         // return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
         //Sauvergarde du nouveau devis
         $client=chantier::where('id',$request->all()['chantier_id'])->first();
 
-        $table_devi = new devi;
-        $table_devi->numero           = $request->all()['numero'];
-        $table_devi->lot              = $request->all()['lot'];
-        $table_devi->chantier_id      = $request->all()['chantier_id'];
-        $table_devi->type_devi_id     = $request->all()['type_devi_id'];
-        $table_devi->collaborateur_id = $request->all()['collaborateur_id'];
-        $table_devi->total_ht         = $request->all()['total_ht'];
-        $table_devi->total_ttc        = $request->all()['total_ttc'];
-        $table_devi->date_creation    = $request->all()['date_creation'];
-        if(isset($request->all()['date_envoie'])){
-          $table_devi->date_envoie   = $request->all()['date_envoie'];
-        }
-        $table_devi->entreprise_id = $entreprise_id->id;
-        $table_devi->client_id     = $client->client_id;
-        $table_devi->etat_devi_id  = 1;
-        $table_devi->tva           = $request->all()['total_ttc']-$request->all()['total_ht'];
-        $table_devi->save();
+        $table = $this->QueryTableRepository->save_facture_ajouter($request,$client,$entreprise_id);
 
-        // return view('test', ['test' =>  $table_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+        return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
         $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 

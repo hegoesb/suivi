@@ -1,8 +1,12 @@
 <?php namespace App\Repositories;
 
 use App\Models\chantier;
-use App\Models\type_facture;
+use App\Models\client;
 use App\Models\collaborateur;
+use App\Models\entreprise;
+use App\Models\type_client;
+use App\Models\type_devi;
+use App\Models\type_facture;
 
 class FormulaireRepository {
 
@@ -12,6 +16,43 @@ class FormulaireRepository {
 	{
 
 	}
+  //-------------------------
+  // Entreprise
+  //-------------------------
+
+  public function select_entreprises()
+  {
+    $datas=entreprise::get();
+    foreach ($datas as $key_2 => $value) {
+      $data[$key_2][0]=$value['id'];
+      $data[$key_2][1]=$value['nom_display'];
+    }
+    return $data;
+  }
+
+  //-------------------------
+  // Client
+  //-------------------------
+
+  public function select_type_clients()
+  {
+    $datas=type_client::get();
+    foreach ($datas as $key_1 => $value) {
+      $data[$key_1][0]=$value['id'];
+      $data[$key_1][1]=$value['nom_display'];
+    }
+    return $data;
+  }
+
+  public function select_clients($entreprise)
+  {
+    $datas=entreprise::with('client')->where('id',$entreprise->id)->first();
+    foreach ($datas['client'] as $key_2 => $value) {
+      $data[$key_2][0]=$value['id'];
+      $data[$key_2][1]=$value['nom_display'];
+    }
+    return $data;
+  }
 
   //-------------------------
   // Chantier

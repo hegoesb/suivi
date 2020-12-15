@@ -3,6 +3,8 @@
 use App\Models\chantier;
 use App\Models\client;
 use App\Models\collaborateur;
+use App\Models\devi;
+use App\Models\devi_facture;
 use App\Models\entreprise;
 use App\Models\type_client;
 use App\Models\type_devi;
@@ -110,8 +112,20 @@ class FormulaireRepository {
     return $data;
   }
 
+  //-------------------------
+  // devi_facture
+  //-------------------------
+
+  //Selection des devis chantiers et la liaison devi_facture existante
+  public function select_devi_chantierFacture($facture)
+  {
+    //Selection des devis en rapport avec le chantier de la facture
+    $devis = devi::where('chantier_id',$facture->chantier_id)->get();
+    //Recherche d'une éventuelle relation entre une facture et des devis
 
 
+    return $devis;
+  }
 
 
 

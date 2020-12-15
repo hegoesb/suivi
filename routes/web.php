@@ -14,14 +14,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PagesController@index');
+
 /*
 |--------------------------------------------------------------------------
 | Ajouter
 |--------------------------------------------------------------------------
 */
 
-Route::get('ajouter/{entreprise_id}/{table}', 'AjouterController@viewTable');
-Route::post('ajouter/{entreprise_id}/{table}', 'AjouterController@postTable');
+Route::get('ajouter/{entreprise_id}/{table}', 'AjouterController@viewAjouter');
+Route::post('ajouter/{entreprise_id}/{table}', 'AjouterController@postAjouter');
+
+/*
+|--------------------------------------------------------------------------
+| Modifier
+|--------------------------------------------------------------------------
+*/
+
+Route::get('modifier/{entreprise_id}/{table}/{id}', 'ModifierController@viewModifier');
 
 /*
 |--------------------------------------------------------------------------

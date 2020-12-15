@@ -27,4 +27,9 @@ class facture extends Model
   {
       return $this->belongsTo('App\Models\collaborateur');
   }
+  public function devi()
+  {
+      return $this->belongsToMany('App\Models\devi');
+  }
+
 }

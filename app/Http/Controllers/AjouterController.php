@@ -22,14 +22,20 @@ class AjouterController extends Controller
 {
     public function __construct(TableauRepository $TableauRepository, FormulaireRepository $FormulaireRepository, QueryTableRepository $QueryTableRepository)
     {
-        $this->chemin  = 'pages.ajouter.';
-        $this->chemin_tableau  = 'pages.tableaux.';
-        $this->tableauRepository = $TableauRepository;
+        $this->chemin               = 'pages.ajouter.';
+        $this->chemin_tableau       = 'pages.tableaux.';
+        $this->chemin_modifier      = 'pages.modifier.';
+        $this->tableauRepository    = $TableauRepository;
         $this->formulaireRepository = $FormulaireRepository;
         $this->QueryTableRepository = $QueryTableRepository;
     }
 
-    public function viewTable($entreprise_id,$table)
+  //-------------------------
+  // View
+  //-------------------------
+
+
+    public function viewAjouter($entreprise_id,$table)
     {
         //Selection nom de l'entreprise pour le titre de la page
         $entreprise=entreprise::where('id',$entreprise_id)->first();
@@ -96,7 +102,7 @@ class AjouterController extends Controller
           // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_select2',[
-              'titre'          => $entreprise['nom'].' - Ajouter une facture [Etape 1/2]',
+              'titre'          => $entreprise['nom'].'- Ajouter une facture',
               'descriptif'     => 'La factures sera associée à l\'entreprise '.$entreprise['nom_display'].'.',
               'chantiers'      => $chantier,
               'type_factures'     => $type_facture,
@@ -107,15 +113,17 @@ class AjouterController extends Controller
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
         }
-
-
-
-
-
-
     }
 
-    public function postTable($entreprise_id, $table, Request $request)
+
+
+
+  //-------------------------
+  // Post
+  //-------------------------
+
+
+    public function postAjouter($entreprise_id, $table, Request $request)
     {
 
 
@@ -264,20 +272,9 @@ class AjouterController extends Controller
         $client=chantier::where('id',$request->all()['chantier_id'])->first();
 
         $table = $this->QueryTableRepository->save_facture_ajouter($request,$client,$entreprise_id);
+        // return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
-
-        return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
-        $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
-        // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
-
-        return view($this->chemin.$table.'_datatables',[
-            'titre'        => $entreprise['nom'].' - Tableau Devis',
-            'descriptif'   => 'Liste des devis appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
-            'data'         => $data,
-            'colonne_order' => 0,
-            'ordre'         => "desc",
-        ]);
-
+        return redirect('/modifier/'.$entreprise_id->id.'/devi_facture/'.$table->id);
 
       }
 

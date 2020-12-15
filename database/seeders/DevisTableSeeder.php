@@ -86,6 +86,55 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-13 20:03:06',
                 'deleted_at' => NULL,
             ),
+            3 =>
+            array (
+                'id' => 4,
+                'numero' => 'EBX_DE2012-0018',
+                'lot' => 'description',
+                'chantier_id' => 3,
+                'entreprise_id' => 1,
+                'client_id' => 4,
+                'bilan_id' => NULL,
+                'etat_devi_id' => 2,
+                'type_devi_id' => 2,
+                'collaborateur_id' => 1,
+                'total_ht' => 1000.0,
+                'total_ttc' => 1200.0,
+                'tva' => 200.0,
+                'progbox_sauve' => NULL,
+                'date_creation' => '2020-12-09',
+                'date_envoie' => NULL,
+                'date_signature' => NULL,
+                'created_at' => '2020-12-13 20:03:06',
+                'updated_at' => '2020-12-13 20:03:06',
+                'deleted_at' => NULL,
+            ),
+            4 =>
+            array (
+                'id' => 5,
+                'numero' => 'EBX_DE2012-0016',
+                'lot' => 'description',
+                'chantier_id' => 3,
+                'entreprise_id' => 1,
+                'client_id' => 4,
+                'bilan_id' => NULL,
+                'etat_devi_id' => 2,
+                'type_devi_id' => 2,
+                'collaborateur_id' => 1,
+                'total_ht' => 200.0,
+                'total_ttc' => 240.0,
+                'tva' => 40.0,
+                'progbox_sauve' => NULL,
+                'date_creation' => '2020-12-09',
+                'date_envoie' => NULL,
+                'date_signature' => NULL,
+                'created_at' => '2020-12-13 20:03:06',
+                'updated_at' => '2020-12-13 20:03:06',
+                'deleted_at' => NULL,
+            ),
+
+
+
         ));
 
 

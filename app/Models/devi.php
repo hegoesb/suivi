@@ -31,4 +31,9 @@ class devi extends Model
   {
       return $this->belongsTo('App\Models\collaborateur');
   }
+  public function facture()
+  {
+      return $this->belongsToMany('App\Models\facture', 'devi_facture', 'devi_id', 'facture_id');
+  }
+
 }

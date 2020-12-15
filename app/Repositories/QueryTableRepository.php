@@ -1,6 +1,7 @@
 <?php namespace App\Repositories;
 
 use App\Models\facture;
+use App\Models\chantier;
 
 class QueryTableRepository {
 
@@ -10,6 +11,7 @@ class QueryTableRepository {
 	{
 
 	}
+
   //-------------------------
   // Sauvergader
   //-------------------------

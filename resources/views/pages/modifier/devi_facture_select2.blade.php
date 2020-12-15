@@ -16,28 +16,22 @@
         </div>
     </div>
     <!--begin::Form-->
-    {!! Form::open(['url' => url('ajouter/'.$entreprise->id.'/factures'), 'id'=>'form_validation']) !!}
+    {!! Form::open(['url' => url('modifier/'.$entreprise->id.'/devi_facture/'.$facture->id), 'id'=>'form_validation']) !!}
         <div class="card-body">
             <div class="form-group mb-8">
                 <div class="alert alert-custom alert-default" role="alert">
                     <div class="alert-icon"><i class="flaticon-warning text-primary"></i></div>
                     <div class="alert-text">
-                        {{$descriptif}}
+                        {{$descriptif1}} <code>{{$descriptif2}}</code> {{$descriptif3}}
                     </div>
                 </div>
                 @error('message')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            {!!Form::validation_text_maxLength_value('numero', 'Numéro',$entreprise->prefixe_facture,15,true,6)!!}
-            {!!Form::validation_select($chantiers, 'chantier_id', 'Chantier',true,4)!!}
-            {!!Form::validation_select($type_factures, 'type_facture_id', 'Type',true,4)!!}
-            {!!Form::validation_select($collaborateurs, 'collaborateur_id', 'Personne en charge de la facture',true,4)!!}
-            {!!Form::validation_text_maxLength('total_ht', 'Total HT',25,true,6)!!}
-            {!!Form::validation_text_maxLength('total_ttc', 'Total TTC',25,true,6)!!}
-            {!!Form::validation_date('date_creation', 'Date de création',true,4)!!}
-            {!!Form::validation_date('date_echeance', 'Date d\'échéance',true,4)!!}
-            {!!Form::validation_date('date_envoie', 'Date d\'envoie',false,4)!!}
+            @foreach ($data as $key => $value)
+                {!!Form::switch($value['id'], $value['nom'],4,$value['liaison_facture'])!!}
+            @endforeach
         </div>
         {!!Form::valider()!!}
     </form>

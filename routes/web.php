@@ -31,6 +31,7 @@ Route::post('ajouter/{entreprise_id}/{table}', 'AjouterController@postAjouter');
 */
 
 Route::get('modifier/{entreprise_id}/{table}/{id}', 'ModifierController@viewModifier');
+Route::post('modifier/{entreprise_id}/{table}/{id}', 'ModifierController@postModifier');
 
 /*
 |--------------------------------------------------------------------------

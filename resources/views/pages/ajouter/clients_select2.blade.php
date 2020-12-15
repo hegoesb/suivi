@@ -30,7 +30,7 @@
             {!!Form::validation_text_maxLength('nom', 'Nom',10,true,6)!!}
             {!!Form::validation_text_maxLength('nom_display', 'Nom Complet',40,true,6)!!}
             @foreach ($choix_entreprise as $key => $value)
-                {!!Form::switch('entreprise_'.$value[0], $value[1],4)!!}
+                {!!Form::switch('entreprise_'.$value[0], $value[1],4,)!!}
             @endforeach
 
             {{-- {!!Form::validation_checkboxe($choix_entreprise,'Entreprise',true,6)!!} --}}

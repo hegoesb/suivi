@@ -9,7 +9,6 @@
             <div class="card-title">
                 <h3 class="card-label">{{$titre}}
                     <div class="text-muted pt-2 font-size-sm">{{$descriptif}}</div>
-
                 </h3>
             </div>
         </div>
@@ -26,13 +25,10 @@
                         <th>Géré par</th>
                         <th>Type</th>
                         <th>Etat</th>
-                        <th>Date Envoie</th>
-                        <th>Date Signature</th>
-                        <th data-toggle="tooltip" data-theme="dark" title="Devis signé et sauvergardé dans Progbox">Progbox</th>
                         <th>Total HT</th>
-                        <th>Facture</th>
-                        <th>Payé</th>
-                        <th>Rester à facturer</th>
+                        <th>Date Création</th>
+                        <th>Date Echéance</th>
+                        <th>Date Payé</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,8 +36,9 @@
                         {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
                         <tr class="gradeX">
                             <td>{{$value['id']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['lot']}}">{{$value['numero']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']->NomChantier[1]}}">{{$value['chantier']->NomChantier[0]}}</td>
+                            <td>{{$value['numero']}}</td>
+                            <td>{{$value['lot']}}</td>
+                            <td>{{$value['chantier']['identifiant']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['collaborateur']['nom_display']}}">{{$value['collaborateur']['nom']}}</td>
                             <td>{{$value['type_devi']['nom_display']}}</td>
@@ -50,8 +47,8 @@
                             <td>{{$value['date_signature']}}</td>
                             <td>{{$value['progbox_sauve']}}</td>
                             <td>{{$value['total_ht']}}</td>
-                            <td>{{$value['chantier']->NomChantier[0]}}</td>
-                            <td></td>
+                            <td>1</td>
+                            <td>payé</td>
                             <td>50%</td>
                         </tr>
                     @endforeach
@@ -65,13 +62,10 @@
                         <th>Géré par</th>
                         <th>Type</th>
                         <th>Etat</th>
-                        <th>Date Envoie</th>
-                        <th>Date Signature</th>
-                        <th>Progbox</th>
                         <th>Total HT</th>
-                        <th>Facturé</th>
-                        <th>Payé</th>
-                        <th>Rester à facturer</th>
+                        <th>Date Création</th>
+                        <th>Date Echéance</th>
+                        <th>Date Payé</th>
                     </tr>
                 </tfoot>
 
@@ -149,7 +143,7 @@
                   "sUrl": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
                 },
                 initComplete: function () {
-                    this.api().columns([1,2,3,4,5,6,7,10,12]).every( function () {
+                    this.api().columns([1,2,3,4,5,6,7,10,12,14]).every( function () {
                         var column = this;
                         var select = $('<select><option value=""></option></select>')
                             .appendTo( $(column.footer()).empty() )

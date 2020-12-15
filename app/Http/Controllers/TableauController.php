@@ -41,7 +41,7 @@ class TableauController extends Controller
         }elseif($table=='chantiers'){
 
           $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise->id)->get();
-          // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
+          // return view('test', ['test' =>  $data[1]->NomChantier, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[
               'titre'        => $entreprise['nom'].' - Tableau Chantier',
@@ -53,7 +53,7 @@ class TableauController extends Controller
         }elseif($table=='devis'){
 
           $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
-          // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
+          // return view('test', ['test' =>  $data[1]['chantier']->NomChantier, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[
               'titre'        => $entreprise['nom'].' - Tableau Devis',
@@ -65,7 +65,7 @@ class TableauController extends Controller
         }
 
 
-        return view('test', ['test' =>  $entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
+        // return view('test', ['test' =>  $entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
 
 

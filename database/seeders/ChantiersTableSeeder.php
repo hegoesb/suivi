@@ -21,7 +21,7 @@ class ChantiersTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'identifiant' => 'EBX_PJ2012-0001',
+                'identifiant' => 'EBX_PJ2012-0001-dsfsdqd',
                 'libelle' => 'premier chantier',
                 'client_id' => 1,
                 'entreprise_id' => 1,

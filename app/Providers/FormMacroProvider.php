@@ -198,21 +198,28 @@ class FormMacroProvider extends ServiceProvider
     //                                                  //
     //--------------------------------------------------//
 
-        Form::macro('switch', function($name, $label, $col=4)
+        Form::macro('switch', function($name, $label,$col=4,$checked=true)
         {
+
+            if($checked==true){
+                $checked='checked';
+            }else{
+                $checked='';
+            }
+
             return sprintf('
                 <div class="form-group row">
                     <label class="col-form-label col-lg-2 col-sm-12">%s</label>
                     <div class=" col-lg-%s col-md-9 col-sm-12">
                         <span class="switch switch-icon">
                             <label>
-                                <input type="checkbox" checked="checked" name="%s"/>
+                                <input type="checkbox" %s name="%s"/>
                                 <span></span>
                             </label>
                         </span>
                     </div>
                 </div>
-                ',  $label, $col, $name
+                ',  $label, $col, $checked, $name
             );
         });
 

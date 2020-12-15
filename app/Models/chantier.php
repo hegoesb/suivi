@@ -24,4 +24,14 @@ class chantier extends Model
   {
       return $this->belongsTo('App\Models\etat_chantier');
   }
+  public function getNomChantierAttribute(){
+    $identifiant = $this->identifiant;
+    $data = str_split($identifiant,15);
+    if(isset($data[1])){
+      $data[1] = substr($data[1],3);
+    }
+    return $data;
+  }
+
+
 }

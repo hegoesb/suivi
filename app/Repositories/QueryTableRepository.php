@@ -1,7 +1,7 @@
 <?php namespace App\Repositories;
 
+use App\Models\devi_facture;
 use App\Models\facture;
-use App\Models\chantier;
 
 class QueryTableRepository {
 
@@ -40,11 +40,27 @@ class QueryTableRepository {
       return $table;
     }
 
+    public function save_devi_facture($devi_request,$facture_id)
+    {
+      foreach ($devi_request as $key => $value) {
+        $table = new devi_facture;
+        $table->devi_id    = $key;
+        $table->facture_id = $facture_id;
+        $table->save();
+      }
+      return $table;
+    }
 
 
+  //-------------------------
+  // effacer table
+  //-------------------------
 
-
-
+    public function delete_devi_factureId($facture_id)
+    {
+      $table = devi_facture::where('facture_id',$facture_id)->delete();
+      return $table;
+    }
 
 
 

@@ -121,10 +121,24 @@ class FormulaireRepository {
   {
     //Selection des devis en rapport avec le chantier de la facture
     $devis = devi::where('chantier_id',$facture->chantier_id)->get();
-    //Recherche d'une éventuelle relation entre une facture et des devis
+    //Comparatif devis lié au chantier et les devis lié a la facture + préparation donné formulaire
+    foreach ($devis as $key_devis => $value_devis) {
+      $data[$key_devis]['id'] = $value_devis->id;
+      $data[$key_devis]['nom'] = $value_devis->numero;
+      $data[$key_devis]['liaison_facture'] = 0;
+      if(isset($facture['devi'])){
+        foreach ($facture['devi'] as $key_devi => $value_devi) {
+          if($value_devi->id == $value_devis->id){
+            $data[$key_devis]['liaison_facture'] = 1;
+            $break;
+          }
+        }
+      }
+      // }
 
+    }
 
-    return $devis;
+    return $data;
   }
 
 

@@ -13,7 +13,7 @@ class facture extends Model
 
   public function type_facture()
   {
-      return $this->belongsTo('App\Models\type_devi');
+      return $this->belongsTo('App\Models\type_facture');
   }
   public function chantier()
   {

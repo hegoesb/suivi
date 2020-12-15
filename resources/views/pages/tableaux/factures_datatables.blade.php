@@ -25,10 +25,10 @@
                         <th>Géré par</th>
                         <th>Type</th>
                         <th>Etat</th>
-                        <th>Total HT</th>
-                        <th>Date Création</th>
-                        <th>Date Echéance</th>
-                        <th>Date Payé</th>
+                        <th>Total TTC</th>
+                        <th>Création</th>
+                        <th>Echéance</th>
+                        <th>Payé</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,19 +37,15 @@
                         <tr class="gradeX">
                             <td>{{$value['id']}}</td>
                             <td>{{$value['numero']}}</td>
-                            <td>{{$value['lot']}}</td>
-                            <td>{{$value['chantier']['identifiant']}}</td>
+                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']->NomChantier[1]}}">{{$value['chantier']->NomChantier[0]}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['collaborateur']['nom_display']}}">{{$value['collaborateur']['nom']}}</td>
-                            <td>{{$value['type_devi']['nom_display']}}</td>
-                            <td>{{$value['etat_devi']['nom_display']}}</td>
+                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_facture']['nom_display']}}">{{$value['type_facture']['nom']}}</td>
+                            <td>n</td>
+                            <td data-toggle="tooltip" data-theme="dark" title="HT: {{$value['total_ht']}}€">{{$value['total_ttc']}}</td>
                             <td>{{$value['date_envoie']}}</td>
-                            <td>{{$value['date_signature']}}</td>
-                            <td>{{$value['progbox_sauve']}}</td>
-                            <td>{{$value['total_ht']}}</td>
-                            <td>1</td>
-                            <td>payé</td>
-                            <td>50%</td>
+                            <td>{{$value['date_echeance']}}</td>
+                            <td>note</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -62,10 +58,10 @@
                         <th>Géré par</th>
                         <th>Type</th>
                         <th>Etat</th>
-                        <th>Total HT</th>
-                        <th>Date Création</th>
-                        <th>Date Echéance</th>
-                        <th>Date Payé</th>
+                        <th>Total TTC</th>
+                        <th>Création</th>
+                        <th>Echéance</th>
+                        <th>Payé</th>
                     </tr>
                 </tfoot>
 
@@ -143,7 +139,7 @@
                   "sUrl": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
                 },
                 initComplete: function () {
-                    this.api().columns([1,2,3,4,5,6,7,10,12,14]).every( function () {
+                    this.api().columns([1,2,3,4,5,6,8,9,10]).every( function () {
                         var column = this;
                         var select = $('<select><option value=""></option></select>')
                             .appendTo( $(column.footer()).empty() )

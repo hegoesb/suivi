@@ -26,9 +26,9 @@
                         <th>Géré par</th>
                         <th>Type</th>
                         <th>Etat</th>
-                        <th>Date Envoie</th>
-                        <th>Date Signature</th>
-                        <th data-toggle="tooltip" data-theme="dark" title="Devis signé et sauvergardé dans Progbox">Progbox</th>
+                        <th>Envoie</th>
+                        <th>Signature</th>
+                        <th data-toggle="tooltip" data-theme="dark" title="Devis signé et sauvergardé dans Progbox">P</th>
                         <th>Total HT</th>
                         <th>Facture</th>
                         <th>Payé</th>
@@ -44,11 +44,11 @@
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']->NomChantier[1]}}">{{$value['chantier']->NomChantier[0]}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['collaborateur']['nom_display']}}">{{$value['collaborateur']['nom']}}</td>
-                            <td>{{$value['type_devi']['nom_display']}}</td>
-                            <td>{{$value['etat_devi']['nom_display']}}</td>
-                            <td>{{$value['date_envoie']}}</td>
-                            <td>{{$value['date_signature']}}</td>
-                            <td>{{$value['progbox_sauve']}}</td>
+                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_devi']['nom_display']}}">{{$value['type_devi']['nom']}}</td>
+                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['etat_devi']['nom_display']}}">{{$value['etat_devi']['nom']}}</td>
+                            <td>{{$value->IfNull['envoie']}}</td>
+                            <td>{{$value->IfNull['signature']}}</td>
+                            <td>{{$value->IfNull['progbox']}}</td>
                             <td>{{$value['total_ht']}}</td>
                             <td>{{$value['chantier']->NomChantier[0]}}</td>
                             <td></td>
@@ -65,9 +65,9 @@
                         <th>Géré par</th>
                         <th>Type</th>
                         <th>Etat</th>
-                        <th>Date Envoie</th>
-                        <th>Date Signature</th>
-                        <th>Progbox</th>
+                        <th>Envoie</th>
+                        <th>Signature</th>
+                        <th>P</th>
                         <th>Total HT</th>
                         <th>Facturé</th>
                         <th>Payé</th>
@@ -149,7 +149,7 @@
                   "sUrl": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
                 },
                 initComplete: function () {
-                    this.api().columns([1,2,3,4,5,6,7,10,12]).every( function () {
+                    this.api().columns([1,2,3,4,5,6,7,8,9,11,12,13]).every( function () {
                         var column = this;
                         var select = $('<select><option value=""></option></select>')
                             .appendTo( $(column.footer()).empty() )

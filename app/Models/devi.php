@@ -35,5 +35,12 @@ class devi extends Model
   {
       return $this->belongsToMany('App\Models\facture', 'devi_facture', 'devi_id', 'facture_id');
   }
+  public function getIfNullAttribute(){
+    $data['progbox']   = $this->progbox_sauve==null ? '0' : $this->progbox_sauve ;
+    $data['envoie']    = $this->progbox_sauve==null ? '-' : $this->date_envoie ;
+    $data['signature'] = $this->progbox_sauve==null ? '-' : $this->date_signature ;
+    return $data;
+  }
+
 
 }

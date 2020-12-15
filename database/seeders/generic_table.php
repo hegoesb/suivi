@@ -102,7 +102,7 @@ class generic_table extends Seeder
             1 =>
             array (
                 'id' => 2,
-                'nom' => 'Ad',
+                'nom' => 'A',
                 'nom_display' => 'Additif',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
@@ -162,7 +162,7 @@ class generic_table extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'nom' => 'Nego',
+                'nom' => 'N',
                 'nom_display' => 'Negociation',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
@@ -215,7 +215,7 @@ class generic_table extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'nom' => 'Nego',
+                'nom' => 'N',
                 'nom_display' => 'Negociation',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
@@ -223,7 +223,7 @@ class generic_table extends Seeder
             1 =>
             array (
                 'id' => 2,
-                'nom' => 'AC',
+                'nom' => 'A',
                 'nom_display' => 'Accepté',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
@@ -231,7 +231,7 @@ class generic_table extends Seeder
             2 =>
             array (
                 'id' => 3,
-                'nom' => 'Si',
+                'nom' => 'S',
                 'nom_display' => 'Signé',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
@@ -239,7 +239,7 @@ class generic_table extends Seeder
             3 =>
             array (
                 'id' => 4,
-                'nom' => 'Rf',
+                'nom' => 'R',
                 'nom_display' => 'Refusé',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',

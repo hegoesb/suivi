@@ -53,7 +53,7 @@ class TableauController extends Controller
         }elseif($table=='devis'){
 
           $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
-          // return view('test', ['test' =>  $data[1]['chantier']->NomChantier, 'imputs' => '$a', 'comp' => '$table'.' ']);
+          // return view('test', ['test' =>  $data[0]->IfNull, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[
               'titre'        => $entreprise['nom'].' - Tableau Devis',

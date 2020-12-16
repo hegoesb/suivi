@@ -148,7 +148,7 @@ class EdisTable extends Migration
             $table->increments('id');
             $table->string('numero',15);
             $table->integer('chantier_id');
-            $table->integer('client_id');
+            $table->integer('client_id')->nullable();
             $table->integer('bilan_id')->nullable();
             $table->integer('entreprise_id');
             $table->integer('type_facture_id');
@@ -156,6 +156,7 @@ class EdisTable extends Migration
             $table->float('total_ttc', 10, 2);
             $table->float('tva', 10, 2)->nullable();
             $table->integer('collaborateur_id');
+            $table->integer('retenuegarantie_ht')->nullable();
             $table->date('date_creation');
             $table->date('date_echeance');
             $table->date('date_envoie')->nullable();
@@ -167,16 +168,11 @@ class EdisTable extends Migration
         Schema::create('paiements', function (Blueprint $table) {
             $table->increments('id');
             $table->string('numero_releve_compte',4);
-            $table->integer('chantier_id');
             $table->integer('client_id');
-            $table->integer('bilan_id');
             $table->integer('entreprise_id');
-            $table->float('valeur', 10, 2)->nullable();
-            $table->float('tva', 10, 2)->nullable();
-            $table->integer('collaborateur_id')->nullable();
-            $table->date('date_echeance');
-            $table->date('date_envoie')->nullable();
-            $table->integer('type_reglement_id')->nullable();
+            $table->float('valeur_ttc', 10, 2);
+            $table->date('date_paye');
+            $table->integer('type_reglement_id');
             $table->timestamps();
             $table->softDeletes();
         });

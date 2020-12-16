@@ -50,6 +50,8 @@ class ModifierController extends Controller
               'data' =>$data,
           ]);
       }
+        abort(404);
+
     }
 
     //-------------------------
@@ -64,13 +66,15 @@ class ModifierController extends Controller
         $supprimer = $this->QueryTableRepository->delete_devi_factureId($id);
         //Sauvergarde des nouvelles les liaisons devis factures
         if(!empty($request->except(['_token']))){
-         $ajouter = $this->QueryTableRepository->save_devi_facture($request->except(['_token']),$id);
+
+          $ajouter = $this->QueryTableRepository->save_devi_facture($request->except(['_token']),$id);
         }
 
         // return view('test', ['test' =>  $ajouter , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
-        return redirect('/tableau/'.$entreprise_id->id.'/factures');
+        return redirect('/tableau/'.$entreprise_id.'/factures');
 
       }
+        abort(404);
 
     }
 }

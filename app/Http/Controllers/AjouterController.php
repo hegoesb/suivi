@@ -114,7 +114,27 @@ class AjouterController extends Controller
 
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
+        }elseif ($table=='paiements') {
+
+          //Selection de données nécessaire au formulaire
+          $client         = $this->formulaireRepository->select_clients($entreprise);
+          $type_paiement = $this->formulaireRepository->select_type_paiements();
+
+          // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+          return view($this->chemin.$table.'_select2',[
+              'titre'           => $entreprise['nom'].'- Ajouter un paiement',
+              'descriptif'      => 'Le paiement sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+              'clients'         => $client,
+              'type_paiements' => $type_paiement,
+              'entreprise'      => $entreprise,
+          ]);
+
+          // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
         }
+        abort(404);
+
     }
 
 
@@ -274,8 +294,13 @@ class AjouterController extends Controller
 
         return redirect('/modifier/'.$entreprise_id->id.'/devi_facture/'.$table->id);
 
+      }elseif($table=='factures'){
+
+
+
       }
 
+        abort(404);
 
       return view('test', ['test' =>  $choix_entrepise, 'imputs' => '$table', 'comp' => $request->except(['_token'])]);
 

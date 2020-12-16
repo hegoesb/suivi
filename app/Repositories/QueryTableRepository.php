@@ -53,11 +53,10 @@ class QueryTableRepository {
         if($i==0){
           //sauvegarde de l'id ud client
           $devis = devi::where('id',$key)->first();
-          facture::where('id',$facture_id)->update('client_id',$devis->client_id);
+          facture::where('id',$facture_id)->update(['client_id' => $devis->client_id]);
           $i++;
         }
 
-        $save_client_id
         $table = new devi_facture;
         $table->devi_id    = $key;
         $table->facture_id = $facture_id;

@@ -9,6 +9,7 @@ use App\Models\entreprise;
 use App\Models\type_client;
 use App\Models\type_devi;
 use App\Models\type_facture;
+use App\Models\type_paiement;
 
 class FormulaireRepository {
 
@@ -134,14 +135,24 @@ class FormulaireRepository {
           }
         }
       }
-      // }
-
     }
 
     return $data;
   }
 
+  //-------------------------
+  // Paiement
+  //-------------------------
 
+  public function select_type_paiements()
+  {
+    $datas=type_paiement::get();
+    foreach ($datas as $key => $value) {
+      $data[$key][0]=$value['id'];
+      $data[$key][1]=$value['nom_display'];
+    }
+    return $data;
+  }
 
 
 

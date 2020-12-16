@@ -38,7 +38,7 @@
             {!!Form::validation_date('date_creation', 'Date de création',true,4)!!}
             {!!Form::validation_date('date_echeance', 'Date d\'échéance',true,4)!!}
             {!!Form::validation_date('date_envoie', 'Date d\'envoie',false,4)!!}
-            {!!Form::validation_text_commentaire('valeur_rg', 'Valeur de la retenue de garantie (HT)',false,4, 'A remplir si la retenue de garantie existe pour ce client')!!}
+            {!!Form::validation_text_commentaire('retenuegarantie_ht', 'Valeur de la retenue de garantie (HT)',false,4, 'A remplir si la retenue de garantie existe pour ce client')!!}
         </div>
         {!!Form::valider()!!}
     </form>

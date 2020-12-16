@@ -35,19 +35,13 @@ class QueryTableRepository {
       if(isset($request->all()['date_envoie'])){
         $table->date_envoie   = $request->all()['date_envoie'];
       }
+      if(isset($request->all()['retenuegarantie_ht'])){
+        $table->retenuegarantie_ht  = $request->all()['retenuegarantie_ht'];
+
+      }
       $table->entreprise_id = $entreprise_id->id;
       $table->tva           = $request->all()['total_ttc']-$request->all()['total_ht'];
       $table->save();
-
-      //Sauvergarde de la retenue de garnatie si elle existe
-      if(isset($request->all()['valeur_rg'])){
-        $RG = new retenuegarantie;
-        $RG->facture_id       = $table->id;
-        $RG->total_ht         = $request->all()['valeur_rg'];
-        $RG->save();
-
-        facture::where('id',$table->id)->update(['retenuegarantie_id' => $RG->id]);
-      }
 
       return $table;
     }

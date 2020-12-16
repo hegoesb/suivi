@@ -59,7 +59,7 @@ class AjouterController extends Controller
         }elseif ($table=='chantiers') {
 
           //Selection de données nécessaire au formulaire
-          $client = $this->formulaireRepository->select_clients();
+          $client = $this->formulaireRepository->select_clients($entreprise);
 
           // return view('test', ['test' =>  $client, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
@@ -78,6 +78,7 @@ class AjouterController extends Controller
           $chantier      = $this->formulaireRepository->select_chantiers($entreprise);
           $type_devi     = $this->formulaireRepository->select_type_devis();
           $collaborateur = $this->formulaireRepository->select_collaborateurs();
+          $client        = $this->formulaireRepository->select_clients($entreprise);
 
           // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
@@ -88,6 +89,7 @@ class AjouterController extends Controller
               'type_devis'     => $type_devi,
               'collaborateurs' => $collaborateur,
               'entreprise'     => $entreprise,
+              'clients'        => $client,
           ]);
 
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
@@ -105,7 +107,7 @@ class AjouterController extends Controller
               'titre'          => $entreprise['nom'].'- Ajouter une facture',
               'descriptif'     => 'La factures sera associée à l\'entreprise '.$entreprise['nom_display'].'.',
               'chantiers'      => $chantier,
-              'type_factures'     => $type_facture,
+              'type_factures'  => $type_facture,
               'collaborateurs' => $collaborateur,
               'entreprise'     => $entreprise,
           ]);
@@ -192,7 +194,7 @@ class AjouterController extends Controller
         $table_chantier->etat_chantier_id = 1;
         $table_chantier->save();
 
-        $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise->id)->get();
+        $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise_id)->get();
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => $request.' ']);
 
         return view($this->chemin.$table.'_datatables',[
@@ -212,21 +214,21 @@ class AjouterController extends Controller
             'numero'           => 'required|max:15|unique:devis',
             'lot'              => 'required|max:50',
             'chantier_id'      => 'required',
+            'client_id'        => 'required',
             'type_devi_id'     => 'required',
             'collaborateur_id' => 'required',
             'total_ht'         => 'required',
             'total_ttc'        => 'required',
             'date_creation'    => 'required',
         ]);
-        // return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
+        return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
         //Sauvergarde du nouveau devis
-        $client=chantier::where('id',$request->all()['chantier_id'])->first();
-
         $table_devi = new devi;
         $table_devi->numero           = $request->all()['numero'];
         $table_devi->lot              = $request->all()['lot'];
         $table_devi->chantier_id      = $request->all()['chantier_id'];
+        $table_devi->client_id        = $request->all()['client_id'];
         $table_devi->type_devi_id     = $request->all()['type_devi_id'];
         $table_devi->collaborateur_id = $request->all()['collaborateur_id'];
         $table_devi->total_ht         = $request->all()['total_ht'];
@@ -236,7 +238,6 @@ class AjouterController extends Controller
           $table_devi->date_envoie   = $request->all()['date_envoie'];
         }
         $table_devi->entreprise_id = $entreprise_id->id;
-        $table_devi->client_id     = $client->client_id;
         $table_devi->etat_devi_id  = 1;
         $table_devi->tva           = $request->all()['total_ttc']-$request->all()['total_ht'];
         $table_devi->save();

@@ -93,6 +93,33 @@ class FormMacroProvider extends ServiceProvider
             );
         });
 
+        Form::macro('validation_text_commentaire', function($name, $label, $required=true, $col=6 , $commentaire=null)
+        {
+
+            if($required==true){
+                $required='required';
+            }else{
+                $required='';
+            }
+            if($commentaire==null){
+                $commentaire='';
+            }else{
+                $commentaire='<div class="help-info">'.$commentaire.'</div>';
+            }
+
+
+            return sprintf('
+                <div class="form-group row">
+                    <label  class="col-2 col-form-label">%s</label>
+                    <div class="col-%s">
+                        <input class="form-control" type="text" name="%s" %s/>
+                    </div>
+                    %s
+                </div>
+                ',  $label, $col, $name, $required, $commentaire,
+            );
+        });
+
         Form::macro('validation_text_maxLength', function($name, $label, $maxlength=10, $required=true, $col=6 )
         {
 

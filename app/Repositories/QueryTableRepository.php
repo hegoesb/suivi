@@ -2,6 +2,7 @@
 
 use App\Models\devi_facture;
 use App\Models\facture;
+use App\Models\retenuegarantie;
 
 class QueryTableRepository {
 
@@ -20,10 +21,11 @@ class QueryTableRepository {
 
     public function save_facture_ajouter($request,$client,$entreprise_id)
     {
+      //Sauvergarde de la facture
       $table = new facture;
       $table->numero           = $request->all()['numero'];
       $table->chantier_id      = $request->all()['chantier_id'];
-      $table->type_facture_id     = $request->all()['type_facture_id'];
+      $table->type_facture_id  = $request->all()['type_facture_id'];
       $table->collaborateur_id = $request->all()['collaborateur_id'];
       $table->total_ht         = $request->all()['total_ht'];
       $table->total_ttc        = $request->all()['total_ttc'];
@@ -36,6 +38,16 @@ class QueryTableRepository {
       $table->client_id     = $client->client_id;
       $table->tva           = $request->all()['total_ttc']-$request->all()['total_ht'];
       $table->save();
+
+      //Sauvergarde de la retenue de garnatie si elle existe
+      if(isset($request->all()['valeur_rg'])){
+        $RG = new retenuegarantie;
+        $RG->facture_id       = $table->id;
+        $RG->total_ht         = $request->all()['valeur_rg'];
+        $RG->save();
+
+        facture::where('id',$table->id)->update(['retenuegarantie_id' => $RG->id]);
+      }
 
       return $table;
     }

@@ -168,13 +168,7 @@ class EdisTable extends Migration
         Schema::create('retenuegaranties', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('facture_id');
-            $table->integer('chantier_id');
-            $table->integer('client_id');
-            $table->integer('bilan_id')->nullable();
-            $table->integer('entreprise_id');
             $table->float('total_ht', 10, 2);
-            $table->float('total_ttc', 10, 2);
-            $table->float('tva', 10, 2)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

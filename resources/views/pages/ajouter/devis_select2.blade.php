@@ -32,6 +32,7 @@
             {!!Form::validation_text_maxLength_value('numero', 'Numéro',$entreprise->prefixe_devis,15,true,6)!!}
             {!!Form::validation_text_maxLength('lot', 'Lot (Description devis)',50,true,6)!!}
             {!!Form::validation_select($chantiers, 'chantier_id', 'Chantier',true,4)!!}
+            {!!Form::validation_select($clients, 'client_id', 'Client',true,4)!!}
             {!!Form::validation_select($type_devis, 'type_devi_id', 'Type',true,4)!!}
             {!!Form::validation_select($collaborateurs, 'collaborateur_id', 'Personne en charge du devis',true,4)!!}
             {!!Form::validation_text_maxLength('total_ht', 'Total HT',25,true,6)!!}

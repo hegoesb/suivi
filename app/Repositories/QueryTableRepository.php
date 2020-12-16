@@ -1,6 +1,7 @@
 <?php namespace App\Repositories;
 
 use App\Models\devi_facture;
+use App\Models\devi;
 use App\Models\facture;
 use App\Models\retenuegarantie;
 
@@ -19,7 +20,7 @@ class QueryTableRepository {
 
     // Table Facture
 
-    public function save_facture_ajouter($request,$client,$entreprise_id)
+    public function save_facture_ajouter($request,$entreprise_id)
     {
       //Sauvergarde de la facture
       $table = new facture;
@@ -35,7 +36,6 @@ class QueryTableRepository {
         $table->date_envoie   = $request->all()['date_envoie'];
       }
       $table->entreprise_id = $entreprise_id->id;
-      $table->client_id     = $client->client_id;
       $table->tva           = $request->all()['total_ttc']-$request->all()['total_ht'];
       $table->save();
 
@@ -54,7 +54,16 @@ class QueryTableRepository {
 
     public function save_devi_facture($devi_request,$facture_id)
     {
+      $i=0;
       foreach ($devi_request as $key => $value) {
+        if($i==0){
+          //sauvegarde de l'id ud client
+          $devis = devi::where('id',$key)->first();
+          facture::where('id',$facture_id)->update('client_id',$devis->client_id);
+          $i++;
+        }
+
+        $save_client_id
         $table = new devi_facture;
         $table->devi_id    = $key;
         $table->facture_id = $facture_id;

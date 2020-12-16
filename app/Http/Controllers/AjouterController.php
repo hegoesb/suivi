@@ -221,7 +221,6 @@ class AjouterController extends Controller
             'total_ttc'        => 'required',
             'date_creation'    => 'required',
         ]);
-        return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
         //Sauvergarde du nouveau devis
         $table_devi = new devi;
@@ -270,9 +269,7 @@ class AjouterController extends Controller
         // return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
         //Sauvergarde du nouveau devis
-        $client=chantier::where('id',$request->all()['chantier_id'])->first();
-
-        $table = $this->QueryTableRepository->save_facture_ajouter($request,$client,$entreprise_id);
+        $table = $this->QueryTableRepository->save_facture_ajouter($request,$entreprise_id);
         // return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
         return redirect('/modifier/'.$entreprise_id->id.'/devi_facture/'.$table->id);

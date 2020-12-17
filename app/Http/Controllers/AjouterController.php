@@ -123,11 +123,11 @@ class AjouterController extends Controller
           // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_select2',[
-              'titre'           => $entreprise['nom'].'- Ajouter un paiement',
-              'descriptif'      => 'Le paiement sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
-              'clients'         => $client,
+              'titre'          => $entreprise['nom'].'- Ajouter un paiement',
+              'descriptif'     => 'Le paiement sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+              'clients'        => $client,
               'type_paiements' => $type_paiement,
-              'entreprise'      => $entreprise,
+              'entreprise'     => $entreprise,
           ]);
 
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
@@ -286,17 +286,31 @@ class AjouterController extends Controller
             'date_creation'    => 'required',
             'date_echeance'    => 'required',
         ]);
-        // return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
         //Sauvergarde du nouveau devis
         $table = $this->QueryTableRepository->save_facture_ajouter($request,$entreprise_id);
         // return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
+        //rapprochement devis -> facture
         return redirect('/modifier/'.$entreprise_id->id.'/devi_facture/'.$table->id);
 
-      }elseif($table=='factures'){
+      }elseif($table=='paiements'){
 
+        $this->validate($request, [
+            'numero_releve_compte' => 'required|max:4',
+            'valeur_ttc'           => 'required',
+            'type_paiement_id'     => 'required',
+            'client_id'            => 'required',
+            'date_paye'            => 'required',
+        ]);
+        // return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
+        //Sauvergarde du nouveau paiement
+        $table = $this->QueryTableRepository->save_paiement_ajouter($request,$entreprise_id);
+        // return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+        //Rapprochement facture -> paiement
+        return redirect('/modifier/'.$entreprise_id->id.'/facture_paiement/'.$table->id);
 
       }
 

@@ -172,7 +172,7 @@ class EdisTable extends Migration
             $table->integer('entreprise_id');
             $table->float('valeur_ttc', 10, 2);
             $table->date('date_paye');
-            $table->integer('type_reglement_id');
+            $table->integer('type_paiement_id');
             $table->timestamps();
             $table->softDeletes();
         });

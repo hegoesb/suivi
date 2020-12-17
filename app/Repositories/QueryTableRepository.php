@@ -3,7 +3,7 @@
 use App\Models\devi_facture;
 use App\Models\devi;
 use App\Models\facture;
-use App\Models\retenuegarantie;
+use App\Models\paiement;
 
 class QueryTableRepository {
 
@@ -65,7 +65,22 @@ class QueryTableRepository {
       return $table;
     }
 
+    // Table paiement
 
+    public function save_paiement_ajouter($request,$entreprise_id)
+    {
+      //Sauvergarde de la facture
+      $table = new paiement;
+      $table->numero_releve_compte = $request->all()['numero_releve_compte'];
+      $table->valeur_ttc           = $request->all()['valeur_ttc'];
+      $table->type_paiement_id     = $request->all()['type_paiement_id'];
+      $table->entreprise_id        = $entreprise_id->id;
+      $table->client_id            = $request->all()['client_id'];
+      $table->date_paye            = $request->all()['date_paye'];
+      $table->save();
+
+      return $table;
+    }
   //-------------------------
   // effacer table
   //-------------------------

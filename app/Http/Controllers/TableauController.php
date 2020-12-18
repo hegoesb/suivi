@@ -9,6 +9,7 @@ use App\Models\chantier;
 use App\Models\devi;
 use App\Models\facture;
 use App\Models\entreprise;
+use App\Models\paiement;
 use App\Models\type_client;
 
 class TableauController extends Controller
@@ -69,8 +70,21 @@ class TableauController extends Controller
           $data=facture::with('type_facture','client','chantier','collaborateur','devi')->where('entreprise_id',$entreprise->id)->get();
 
           return view($this->chemin.$table.'_datatables',[
-              'titre'        => $entreprise['nom'].' - Tableau Devis',
-              'descriptif'   => 'Liste des devis appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+              'titre'        => $entreprise['nom'].' - Tableau Factures',
+              'descriptif'   => 'Liste des factures appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+              'data'         => $data,
+              'colonne_order' => 1,
+              'ordre'         => "desc",
+          ]);
+
+        }elseif($table=='paiements'){
+
+          $data=paiement::with('type_paiement','client','facture')->where('entreprise_id',$entreprise->id)->get();
+        // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+          return view($this->chemin.$table.'_datatables',[
+              'titre'        => $entreprise['nom'].' - Tableau Paiements',
+              'descriptif'   => 'Liste des paiements appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
               'data'         => $data,
               'colonne_order' => 1,
               'ordre'         => "desc",
@@ -79,7 +93,6 @@ class TableauController extends Controller
         }
 
         abort(404);
-        // return view('test', ['test' =>  $entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
     }
 

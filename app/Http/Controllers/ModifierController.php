@@ -10,6 +10,7 @@ use App\Repositories\QueryTableRepository;
 use App\Models\devi;
 use App\Models\entreprise;
 use App\Models\facture;
+use App\Models\facture_paiement;
 use App\Models\paiement;
 
 class ModifierController extends Controller
@@ -45,7 +46,7 @@ class ModifierController extends Controller
             'titre'      => $entreprise['nom'].' - Associer une facture aux devis - [Facture : '.$facture['numero'].']',
             'descriptif1' => "Associer la facture",
             'descriptif2' => $facture['numero'],
-            'descriptif3' => " au devis ci-dessous. (Certains devis peuvent dèjà être rattachés).",
+            'descriptif3' => " aux devis ci-dessous. (Certains devis peuvent déjà être rattachés).",
             'facture'    => $facture,
             'entreprise' => $entreprise,
             'data' =>$data,
@@ -64,7 +65,7 @@ class ModifierController extends Controller
             'titre'      => $entreprise['nom'].' - Associer un paiement aux factures - [Paiement : '.$paiement['numero_releve_compte'].'-'.$paiement['client']['nom'].'-'.$paiement['valeur_ttc'].'€]',
             'descriptif1' => "Associer le paiement",
             'descriptif2' => $paiement['numero_releve_compte'].'-'.$paiement['client']['nom'].'-'.$paiement['valeur_ttc'].'€',
-            'descriptif3' => " aux factures ci-dessous. (Certaines factures peuvent dèjà être rattachées).",
+            'descriptif3' => " aux factures ci-dessous. (Certaines factures peuvent déjà être rattachées).",
             'paiement'    => $paiement,
             'entreprise' => $entreprise,
             'data' =>$data,
@@ -91,6 +92,17 @@ class ModifierController extends Controller
 
         // return view('test', ['test' =>  $ajouter , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
         return redirect('/tableau/'.$entreprise_id.'/factures');
+
+      }elseif($table=='facture_paiement'){
+        //Supprimer les liaisons factures paiements
+        $supprimer = $this->QueryTableRepository->delete_facture_paiementId($id);
+        //Sauvergarde des nouvelles les liaisons factures paiements
+        if(!empty($request->except(['_token']))){
+          $ajouter = $this->QueryTableRepository->save_facture_paiement($request->except(['_token']),$id);
+        }
+
+        // return view('test', ['test' =>  $ajouter , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
+        return redirect('/tableau/'.$entreprise_id.'/paiements');
 
       }
         abort(404);

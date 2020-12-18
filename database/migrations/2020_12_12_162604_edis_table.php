@@ -177,9 +177,9 @@ class EdisTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('paiement_facture', function (Blueprint $table) {
-            $table->integer('paiement_id')->unsigned();
+        Schema::create('facture_paiement', function (Blueprint $table) {
             $table->integer('facture_id')->unsigned();
+            $table->integer('paiement_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -243,7 +243,7 @@ class EdisTable extends Migration
 
         Schema::dropIfExists('factures');
         Schema::dropIfExists('paiements');
-        Schema::dropIfExists('paiement_facture');
+        Schema::dropIfExists('facture_paiement');
         Schema::dropIfExists('devi_facture');
 
     }

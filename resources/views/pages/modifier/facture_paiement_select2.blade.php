@@ -16,7 +16,7 @@
         </div>
     </div>
     <!--begin::Form-->
-    {!! Form::open(['url' => url('modifier/'.$entreprise->id.'/devi_facture/'.$paiement->id), 'id'=>'form_validation']) !!}
+    {!! Form::open(['url' => url('modifier/'.$entreprise->id.'/facture_paiement/'.$paiement->id), 'id'=>'form_validation']) !!}
         <div class="card-body">
             <div class="form-group mb-8">
                 <div class="alert alert-custom alert-default" role="alert">

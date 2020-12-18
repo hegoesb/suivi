@@ -13,5 +13,12 @@ class paiement extends Model
   {
       return $this->belongsTo('App\Models\client');
   }
-
+  public function facture()
+  {
+      return $this->belongsToMany('App\Models\facture', 'facture_paiement', 'facture_id', 'paiement_id');
+  }
+  public function type_paiement()
+  {
+      return $this->belongsTo('App\Models\type_paiement');
+  }
 }

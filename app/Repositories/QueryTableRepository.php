@@ -3,6 +3,7 @@
 use App\Models\devi_facture;
 use App\Models\devi;
 use App\Models\facture;
+use App\Models\facture_paiement;
 use App\Models\paiement;
 
 class QueryTableRepository {
@@ -81,6 +82,18 @@ class QueryTableRepository {
 
       return $table;
     }
+
+    public function save_facture_paiement($facture_request,$paiement_id)
+    {
+      foreach ($facture_request as $key => $value) {
+        $table = new facture_paiement;
+        $table->facture_id    = $key;
+        $table->paiement_id = $paiement_id;
+        $table->save();
+      }
+      return $table;
+    }
+
   //-------------------------
   // effacer table
   //-------------------------
@@ -91,6 +104,11 @@ class QueryTableRepository {
       return $table;
     }
 
+    public function delete_facture_paiementId($paiement_id)
+    {
+      $table = facture_paiement::where('paiement_id',$paiement_id)->delete();
+      return $table;
+    }
 
 
 }

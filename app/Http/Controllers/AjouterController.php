@@ -186,7 +186,7 @@ class AjouterController extends Controller
         $data=$this->tableauRepository->selection_clients();
 
         return view($this->chemin_tableau.$table.'_datatables',[
-            'titre'         => $entreprise['nom'].' - Tableau Client',
+            'titre'         => $entreprise_id['nom'].' - Tableau Client',
             'descriptif'    => 'Liste des clients appartenant aux deux entreprises',
             'data'          => $data,
             'type_clients'  => $type_clients,
@@ -214,12 +214,12 @@ class AjouterController extends Controller
         $table_chantier->etat_chantier_id = 1;
         $table_chantier->save();
 
-        $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise_id)->get();
+        $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise_id->id)->get();
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => $request.' ']);
 
-        return view($this->chemin.$table.'_datatables',[
-            'titre'        => $entreprise['nom'].' - Tableau Chantier',
-            'descriptif'   => 'Liste des chantiers appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+        return view($this->chemin_tableau.$table.'_datatables',[
+            'titre'        => $entreprise_id['nom'].' - Tableau Chantier',
+            'descriptif'   => 'Liste des chantiers appartenant à l\'entreprise '.$entreprise_id['nom_display'].'.',
             'data'         => $data,
             // 'type_clients' => $type_clients,
             // 'entreprises'  => $entreprises,
@@ -262,12 +262,12 @@ class AjouterController extends Controller
         $table_devi->save();
 
         // return view('test', ['test' =>  $table_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
-        $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
+        $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise_id->id)->get();
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
-        return view($this->chemin.$table.'_datatables',[
-            'titre'        => $entreprise['nom'].' - Tableau Devis',
-            'descriptif'   => 'Liste des devis appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+        return view($this->chemin_tableau.$table.'_datatables',[
+            'titre'        => $entreprise_id['nom'].' - Tableau Devis',
+            'descriptif'   => 'Liste des devis appartenant à l\'entreprise '.$entreprise_id['nom_display'].'.',
             'data'         => $data,
             'colonne_order' => 0,
             'ordre'         => "desc",

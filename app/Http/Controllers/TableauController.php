@@ -38,6 +38,8 @@ class TableauController extends Controller
               'data'          => $data,
               'type_clients'  => $type_clients,
               'entreprises'   => $entreprises,
+              'entreprise'    => $entreprise,
+              'table'         => $table,
               'colonne_order' => 1,
               'ordre'         => "asc",
           ]);
@@ -83,9 +85,9 @@ class TableauController extends Controller
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[
-              'titre'        => $entreprise['nom'].' - Tableau Paiements',
-              'descriptif'   => 'Liste des paiements appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
-              'data'         => $data,
+              'titre'         => $entreprise['nom'].' - Tableau Paiements',
+              'descriptif'    => 'Liste des paiements appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+              'data'          => $data,
               'colonne_order' => 1,
               'ordre'         => "desc",
           ]);

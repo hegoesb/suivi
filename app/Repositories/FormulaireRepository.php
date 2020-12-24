@@ -33,6 +33,22 @@ class FormulaireRepository {
     return $data;
   }
 
+  public function select_entreprises_checked($client)
+  {
+    $datas=entreprise::get();
+    foreach ($datas as $key_2 => $value) {
+      $data[$key_2][0]=$value['id'];
+      $data[$key_2][1]=$value['nom_display'];
+      $data[$key_2][2]=0;
+      foreach ($client['entreprise'] as $key_cl => $value_cl) {
+        if ($value['id'] == $value_cl->id){
+          $data[$key_2][2]=1;
+        }
+      }
+    }
+    return $data;
+  }
+
   //-------------------------
   // Client
   //-------------------------

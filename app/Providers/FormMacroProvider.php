@@ -32,7 +32,7 @@ class FormMacroProvider extends ServiceProvider
     //--------------------------------------------------//
 
 
-        Form::macro('valider', function($nom='Valider',$color='btn-primary')
+        Form::macro('valider', function()
         {
             return sprintf('
                 <div class="card-footer">
@@ -42,6 +42,15 @@ class FormMacroProvider extends ServiceProvider
             );
         });
 
+        Form::macro('modifier', function($lien)
+        {
+            return sprintf('
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary mr-2">Modifier</button>
+                    <button type="button" onclick="window.location.href = \'%s\';" class="btn btn-secondary">Retour</button>
+                </div>', $lien,
+            );
+        });
 
     //--------------------------------------------------//
     //                                                  //
@@ -200,6 +209,45 @@ class FormMacroProvider extends ServiceProvider
                 }
             }
 
+
+            return sprintf('
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2 col-sm-12">%s</label>
+                    <div class=" col-lg-%s col-md-9 col-sm-12">
+                        <select class="form-control kt-select2 select2" name="%s" %s>
+                            <option value="" >-- Please select --</option>
+                            %s
+                        </select>
+                    </div>
+                </div>
+                ',  $label, $col, $name, $required, $options
+            );
+        });
+
+        Form::macro('validation_selected', function($input, $name, $label, $selected, $required=true, $col=4)
+        {
+
+            if($required==true){
+                $required='required';
+            }else{
+                $required='';
+            }
+
+            foreach ($input as $key => $value) {
+                if($key==0){
+                    if($selected==$value[1]){
+                        $options = '<option value="'.$value[0].'" selected>'.$value[1].'</option>';
+                    }else{
+                        $options = '<option value="'.$value[0].'">'.$value[1].'</option>';
+                    }
+                }else{
+                    if($selected==$value[1]){
+                        $options .= '<option value="'.$value[0].'" selected>'.$value[1].'</option>';
+                    }else{
+                        $options .= '<option value="'.$value[0].'">'.$value[1].'</option>';
+                    }
+                }
+            }
 
             return sprintf('
                 <div class="form-group row">

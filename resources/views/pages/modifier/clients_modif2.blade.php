@@ -26,16 +26,17 @@
                     </div>
                 </div>
             </div>
-            {!!Form::validation_select($type_client, 'type_client_id', 'Type',true,4)!!}
-            {!!Form::validation_text_maxLength('nom', 'Nom',10,true,6)!!}
-            {!!Form::validation_text_maxLength('nom_display', 'Nom Complet',40,true,6)!!}
+            {!!Form::validation_selected($type_client, 'type_client_id', 'Type', $client['type_client']->nom_display, true,4)!!}
+            {{-- {!!Form::validation_select($type_client, 'type_client_id', 'Type',true,4)!!} --}}
+            {!!Form::validation_text_maxLength_value('nom', 'Nom',$client->nom,10,true,6)!!}
+            {!!Form::validation_text_maxLength_value('nom_display', 'Nom Complet',$client->nom_display,40,true,6)!!}
             @foreach ($choix_entreprise as $key => $value)
-                {!!Form::switch('entreprise_'.$value[0], $value[1],4,)!!}
+                {!!Form::switch('entreprise_'.$value[0], $value[1],4,$value[2])!!}
             @endforeach
 
             {{-- {!!Form::validation_checkboxe($choix_entreprise,'Entreprise',true,6)!!} --}}
         </div>
-        {!!Form::valider()!!}
+        {!!Form::modifier($lien)!!}
     </form>
     <!--end::Form-->
 </div>

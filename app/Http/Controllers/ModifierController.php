@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\FormulaireRepository;
 use App\Repositories\QueryTableRepository;
 
+use App\Models\client;
 use App\Models\devi;
 use App\Models\entreprise;
 use App\Models\facture;
@@ -42,7 +43,7 @@ class ModifierController extends Controller
 
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table']);
 
-        return view($this->chemin_modifier.$table.'_select2',[
+        return view($this->chemin_modifier.$table.'_modif2',[
             'titre'      => $entreprise['nom'].' - Associer une facture aux devis - [Facture : '.$facture['numero'].']',
             'descriptif1' => "Associer la facture",
             'descriptif2' => $facture['numero'],
@@ -61,7 +62,7 @@ class ModifierController extends Controller
 
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table']);
 
-        return view($this->chemin_modifier.$table.'_select2',[
+        return view($this->chemin_modifier.$table.'_modif2',[
             'titre'      => $entreprise['nom'].' - Associer un paiement aux factures - [Paiement : '.$paiement['numero_releve_compte'].'-'.$paiement['client']['nom'].'-'.$paiement['valeur_ttc'].'€]',
             'descriptif1' => "Associer le paiement",
             'descriptif2' => $paiement['numero_releve_compte'].'-'.$paiement['client']['nom'].'-'.$paiement['valeur_ttc'].'€',
@@ -73,17 +74,20 @@ class ModifierController extends Controller
       }elseif($table=='clients'){
 
           //Selection de données nécessaire au formulaire
-          $type_client = $this->formulaireRepository->select_type_clients();
-          $choix_entreprise = $this->formulaireRepository->select_entreprises();
+          $type_client              = $this->formulaireRepository->select_type_clients();
+          $client                   = client::with('entreprise', 'type_client')->where('id',$id)->first();
+          $choix_entreprise_checked = $this->formulaireRepository->select_entreprises_checked($client);
+          $lien                     = '/tableau/'.$entreprise_id.'/'.$table;
 
+          // return view('test', ['test' =>  $choix_entreprise_checked, 'imputs' => $client['entreprise'][0], 'comp' => '$table'.' ']);
 
-          // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
-
-          return view($this->chemin_modifier.$table.'_select2',[
+          return view($this->chemin_modifier.$table.'_modif2',[
               'titre'            => $entreprise['nom'].' - Ajouter un client',
               'descriptif'       => 'Le client sera ajouter à la table client commune aux deux entreprises. Un client peut appartenir aux deux entreprises',
+              'client'           => $client,
+              'lien'             => $lien,
               'type_client'      => $type_client,
-              'choix_entreprise' => $choix_entreprise,
+              'choix_entreprise' => $choix_entreprise_checked,
               'entreprise_id'    => $entreprise->id,
           ]);
       }

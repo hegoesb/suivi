@@ -1,3 +1,7 @@
+@section('styles')
+    {!! Html::style('https://cdnjs.cloudflare.com/ajax/libs/formvalidation/0.6.2-dev/css/formValidation.min.css') !!}
+@endsection
+
 {{-- Extends layout --}}
 @extends('layout.default')
 
@@ -29,7 +33,7 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            {!!Form::validation_text_maxLength_value('numero', 'Numéro',$entreprise->prefixe_devis,15,true,6)!!}
+            {!!Form::validation_text_minMaxLength_value('numero', 'Numéro',$entreprise->prefixe_devis,15,15,true,6)!!},
             {!!Form::validation_text_maxLength('lot', 'Lot (Description devis)',50,true,6)!!}
             {!!Form::validation_select($chantiers, 'chantier_id', 'Chantier',true,4)!!}
             {!!Form::validation_select($clients, 'client_id', 'Client',true,4)!!}
@@ -50,6 +54,8 @@
 
 {{-- Scripts Section --}}
 @section('scripts')
+    {!! Html::script('js/pages/crud/forms/validation/form-controls.js') !!}
+
     <script>
         $(document).ready(function() {
             $('.select2').select2();

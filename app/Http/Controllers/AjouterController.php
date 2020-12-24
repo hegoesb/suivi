@@ -231,7 +231,7 @@ class AjouterController extends Controller
       }elseif($table=='devis'){
 
         $this->validate($request, [
-            'numero'           => 'required|max:15|unique:devis',
+            'numero'           => 'required|min:15|max:15|unique:devis',
             'lot'              => 'required|max:50',
             'chantier_id'      => 'required',
             'client_id'        => 'required',
@@ -277,7 +277,7 @@ class AjouterController extends Controller
       }elseif($table=='factures'){
 
         $this->validate($request, [
-            'numero'           => 'required|max:15|unique:factures',
+            'numero'           => 'required|min:15|max:15|unique:factures',
             'chantier_id'      => 'required',
             'type_facture_id'  => 'required',
             'collaborateur_id' => 'required',

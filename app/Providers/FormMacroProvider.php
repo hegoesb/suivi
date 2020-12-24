@@ -162,6 +162,26 @@ class FormMacroProvider extends ServiceProvider
             );
         });
 
+        Form::macro('validation_text_minMaxLength_value', function($name, $label, $value, $minlength=10, $maxlength=10, $required=true, $col=6 )
+        {
+
+            if($required==true){
+                $required='required';
+            }else{
+                $required='';
+            }
+
+            return sprintf('
+                <div class="form-group row">
+                    <label  class="col-2 col-form-label">%s</label>
+                    <div class="col-%s">
+                        <input class="form-control" type="text" name="%s" minlength="%s" maxlength="%s" value="%s" %s/>
+                    </div>
+                    <div class="help-info">Min. %s / Max. %s caractères</div>
+                </div>
+                ',  $label, $col, $name, $minlength, $maxlength, $value, $required, $minlength, $maxlength,
+            );
+        });
 
         Form::macro('validation_select', function($input, $name, $label, $required=true, $col=4)
         {

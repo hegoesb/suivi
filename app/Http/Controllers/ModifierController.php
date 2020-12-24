@@ -70,7 +70,29 @@ class ModifierController extends Controller
             'entreprise' => $entreprise,
             'data' =>$data,
         ]);
+      }elseif($table=='clients'){
+
+          //Selection de données nécessaire au formulaire
+          $type_client = $this->formulaireRepository->select_type_clients();
+          $choix_entreprise = $this->formulaireRepository->select_entreprises();
+
+
+          // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+          return view($this->chemin_modifier.$table.'_select2',[
+              'titre'            => $entreprise['nom'].' - Ajouter un client',
+              'descriptif'       => 'Le client sera ajouter à la table client commune aux deux entreprises. Un client peut appartenir aux deux entreprises',
+              'type_client'      => $type_client,
+              'choix_entreprise' => $choix_entreprise,
+              'entreprise_id'    => $entreprise->id,
+          ]);
       }
+
+
+
+
+
+
         abort(404);
 
     }

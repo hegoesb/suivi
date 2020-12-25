@@ -16,7 +16,7 @@
         </div>
     </div>
     <!--begin::Form-->
-    {!! Form::open(['url' => url('ajouter/'.$entreprise_id.'/clients'), 'id'=>'form_validation']) !!}
+    {!! Form::open(['url' => url('modifier/'.$entreprise_id.'/clients/'.$client->id), 'id'=>'form_validation']) !!}
         <div class="card-body">
             <div class="form-group mb-8">
                 <div class="alert alert-custom alert-default" role="alert">
@@ -28,8 +28,8 @@
             </div>
             {!!Form::validation_selected($type_client, 'type_client_id', 'Type', $client['type_client']->nom_display, true,4)!!}
             {{-- {!!Form::validation_select($type_client, 'type_client_id', 'Type',true,4)!!} --}}
-            {!!Form::validation_text_maxLength_value('nom', 'Nom',$client->nom,10,true,6)!!}
-            {!!Form::validation_text_maxLength_value('nom_display', 'Nom Complet',$client->nom_display,40,true,6)!!}
+            {!!Form::validation_text_maxLength_value('nom', 'Nom',$client->nom,10,true,4)!!}
+            {!!Form::validation_text_maxLength_value('nom_display', 'Nom Complet',$client->nom_display,40,true,4)!!}
             @foreach ($choix_entreprise as $key => $value)
                 {!!Form::switch('entreprise_'.$value[0], $value[1],4,$value[2])!!}
             @endforeach

@@ -1,5 +1,7 @@
 <?php namespace App\Repositories;
 
+use App\Models\client;
+use App\Models\client_entreprise;
 use App\Models\devi_facture;
 use App\Models\devi;
 use App\Models\facture;
@@ -94,6 +96,19 @@ class QueryTableRepository {
       return $table;
     }
 
+    public function save_client_entreprise($choix_entrepise)
+    {
+
+      foreach ($choix_entrepise as $key => $value) {
+        $table = new client_entreprise;
+        $table->entreprise_id = $value[0];
+        $table->client_id     = $value[1];
+        $table->save();
+      }
+
+      return $table;
+    }
+
   //-------------------------
   // effacer table
   //-------------------------
@@ -110,5 +125,28 @@ class QueryTableRepository {
       return $table;
     }
 
+    public function delete_entreprise_clientId($client_id)
+    {
+      $table = client_entreprise::where('client_id',$client_id)->delete();
+      return $table;
+    }
 
+  //-------------------------
+  // update table
+  //-------------------------
+
+    public function update_clientId($request,$id,$entreprises)
+    {
+
+      foreach ($entreprises as $key_entreprise => $entreprise) {
+        foreach ($request as $key_resquest => $value) {
+          if('entreprise_'.$entreprise->id==$key_resquest){
+            unset($request[$key_resquest]);
+          }
+        }
+      }
+      $update =  client::where('id', $id)->update($request);
+
+      return $update;
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Repositories\FormulaireRepository;
 use App\Repositories\QueryTableRepository;
+use App\Repositories\TraitementRepository;
 
 use App\Models\client;
 use App\Models\devi;
@@ -17,11 +18,12 @@ use App\Models\paiement;
 class ModifierController extends Controller
 {
 
-    public function __construct(FormulaireRepository $FormulaireRepository,QueryTableRepository $QueryTableRepository)
+    public function __construct(FormulaireRepository $FormulaireRepository,QueryTableRepository $QueryTableRepository, TraitementRepository $TraitementRepository)
     {
         $this->chemin_modifier      = 'pages.modifier.';
         $this->formulaireRepository = $FormulaireRepository;
         $this->QueryTableRepository = $QueryTableRepository;
+        $this->TraitementRepository = $TraitementRepository;
     }
 
     //-------------------------
@@ -82,8 +84,8 @@ class ModifierController extends Controller
           // return view('test', ['test' =>  $choix_entreprise_checked, 'imputs' => $client['entreprise'][0], 'comp' => '$table'.' ']);
 
           return view($this->chemin_modifier.$table.'_modif2',[
-              'titre'            => $entreprise['nom'].' - Ajouter un client',
-              'descriptif'       => 'Le client sera ajouter à la table client commune aux deux entreprises. Un client peut appartenir aux deux entreprises',
+              'titre'            => $entreprise['nom'].' - Modifier un client',
+              'descriptif'       => 'Le client sera modifié à la table client commune aux deux entreprises. Un client peut appartenir aux deux entreprises',
               'client'           => $client,
               'lien'             => $lien,
               'type_client'      => $type_client,
@@ -107,6 +109,10 @@ class ModifierController extends Controller
 
     public function postModifier($entreprise_id,$table,$id, Request $request)
     {
+
+      $entreprises=entreprise::get();
+
+
       if($table=='devi_facture'){
         //Supprimer les liaisons devis factures
         $supprimer = $this->QueryTableRepository->delete_devi_factureId($id);
@@ -129,6 +135,25 @@ class ModifierController extends Controller
 
         // return view('test', ['test' =>  $ajouter , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
         return redirect('/tableau/'.$entreprise_id.'/paiements');
+
+      }elseif($table=='clients'){
+
+        //Verifier si au moins une entreprise à été selectionner et Préparation de la nouvelle liaison client entreprise
+        $liaison_entrepise=$this->TraitementRepository->entreprise_for_client($request->except(['_token']),$id);
+
+        if($liaison_entrepise != false){
+          //Suppression de la liaison entreprise existante
+          $supprimer = $this->QueryTableRepository->delete_entreprise_clientId($id);
+          //Update du client
+          $update_client = $this->QueryTableRepository->update_clientId($request->except(['_token']),$id,$entreprises);
+          //Ajout de la nouvelle liaison entreprise client
+          $save_liaison = $this->QueryTableRepository->save_client_entreprise($liaison_entrepise);
+
+          return redirect('/tableau/'.$entreprise_id.'/clients');
+          // return view('test', ['test' =>  $update_client , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
+        }else{
+          return redirect('/modifier/'.$entreprise_id.'/clients/'.$id);
+        }
 
       }
         abort(404);

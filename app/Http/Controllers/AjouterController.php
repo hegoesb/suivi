@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\TableauRepository;
 use App\Repositories\FormulaireRepository;
 use App\Repositories\QueryTableRepository;
+use App\Repositories\TraitementRepository;
 
 use App\Models\entreprise;
 use App\Models\type_client;
@@ -20,7 +21,7 @@ use Validator;
 
 class AjouterController extends Controller
 {
-    public function __construct(TableauRepository $TableauRepository, FormulaireRepository $FormulaireRepository, QueryTableRepository $QueryTableRepository)
+    public function __construct(TableauRepository $TableauRepository, FormulaireRepository $FormulaireRepository, QueryTableRepository $QueryTableRepository, TraitementRepository $TraitementRepository)
     {
         $this->chemin               = 'pages.ajouter.';
         $this->chemin_tableau       = 'pages.tableaux.';
@@ -28,6 +29,7 @@ class AjouterController extends Controller
         $this->tableauRepository    = $TableauRepository;
         $this->formulaireRepository = $FormulaireRepository;
         $this->QueryTableRepository = $QueryTableRepository;
+        $this->TraitementRepository = $TraitementRepository;
     }
 
   //-------------------------
@@ -51,7 +53,7 @@ class AjouterController extends Controller
 
           return view($this->chemin.$table.'_select2',[
               'titre'            => $entreprise['nom'].' - Ajouter un client',
-              'descriptif'       => 'Le client sera ajouter à la table client commune aux deux entreprises. Un client peut appartenir aux deux entreprises',
+              'descriptif'       => 'Le client sera ajouté à la table client commune aux deux entreprises. Un client peut appartenir aux deux entreprises',
               'type_client'      => $type_client,
               'choix_entreprise' => $choix_entreprise,
               'entreprise_id'    => $entreprise->id,
@@ -167,14 +169,8 @@ class AjouterController extends Controller
         $table_client->save();
 
         //Sauvergarde de la relation client_entreprise
-        foreach ($entreprises as $key_entreprise => $entreprise) {
-          foreach ($request->except(['_token']) as $key_resquest => $value) {
-            if('entreprise_'.$entreprise->id==$key_resquest){
-              $choix_entrepise[$key_entreprise][0]=$entreprise->id;
-              $choix_entrepise[$key_entreprise][1]=$table_client->id;
-            }
-          }
-        }
+        $choix_entrepise=$this->TraitementRepository->entreprise_for_client($request->except(['_token']),$table_client->id);
+        $save_liaison = $this->QueryTableRepository->save_liaison_client_entreprise($choix_entrepise);
         foreach ($choix_entrepise as $key => $value) {
           $table_client_entreprise = new client_entreprise;
           $table_client_entreprise->entreprise_id = $value[0];
@@ -191,6 +187,7 @@ class AjouterController extends Controller
             'data'          => $data,
             'type_clients'  => $type_clients,
             'entreprises'   => $entreprises,
+            'entreprise'    => $entreprise,
             'colonne_order' => 0,
             'ordre'         => 'desc',
         ]);

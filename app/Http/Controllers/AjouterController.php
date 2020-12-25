@@ -170,13 +170,8 @@ class AjouterController extends Controller
 
         //Sauvergarde de la relation client_entreprise
         $choix_entrepise=$this->TraitementRepository->entreprise_for_client($request->except(['_token']),$table_client->id);
-        $save_liaison = $this->QueryTableRepository->save_liaison_client_entreprise($choix_entrepise);
-        foreach ($choix_entrepise as $key => $value) {
-          $table_client_entreprise = new client_entreprise;
-          $table_client_entreprise->entreprise_id = $value[0];
-          $table_client_entreprise->client_id     = $value[1];
-          $table_client_entreprise->save();
-        }
+        $save_liaison = $this->QueryTableRepository->save_client_entreprise($choix_entrepise);
+
 
         $type_clients=type_client::get();
         $data=$this->tableauRepository->selection_clients();
@@ -187,7 +182,8 @@ class AjouterController extends Controller
             'data'          => $data,
             'type_clients'  => $type_clients,
             'entreprises'   => $entreprises,
-            'entreprise'    => $entreprise,
+            'entreprise'    => $entreprise_id,
+            'table'         => $table,
             'colonne_order' => 0,
             'ordre'         => 'desc',
         ]);

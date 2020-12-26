@@ -73,6 +73,21 @@ class FormulaireRepository {
     return $data;
   }
 
+  public function select_clients_checked($entreprise_id,$chantier)
+  {
+    $datas=client::get();
+    foreach ($datas as $key_2 => $value) {
+      $data[$key_2][0]=$value['id'];
+      $data[$key_2][1]=$value['nom_display'];
+      $data[$key_2][2]=0;
+      if ($value['id'] == $chantier->client_id){
+        $data[$key_2][2]=1;
+      }
+    }
+    return $data;
+  }
+
+
   //-------------------------
   // Chantier
   //-------------------------

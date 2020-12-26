@@ -129,6 +129,27 @@ class FormMacroProvider extends ServiceProvider
             );
         });
 
+        Form::macro('validation_text_disabled', function($name, $label, $value, $required=true, $col=6 )
+        {
+
+            if($required==true){
+                $required='required';
+            }else{
+                $required='';
+            }
+
+            return sprintf('
+                <div class="form-group row">
+                    <label  class="col-2 col-form-label">%s</label>
+                    <div class="col-%s">
+                        <input class="form-control" type="text" disabled="disabled" name="%s" value="%s", %s/>
+                    </div>
+                </div>
+                ',  $label, $col, $name, $value, $required,
+            );
+        });
+
+
         Form::macro('validation_text_maxLength', function($name, $label, $maxlength=10, $required=true, $col=6 )
         {
 
@@ -235,13 +256,13 @@ class FormMacroProvider extends ServiceProvider
 
             foreach ($input as $key => $value) {
                 if($key==0){
-                    if($selected==$value[1]){
+                    if($selected==$value[2]){
                         $options = '<option value="'.$value[0].'" selected>'.$value[1].'</option>';
                     }else{
                         $options = '<option value="'.$value[0].'">'.$value[1].'</option>';
                     }
                 }else{
-                    if($selected==$value[1]){
+                    if($selected==$value[2]){
                         $options .= '<option value="'.$value[0].'" selected>'.$value[1].'</option>';
                     }else{
                         $options .= '<option value="'.$value[0].'">'.$value[1].'</option>';
@@ -283,7 +304,25 @@ class FormMacroProvider extends ServiceProvider
             );
         });
 
+        Form::macro('validation_date_value', function($name, $label, $value, $required=true, $col=4)
+        {
 
+            if($required==true){
+                $required='required';
+            }else{
+                $required='';
+            }
+
+            return sprintf('
+                <div class="form-group row">
+                    <label for="example-date-input" class="col-2 col-form-label">%s</label>
+                    <div class="col-%s">
+                        <input class="form-control" type="date" value="%s" name="%s" %s/>
+                    </div>
+                </div>
+                ',  $label, $col, $value, $name, $required
+            );
+        });
 
 
 

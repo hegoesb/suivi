@@ -41,7 +41,7 @@
                         <tr class="gradeX">
                             <td>{{$value['id']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['lot']}}">{{$value['numero']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']->NomChantier[1]}}">{{$value['chantier']->NomChantier[0]}}</td>
+                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']->identifiant}}">{{$value['chantier']->NomChantier[0]}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['collaborateur']['nom_display']}}">{{$value['collaborateur']['nom']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_devi']['nom_display']}}">{{$value['type_devi']['nom']}}</td>

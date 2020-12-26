@@ -9,6 +9,7 @@ use App\Repositories\QueryTableRepository;
 use App\Repositories\TraitementRepository;
 
 use App\Models\client;
+use App\Models\chantier;
 use App\Models\devi;
 use App\Models\entreprise;
 use App\Models\facture;
@@ -92,8 +93,50 @@ class ModifierController extends Controller
               'choix_entreprise' => $choix_entreprise_checked,
               'entreprise_id'    => $entreprise->id,
           ]);
-      }
+      }elseif($table=='chantiers'){
 
+          //Selection de données nécessaire au formulaire
+          $client   = $this->formulaireRepository->select_clients($entreprise);
+          $chantier = chantier::with('entreprise', 'etat_chantier')->where('id',$id)->first();
+
+
+
+
+          $type_client              = $this->formulaireRepository->select_type_clients();
+          // $client                   = client::with('entreprise', 'type_client')->where('id',$id)->first();
+          $choix_client_checked = $this->formulaireRepository->select_clients_checked($entreprise_id,$chantier);
+          $lien                     = '/tableau/'.$entreprise_id.'/'.$table;
+
+          // return view('test', ['test' =>  $choix_client_checked, 'imputs' => '', 'comp' => '$table'.' ']);
+
+          return view($this->chemin_modifier.$table.'_modif2',[
+              'titre'        => $entreprise['nom'].' - Modifier un chantier',
+              'descriptif'   => 'Le chantier sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+              'clients'      => $client,
+              'chantier'     => $chantier,
+              'entreprise'   => $entreprise,
+              'lien'         => $lien,
+              'type_client'  => $type_client,
+              'choix_client' => $choix_client_checked,
+          ]);
+
+
+          //Selection de données nécessaire au formulaire
+          $client = $this->formulaireRepository->select_clients($entreprise);
+
+          // return view('test', ['test' =>  $client, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+          return view($this->chemin.$table.'_select2',[
+              'titre'      => $entreprise['nom'].' - Ajouter un chantier',
+              'descriptif' => 'Le chantier sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+              'clients'    => $client,
+              'entreprise' => $entreprise,
+          ]);
+
+
+
+
+      }
 
 
 

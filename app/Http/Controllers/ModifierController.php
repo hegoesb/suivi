@@ -99,9 +99,6 @@ class ModifierController extends Controller
           $client   = $this->formulaireRepository->select_clients($entreprise);
           $chantier = chantier::with('entreprise', 'etat_chantier')->where('id',$id)->first();
 
-
-
-
           $type_client              = $this->formulaireRepository->select_type_clients();
           // $client                   = client::with('entreprise', 'type_client')->where('id',$id)->first();
           $choix_client_checked = $this->formulaireRepository->select_clients_checked($entreprise_id,$chantier);

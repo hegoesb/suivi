@@ -35,6 +35,16 @@ Route::post('modifier/{entreprise_id}/{table}/{id}', 'ModifierController@postMod
 
 /*
 |--------------------------------------------------------------------------
+| Supprimer
+|--------------------------------------------------------------------------
+*/
+
+Route::get('supprimer/{entreprise_id}/{table}/{id}', 'SupprimerController@viewSupprimer');
+Route::post('supprimer/{entreprise_id}/{table}/{id}', 'SupprimerController@postSupprimer');
+
+
+/*
+|--------------------------------------------------------------------------
 | Tableau
 |--------------------------------------------------------------------------
 */

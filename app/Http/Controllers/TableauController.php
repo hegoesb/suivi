@@ -45,8 +45,8 @@ class TableauController extends Controller
           ]);
         }elseif($table=='chantiers'){
 
-          $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise->id)->get();
-          // return view('test', ['test' =>  $data[1]->NomChantier, 'imputs' => '$a', 'comp' => '$table'.' ']);
+          $data=$this->tableauRepository->chantier_table($entreprise);
+          // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[
               'titre'         => $entreprise['nom'].' - Tableau Chantier',

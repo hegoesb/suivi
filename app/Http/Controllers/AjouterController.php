@@ -211,7 +211,7 @@ class AjouterController extends Controller
         $table_chantier->save();
         // return view('test', ['test' => '', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
-        $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise_id->id)->get();
+        $data=$this->tableauRepository->chantier_table($entreprise_id);
 
         return view($this->chemin_tableau.$table.'_datatables',[
             'titre'        => $entreprise_id['nom'].' - Tableau Chantier',

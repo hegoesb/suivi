@@ -1,6 +1,21 @@
 {{-- Extends layout --}}
 @extends('layout.default')
 
+{{-- Styles Section --}}
+@section('styles')
+    {{-- fontawesome --}}
+    <link href="{{ asset('/your-path-to-fontawesome/css/fontawesome.css') }}" rel="stylesheet" type="text/css"/>
+
+    {{-- datatable --}}
+    <link href="{{ asset('https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
+        {{-- boutton --}}
+        <link href="{{ asset('https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
+        {{-- Responsive --}}
+        <link href="{{ asset('https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
+
+    {{-- <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/> --}}
+@endsection
+
 {{-- Content --}}
 @section('content')
 
@@ -33,6 +48,7 @@
                         <th>Facture</th>
                         <th>Payé</th>
                         <th>Rester à facturer</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,6 +69,11 @@
                             <td>{{$value['chantier']->NomChantier[0]}}</td>
                             <td></td>
                             <td>50%</td>
+                            <td>
+                                <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -72,6 +93,7 @@
                         <th>Facturé</th>
                         <th>Payé</th>
                         <th>Rester à facturer</th>
+                        <th></th>
                     </tr>
                 </tfoot>
 
@@ -82,19 +104,6 @@
     </div>
 
 @endsection
-
-{{-- Styles Section --}}
-@section('styles')
-
-    {{-- datatable --}}
-    <link href="{{ asset('https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
-        {{-- boutton --}}
-        <link href="{{ asset('https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
-        {{-- Responsive --}}
-        <link href="{{ asset('https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
-    {{-- <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/> --}}
-@endsection
-
 
 {{-- Scripts Section --}}
 @section('scripts')

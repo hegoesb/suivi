@@ -63,9 +63,11 @@ class TableauController extends Controller
           // return view('test', ['test' =>  $data[0]->IfNull, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[
-              'titre'        => $entreprise['nom'].' - Tableau Devis',
-              'descriptif'   => 'Liste des devis appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
-              'data'         => $data,
+              'titre'         => $entreprise['nom'].' - Tableau Devis',
+              'descriptif'    => 'Liste des devis appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+              'entreprise'    => $entreprise,
+              'table'         => $table,
+              'data'          => $data,
               'colonne_order' => 1,
               'ordre'         => "desc",
           ]);

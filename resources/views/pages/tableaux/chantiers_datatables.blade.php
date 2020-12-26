@@ -36,7 +36,7 @@
                         {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
                         <tr class="gradeX">
                             <td>{{$value['id']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value->identifiant}}">{{$value->NomChantier[0]}}</td>
+                            <td data-toggle="tooltip" data-theme="dark" title="{{$value->nom}}">{{$value->identifiant}}</td>
                             <td>{{$value['libelle']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
                             <td>{{$value['date_debut']}}</td>

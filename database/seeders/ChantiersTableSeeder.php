@@ -21,7 +21,8 @@ class ChantiersTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'identifiant' => 'EBX_PJ2012-0014 - Ballanger-Antenne',
+                'identifiant' => 'EBX_PJ2012-0014',
+                'nom' => 'Ballanger',
                 'libelle' => 'Ballanger-Antenne',
                 'client_id' => 10,
                 'entreprise_id' => 1,
@@ -35,7 +36,8 @@ class ChantiersTableSeeder extends Seeder
             1 =>
             array (
                 'id' => 2,
-                'identifiant' => 'EBX_PJ2001-0044 - Marcet',
+                'identifiant' => 'EBX_PJ2001-0044',
+                'nom' => 'Marcet',
                 'libelle' => 'Marcet',
                 'client_id' => 1,
                 'entreprise_id' => 1,
@@ -49,7 +51,8 @@ class ChantiersTableSeeder extends Seeder
             2 =>
             array (
                 'id' => 3,
-                'identifiant' => 'EBX_PJ2003-0066 - Gujan Bataille',
+                'identifiant' => 'EBX_PJ2003-0066',
+                'nom' => 'Bataille',
                 'libelle' => 'SCCV GUJAN BATAILLE',
                 'client_id' => 2,
                 'entreprise_id' => 1,
@@ -63,7 +66,8 @@ class ChantiersTableSeeder extends Seeder
             3 =>
             array (
                 'id' => 4,
-                'identifiant' => 'EBX_PJ2004-0067 - Massia',
+                'identifiant' => 'EBX_PJ2004-0067',
+                'nom' => 'Massia',
                 'libelle' => 'Massia',
                 'client_id' => 4,
                 'entreprise_id' => 1,
@@ -77,8 +81,9 @@ class ChantiersTableSeeder extends Seeder
             4 =>
             array (
                 'id' => 5,
-                'identifiant' => 'EBX_PJ2005-0071 - Cambes',
-                'libelle' => 'Cambes',
+                'identifiant' => 'EBX_PJ2005-0071',
+                'nom' => 'Cambes',
+                'libelle' => 'Cambes - 22 Maisons',
                 'client_id' => 1,
                 'entreprise_id' => 1,
                 'etat_chantier_id' => 1,
@@ -91,7 +96,8 @@ class ChantiersTableSeeder extends Seeder
             5 =>
             array (
                 'id' => 6,
-                'identifiant' => 'EBX_PJ2005-0074 - Mussard',
+                'identifiant' => 'EBX_PJ2005-0074',
+                'nom' => 'Mussard',
                 'libelle' => 'Mussard',
                 'client_id' => 1,
                 'entreprise_id' => 1,
@@ -105,7 +111,8 @@ class ChantiersTableSeeder extends Seeder
             6 =>
             array (
                 'id' => 7,
-                'identifiant' => 'EBX_PJ2009-0089 - Boyer',
+                'identifiant' => 'EBX_PJ2009-0089',
+                'nom' => 'Boyer',
                 'libelle' => 'Boyer',
                 'client_id' => 3,
                 'entreprise_id' => 1,
@@ -119,7 +126,8 @@ class ChantiersTableSeeder extends Seeder
             7 =>
             array (
                 'id' => 8,
-                'identifiant' => 'EBX_PJ2010-0001 - Joandet',
+                'identifiant' => 'EBX_PJ2010-0001',
+                'nom' => 'Joandet',
                 'libelle' => 'Joandet',
                 'client_id' => 5,
                 'entreprise_id' => 1,
@@ -133,7 +141,8 @@ class ChantiersTableSeeder extends Seeder
             8 =>
             array (
                 'id' => 9,
-                'identifiant' => 'EBX_PJ2010-0002 - Rosina',
+                'identifiant' => 'EBX_PJ2010-0002',
+                'nom' => 'Rosina',
                 'libelle' => 'Rosina',
                 'client_id' => 3,
                 'entreprise_id' => 1,
@@ -147,7 +156,8 @@ class ChantiersTableSeeder extends Seeder
             9 =>
             array (
                 'id' => 10,
-                'identifiant' => 'EBX_PJ2010-0003 - Larmée',
+                'identifiant' => 'EBX_PJ2010-0003',
+                'nom' => 'Larmée',
                 'libelle' => 'Larmée',
                 'client_id' => 1,
                 'entreprise_id' => 1,
@@ -161,7 +171,8 @@ class ChantiersTableSeeder extends Seeder
             10 =>
             array (
                 'id' => 11,
-                'identifiant' => 'EBX_PJ2010-0004 - Lanton',
+                'identifiant' => 'EBX_PJ2010-0004',
+                'nom' => 'Lanton',
                 'libelle' => 'Lanton - SCCV 45 Avenue de la Libération',
                 'client_id' => 1,
                 'entreprise_id' => 1,
@@ -175,7 +186,8 @@ class ChantiersTableSeeder extends Seeder
             11 =>
             array (
                 'id' => 12,
-                'identifiant' => 'EBX_PJ2011-0006 - Daiva',
+                'identifiant' => 'EBX_PJ2011-0006',
+                'nom' => 'Daiva',
                 'libelle' => 'Daiva',
                 'client_id' => 1,
                 'entreprise_id' => 1,
@@ -189,7 +201,8 @@ class ChantiersTableSeeder extends Seeder
             12 =>
             array (
                 'id' => 13,
-                'identifiant' => 'EBX_PJ2011-0007 - Roullin',
+                'identifiant' => 'EBX_PJ2011-0007',
+                'nom' => 'Roullin',
                 'libelle' => 'Roullin',
                 'client_id' => 1,
                 'entreprise_id' => 1,
@@ -203,7 +216,8 @@ class ChantiersTableSeeder extends Seeder
             13 =>
             array (
                 'id' => 14,
-                'identifiant' => 'EBX_PJ2011-0009 - Dépannage et intervention 2020',
+                'identifiant' => 'EBX_PJ2011-0009',
+                'nom' => 'D&I 2020',
                 'libelle' => 'Dépannage et intervention 2020',
                 'client_id' => 1,
                 'entreprise_id' => 1,
@@ -217,7 +231,8 @@ class ChantiersTableSeeder extends Seeder
             14 =>
             array (
                 'id' => 15,
-                'identifiant' => 'EBX_PJ2012-0010 - Moles',
+                'identifiant' => 'EBX_PJ2012-0010',
+                'nom' => 'Moles',
                 'libelle' => 'Moles',
                 'client_id' => 1,
                 'entreprise_id' => 1,
@@ -226,20 +241,6 @@ class ChantiersTableSeeder extends Seeder
                 'date_fin' => NULL,
                 'created_at' => '2020-12-18 11:47:45',
                 'updated_at' => '2020-12-18 11:47:45',
-                'deleted_at' => NULL,
-            ),
-            15 =>
-            array (
-                'id' => 16,
-                'identifiant' => 'EBX_PJ2005-0074 – MUSSARD',
-                'libelle' => 'PJ2005-0074 – MUSSARD',
-                'client_id' => 1,
-                'entreprise_id' => 1,
-                'etat_chantier_id' => 1,
-                'date_debut' => '2020-01-01',
-                'date_fin' => NULL,
-                'created_at' => '2020-12-23 13:47:59',
-                'updated_at' => '2020-12-23 13:47:59',
                 'deleted_at' => NULL,
             ),
         ));

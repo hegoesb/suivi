@@ -106,7 +106,8 @@ class EdisTable extends Migration
 
         Schema::create('chantiers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('identifiant',50);
+            $table->string('identifiant',15);
+            $table->string('nom',15);
             $table->string('libelle',50)->nullable();
             $table->integer('client_id');
             $table->integer('entreprise_id');

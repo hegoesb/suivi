@@ -61,15 +61,17 @@ class AjouterController extends Controller
         }elseif ($table=='chantiers') {
 
           //Selection de données nécessaire au formulaire
+          $identifiant   = $this->TraitementRepository->new_identifiant_chantier($entreprise);
           $client = $this->formulaireRepository->select_clients($entreprise);
 
-          // return view('test', ['test' =>  $client, 'imputs' => '$a', 'comp' => '$table'.' ']);
+          // return view('test', ['test' =>  $identifiant, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_select2',[
-              'titre'      => $entreprise['nom'].' - Ajouter un chantier',
-              'descriptif' => 'Le chantier sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
-              'clients'    => $client,
-              'entreprise' => $entreprise,
+              'titre'       => $entreprise['nom'].' - Ajouter un chantier',
+              'descriptif'  => 'Le chantier sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+              'clients'     => $client,
+              'identifiant' => $identifiant,
+              'entreprise'  => $entreprise,
           ]);
 
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
@@ -82,7 +84,6 @@ class AjouterController extends Controller
           $collaborateur = $this->formulaireRepository->select_collaborateurs();
           $client        = $this->formulaireRepository->select_clients($entreprise);
 
-          // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_select2',[
               'titre'          => $entreprise['nom'].' - Ajouter un devis',
@@ -191,31 +192,33 @@ class AjouterController extends Controller
       }elseif($table=='chantiers'){
 
         $this->validate($request, [
-            'identifiant' => 'required|max:50|unique:chantiers',
+            'nom'         => 'required|max:15',
             'libelle'     => 'required|max:50',
             'client_id'   => 'required',
             'date_debut'  => 'required',
         ]);
+        $identifiant   = $this->TraitementRepository->new_identifiant_chantier($entreprise_id);
 
         //Sauvergarde du nouveau chantier
         $table_chantier = new chantier;
-        $table_chantier->identifiant      = $request->all()['identifiant'];
+        $table_chantier->identifiant      = $identifiant;
+        $table_chantier->nom              = $request->all()['nom'];
         $table_chantier->libelle          = $request->all()['libelle'];
         $table_chantier->client_id        = $request->all()['client_id'];
         $table_chantier->entreprise_id    = $entreprise_id->id;
         $table_chantier->date_debut       = $request->all()['date_debut'];
         $table_chantier->etat_chantier_id = 1;
         $table_chantier->save();
+        // return view('test', ['test' => '', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
         $data=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise_id->id)->get();
-        // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => $request.' ']);
 
         return view($this->chemin_tableau.$table.'_datatables',[
             'titre'        => $entreprise_id['nom'].' - Tableau Chantier',
             'descriptif'   => 'Liste des chantiers appartenant à l\'entreprise '.$entreprise_id['nom_display'].'.',
             'data'         => $data,
-            // 'type_clients' => $type_clients,
-            // 'entreprises'  => $entreprises,
+            'entreprise'    => $entreprise_id,
+            'table'         => $table,
             'colonne_order' => 0,
             'ordre'         => "desc",
         ]);

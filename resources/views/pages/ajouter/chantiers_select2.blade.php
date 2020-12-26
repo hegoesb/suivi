@@ -26,8 +26,9 @@
                     </div>
                 </div>
             </div>
-            {!!Form::validation_text_maxLength_value('identifiant', 'Identifiant',$entreprise->prefixe_chantier,50,true,6)!!}
-            {!!Form::validation_text_maxLength('libelle', 'Libellé',50,true,6)!!}
+            {!!Form::validation_text_disabled('identifiant', 'Identifiant',$identifiant,true,4)!!}
+            {!!Form::validation_text_maxLength('nom', 'Nom',15,true,4)!!}
+            {!!Form::validation_text_maxLength('libelle', 'Description  (Libellé)',50,true,4)!!}
             {!!Form::validation_select($clients, 'client_id', 'Client',true,4)!!}
             {!!Form::validation_date('date_debut', 'Date début',true,4)!!}
         </div>

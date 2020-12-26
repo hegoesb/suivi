@@ -195,6 +195,12 @@ class ModifierController extends Controller
           return redirect('/modifier/'.$entreprise_id.'/clients/'.$id);
         }
 
+      }elseif($table=='chantiers'){
+
+          $update_chantier = $this->QueryTableRepository->update_chantierId($request->except(['_token']),$id,$entreprises);
+
+          return redirect('/tableau/'.$entreprise_id.'/chantiers');
+
       }
         abort(404);
 

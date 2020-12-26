@@ -1,5 +1,6 @@
 <?php namespace App\Repositories;
 
+use App\Models\chantier;
 use App\Models\client;
 use App\Models\client_entreprise;
 use App\Models\devi_facture;
@@ -146,6 +147,14 @@ class QueryTableRepository {
         }
       }
       $update =  client::where('id', $id)->update($request);
+
+      return $update;
+    }
+
+    public function update_chantierId($request,$id,$entreprises)
+    {
+
+      $update =  chantier::where('id', $id)->update($request);
 
       return $update;
     }

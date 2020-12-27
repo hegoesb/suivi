@@ -73,14 +73,14 @@ class FormulaireRepository {
     return $data;
   }
 
-  public function select_clients_checked($entreprise_id,$chantier)
+  public function select_clients_checked($entreprise,$table)
   {
     $datas=client::get();
     foreach ($datas as $key_2 => $value) {
       $data[$key_2][0]=$value['id'];
       $data[$key_2][1]=$value['nom_display'];
       $data[$key_2][2]=0;
-      if ($value['id'] == $chantier->client_id){
+      if ($value['id'] == $table->client_id){
         $data[$key_2][2]=1;
       }
     }
@@ -97,10 +97,24 @@ class FormulaireRepository {
     $datas=chantier::with('client')->where('entreprise_id',$entreprise->id)->orderBy('identifiant','desc')->get();
     foreach ($datas as $key => $value) {
       $data[$key][0]=$value['id'];
-      $data[$key][1]=$value['identifiant'];
+      $data[$key][1]=$value['identifiant'].' - '.$value['nom'].' ('.$value['libelle'].')';
     }
     return $data;
 	}
+
+  public function select_chantiers_checked($entreprise,$table)
+  {
+    $datas=chantier::with('client')->where('entreprise_id',$entreprise->id)->orderBy('identifiant','desc')->get();
+    foreach ($datas as $key => $value) {
+      $data[$key][0]=$value['id'];
+      $data[$key][1]=$value['identifiant'].' - '.$value['nom'].' ('.$value['libelle'].')';
+      $data[$key][2]=0;
+      if ($value['id'] == $table->chantier_id){
+        $data[$key][2]=1;
+      }
+    }
+    return $data;
+  }
 
   //-------------------------
   // Devis
@@ -112,6 +126,20 @@ class FormulaireRepository {
     foreach ($datas as $key => $value) {
       $data[$key][0]=$value['id'];
       $data[$key][1]=$value['nom_display'];
+    }
+    return $data;
+  }
+
+  public function select_type_devis_checked($entreprise,$table)
+  {
+    $datas=type_devi::get();
+    foreach ($datas as $key => $value) {
+      $data[$key][0]=$value['id'];
+      $data[$key][1]=$value['nom_display'];
+      $data[$key][2]=0;
+      if ($value['id'] == $table->type_devi_id){
+        $data[$key][2]=1;
+      }
     }
     return $data;
   }
@@ -144,6 +172,19 @@ class FormulaireRepository {
     return $data;
   }
 
+  public function select_collaborateurs_checked($entreprise,$table)
+  {
+    $datas=collaborateur::orderBy('nom','asc')->get();
+    foreach ($datas as $key => $value) {
+      $data[$key][0]=$value['id'];
+      $data[$key][1]=$value['nom_display'];
+      $data[$key][2]=0;
+      if ($value['id'] == $table->collaborateur_id){
+        $data[$key][2]=1;
+      }
+    }
+    return $data;
+  }
   //-------------------------
   // devi_facture
   //-------------------------
@@ -208,6 +249,23 @@ class FormulaireRepository {
     return $data;
   }
 
+  //-------------------------
+  // Progbox
+  //-------------------------
 
-
+  public function select_progbox_checked($entreprise,$table)
+  {
+    $data[0][0]=false;
+    $data[0][1]='Non';
+    $data[0][2]=0;
+    $data[1][0]=true;
+    $data[1][1]='Oui';
+    $data[1][2]=0;
+    foreach ($data as $key => $value) {
+      if ($value[0] == $table->progbox_sauve){
+        $data[$key][2]=1;
+      }
+    }
+    return $data;
+  }
 }

@@ -76,70 +76,74 @@ class ModifierController extends Controller
         ]);
       }elseif($table=='clients'){
 
-          //Selection de données nécessaire au formulaire
-          $type_client              = $this->formulaireRepository->select_type_clients();
-          $client                   = client::with('entreprise', 'type_client')->where('id',$id)->first();
-          $choix_entreprise_checked = $this->formulaireRepository->select_entreprises_checked($client);
-          $lien                     = '/tableau/'.$entreprise_id.'/'.$table;
+        //Selection de données nécessaire au formulaire
+        $type_client              = $this->formulaireRepository->select_type_clients();
+        $client                   = client::with('entreprise', 'type_client')->where('id',$id)->first();
+        $choix_entreprise_checked = $this->formulaireRepository->select_entreprises_checked($client);
+        $lien                     = '/tableau/'.$entreprise_id.'/'.$table;
 
-          // return view('test', ['test' =>  $choix_entreprise_checked, 'imputs' => $client['entreprise'][0], 'comp' => '$table'.' ']);
+        // return view('test', ['test' =>  $choix_entreprise_checked, 'imputs' => $client['entreprise'][0], 'comp' => '$table'.' ']);
 
-          return view($this->chemin_modifier.$table.'_modif2',[
-              'titre'            => $entreprise['nom'].' - Modifier un client',
-              'descriptif'       => 'Le client sera modifié à la table client commune aux deux entreprises. Un client peut appartenir aux deux entreprises',
-              'client'           => $client,
-              'lien'             => $lien,
-              'type_client'      => $type_client,
-              'choix_entreprise' => $choix_entreprise_checked,
-              'entreprise_id'    => $entreprise->id,
-          ]);
+        return view($this->chemin_modifier.$table.'_modif2',[
+            'titre'            => $entreprise['nom'].' - Modifier un client',
+            'descriptif'       => 'Le client sera modifié à la table client commune aux deux entreprises. Un client peut appartenir aux deux entreprises',
+            'client'           => $client,
+            'lien'             => $lien,
+            'type_client'      => $type_client,
+            'choix_entreprise' => $choix_entreprise_checked,
+            'entreprise_id'    => $entreprise->id,
+        ]);
       }elseif($table=='chantiers'){
 
-          //Selection de données nécessaire au formulaire
-          $client   = $this->formulaireRepository->select_clients($entreprise);
-          $chantier = chantier::with('entreprise', 'etat_chantier')->where('id',$id)->first();
+        //Selection de données nécessaire au formulaire
+        $client               = $this->formulaireRepository->select_clients($entreprise);
+        $chantier             = chantier::with('entreprise', 'etat_chantier')->where('id',$id)->first();
+        $type_client          = $this->formulaireRepository->select_type_clients();
+        $choix_client_checked = $this->formulaireRepository->select_clients_checked($entreprise_id,$chantier);
+        $lien                 = '/tableau/'.$entreprise_id.'/'.$table;
 
-          $type_client              = $this->formulaireRepository->select_type_clients();
-          // $client                   = client::with('entreprise', 'type_client')->where('id',$id)->first();
-          $choix_client_checked = $this->formulaireRepository->select_clients_checked($entreprise_id,$chantier);
-          $lien                     = '/tableau/'.$entreprise_id.'/'.$table;
+        // return view('test', ['test' =>  $choix_client_checked, 'imputs' => '', 'comp' => '$table'.' ']);
 
-          // return view('test', ['test' =>  $choix_client_checked, 'imputs' => '', 'comp' => '$table'.' ']);
+        return view($this->chemin_modifier.$table.'_modif2',[
+            'titre'        => $entreprise['nom'].' - Modifier un chantier',
+            'descriptif'   => 'Le chantier sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+            'clients'      => $client,
+            'chantier'     => $chantier,
+            'entreprise'   => $entreprise,
+            'lien'         => $lien,
+            'type_client'  => $type_client,
+            'choix_client' => $choix_client_checked,
+        ]);
 
-          return view($this->chemin_modifier.$table.'_modif2',[
-              'titre'        => $entreprise['nom'].' - Modifier un chantier',
-              'descriptif'   => 'Le chantier sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
-              'clients'      => $client,
-              'chantier'     => $chantier,
-              'entreprise'   => $entreprise,
-              'lien'         => $lien,
-              'type_client'  => $type_client,
-              'choix_client' => $choix_client_checked,
-          ]);
+      }elseif ($table=='devis') {
 
+        //Selection de données nécessaire au formulaire
+        $devi                  = devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->where('id',$id)->first();
+        $chantier_checked      = $this->formulaireRepository->select_chantiers_checked($entreprise,$devi);
+        $client_checked        = $this->formulaireRepository->select_clients_checked($entreprise_id,$devi);
+        $type_devi_checked     = $this->formulaireRepository->select_type_devis_checked($entreprise_id,$devi);
+        $collaborateur_checked = $this->formulaireRepository->select_collaborateurs_checked($entreprise,$devi);
+        $progbox_checked       = $this->formulaireRepository->select_progbox_checked($entreprise,$devi);
+        $lien                  = '/tableau/'.$entreprise_id.'/'.$table;
 
-          //Selection de données nécessaire au formulaire
-          $client = $this->formulaireRepository->select_clients($entreprise);
+        return view($this->chemin_modifier.$table.'_modif2',[
+            'titre'          => $entreprise['nom'].' - Modifier un devis',
+            'descriptif'     => 'Le devis sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+            'devi'           => $devi,
+            'chantiers'      => $chantier_checked,
+            'type_devis'     => $type_devi_checked,
+            'collaborateurs' => $collaborateur_checked,
+            'entreprise'     => $entreprise,
+            'clients'        => $client_checked,
+            'progbox'        => $progbox_checked,
+            'lien'         => $lien,
+        ]);
 
-          // return view('test', ['test' =>  $client, 'imputs' => '$a', 'comp' => '$table'.' ']);
-
-          return view($this->chemin.$table.'_select2',[
-              'titre'      => $entreprise['nom'].' - Ajouter un chantier',
-              'descriptif' => 'Le chantier sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
-              'clients'    => $client,
-              'entreprise' => $entreprise,
-          ]);
-
-
-
+        // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
       }
 
-
-
-
-
-        abort(404);
+      abort(404);
 
     }
 
@@ -200,6 +204,12 @@ class ModifierController extends Controller
           $update_chantier = $this->QueryTableRepository->update_chantierId($request->except(['_token']),$id,$entreprises);
 
           return redirect('/tableau/'.$entreprise_id.'/chantiers');
+
+      }elseif($table=='devis'){
+
+          $update_devis = $this->QueryTableRepository->update_deviId($request->except(['_token']),$id,$entreprises);
+
+          return redirect('/tableau/'.$entreprise_id.'/devis');
 
       }
         abort(404);

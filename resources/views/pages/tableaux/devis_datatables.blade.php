@@ -68,7 +68,7 @@
                             <td>{{$value['total_ht']}}</td>
                             <td>-</td>
                             <td></td>
-                            <td>50%</td>
+                            <td></td>
                             <td>
                                 <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
                                     <i class="fas fa-edit"></i>

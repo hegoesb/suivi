@@ -158,4 +158,13 @@ class QueryTableRepository {
 
       return $update;
     }
+
+    public function update_deviId($request,$id,$entreprises)
+    {
+
+      $update =  devi::where('id', $id)->update($request);
+
+      return $update;
+    }
+
 }

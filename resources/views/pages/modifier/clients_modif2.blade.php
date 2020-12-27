@@ -26,8 +26,7 @@
                     </div>
                 </div>
             </div>
-            {!!Form::validation_selected($type_client, 'type_client_id', 'Type', $client['type_client']->nom_display, true,4)!!}
-            {{-- {!!Form::validation_select($type_client, 'type_client_id', 'Type',true,4)!!} --}}
+            {!!Form::validation_selected($type_client, 'type_client_id', 'Type', true,4)!!}
             {!!Form::validation_text_maxLength_value('nom', 'Nom',$client->nom,10,true,4)!!}
             {!!Form::validation_text_maxLength_value('nom_display', 'Nom Complet',$client->nom_display,40,true,4)!!}
             @foreach ($choix_entreprise as $key => $value)

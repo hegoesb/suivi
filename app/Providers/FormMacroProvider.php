@@ -245,7 +245,7 @@ class FormMacroProvider extends ServiceProvider
             );
         });
 
-        Form::macro('validation_selected', function($input, $name, $label, $selected, $required=true, $col=4)
+        Form::macro('validation_selected', function($input, $name, $label, $required=true, $col=4)
         {
 
             if($required==true){
@@ -256,13 +256,13 @@ class FormMacroProvider extends ServiceProvider
 
             foreach ($input as $key => $value) {
                 if($key==0){
-                    if($selected==$value[2]){
+                    if($value[2]==1){
                         $options = '<option value="'.$value[0].'" selected>'.$value[1].'</option>';
                     }else{
                         $options = '<option value="'.$value[0].'">'.$value[1].'</option>';
                     }
                 }else{
-                    if($selected==$value[2]){
+                    if($value[2]==1){
                         $options .= '<option value="'.$value[0].'" selected>'.$value[1].'</option>';
                     }else{
                         $options .= '<option value="'.$value[0].'">'.$value[1].'</option>';

@@ -22,7 +22,7 @@ class ClientsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'type_client_id' => 1,
-                'nom' => 'Heris C',
+                'nom' => 'Heris',
                 'nom_display' => 'Heris Construction',
                 'created_at' => '2020-12-11 23:00:00',
                 'updated_at' => '2020-12-11 23:00:00',
@@ -42,7 +42,7 @@ class ClientsTableSeeder extends Seeder
             array (
                 'id' => 3,
                 'type_client_id' => 1,
-                'nom' => 'Home A',
+                'nom' => 'Brun',
                 'nom_display' => 'Home Architectures',
                 'created_at' => '2020-12-11 23:00:00',
                 'updated_at' => '2020-12-11 23:00:00',

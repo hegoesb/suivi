@@ -29,6 +29,7 @@
                         <th>Création</th>
                         <th>Echéance</th>
                         <th>Payé</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,7 +38,7 @@
                         <tr class="gradeX">
                             <td>{{$value['id']}}</td>
                             <td>{{$value['numero']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']->NomChantier[1]}}">{{$value['chantier']->NomChantier[0]}}</td>
+                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']->nom}}">{{$value['chantier']->identifiant}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['collaborateur']['nom_display']}}">{{$value['collaborateur']['nom']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_facture']['nom_display']}}">{{$value['type_facture']['nom']}}</td>
@@ -46,6 +47,16 @@
                             <td>{{$value['date_envoie']}}</td>
                             <td>{{$value['date_echeance']}}</td>
                             <td>note</td>
+                            <td>
+                                <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                @if(isset($value['supprimer']))
+                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="{{$value['supprimer']}}" title="Supprimer">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -62,6 +73,7 @@
                         <th>Création</th>
                         <th>Echéance</th>
                         <th>Payé</th>
+                        <th></th>
                     </tr>
                 </tfoot>
 

@@ -76,9 +76,11 @@ class TableauController extends Controller
           $data=facture::with('type_facture','client','chantier','collaborateur','devi')->where('entreprise_id',$entreprise->id)->get();
 
           return view($this->chemin.$table.'_datatables',[
-              'titre'        => $entreprise['nom'].' - Tableau Factures',
-              'descriptif'   => 'Liste des factures appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
-              'data'         => $data,
+              'titre'         => $entreprise['nom'].' - Tableau Factures',
+              'descriptif'    => 'Liste des factures appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+              'entreprise'    => $entreprise,
+              'table'         => $table,
+              'data'          => $data,
               'colonne_order' => 1,
               'ordre'         => "desc",
           ]);
@@ -91,6 +93,8 @@ class TableauController extends Controller
           return view($this->chemin.$table.'_datatables',[
               'titre'         => $entreprise['nom'].' - Tableau Paiements',
               'descriptif'    => 'Liste des paiements appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+              'entreprise'    => $entreprise,
+              'table'         => $table,
               'data'          => $data,
               'colonne_order' => 1,
               'ordre'         => "desc",

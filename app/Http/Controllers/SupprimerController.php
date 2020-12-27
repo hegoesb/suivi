@@ -8,6 +8,8 @@ use App\Models\chantier;
 use App\Models\devi;
 use App\Models\devi_facture;
 use App\Models\entreprise;
+use App\Models\facture_paiement;
+use App\Models\facture;
 
 class SupprimerController extends Controller
 {
@@ -36,10 +38,8 @@ class SupprimerController extends Controller
             $chantier_deleted->delete();
           }
         }
-        return redirect('/tableau/'.$entreprise->id.'/chantiers');
 
-      }
-      if($table=='devis'){
+      }elseif($table=='devis'){
 
         //Vérification qu'aucune facture n'exsite pour le devis, sinon on supprime pas.
         $verif = devi_facture::where('devi_id',$id)->first();
@@ -49,9 +49,32 @@ class SupprimerController extends Controller
             $devi_deleted->delete();
           }
         }
-        return redirect('/tableau/'.$entreprise->id.'/devis');
 
+      }elseif($table=='factures'){
+
+        //Vérification qu'aucune facture n'exsite pour le devis, sinon on supprime pas.
+        $verif = facture_paiement::where('facture_id',$id)->first();
+        if(!isset($verif)){
+          $facture_deleted = facture::where('entreprise_id',$entreprise->id)->where('id',$id)->first();
+          if(isset($facture_deleted)){
+            $facture_deleted->delete();
+          }
+        }
+
+      }elseif($table=='paiements'){
+
+        $paiement_deleted = paiement::where('entreprise_id',$entreprise->id)->where('id',$id)->first();
+        if(isset($paiement_deleted)){
+          $paiement_deleted->delete();
+        }
+        $liaison_deleted = facture_paiement::where('paiement_id',$id)->get();
+        if(isset($liaison_deleted)){
+          $liaison_deleted->delete();
+        }
       }
+
+
+      return redirect('/tableau/'.$entreprise->id.'/'.$table);
 
     }
 }

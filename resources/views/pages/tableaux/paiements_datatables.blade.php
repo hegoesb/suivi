@@ -25,6 +25,7 @@
                         <th>Type</th>
                         <th>Valeur TTC</th>
                         <th>Facture</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,6 +39,16 @@
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_paiement']['nom_display']}}">{{$value['type_paiement']['nom']}}</td>
                             <td>{{$value['valeur_ttc']}}</td>
                             <td>fac</td>
+                            <td>
+                                <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                @if(isset($value['supprimer']))
+                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="{{$value['supprimer']}}" title="Supprimer">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -50,6 +61,7 @@
                         <th>Type</th>
                         <th>Valeur TTC</th>
                         <th>Facture</th>
+                        <th></th>
                     </tr>
                 </tfoot>
 

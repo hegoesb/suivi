@@ -9,7 +9,7 @@ use App\Models\entreprise;
 use App\Models\type_client;
 use App\Models\type_devi;
 use App\Models\type_facture;
-use App\Models\type_paiement;
+use App\Models\type_reglement;
 
 class FormulaireRepository {
 
@@ -227,15 +227,29 @@ class FormulaireRepository {
   }
 
   //-------------------------
-  // Paiement
+  // Réglement
   //-------------------------
 
-  public function select_type_paiements()
+  public function select_type_reglements()
   {
-    $datas=type_paiement::get();
+    $datas=type_reglement::get();
     foreach ($datas as $key => $value) {
       $data[$key][0]=$value['id'];
       $data[$key][1]=$value['nom_display'];
+    }
+    return $data;
+  }
+
+  public function select_type_reglements_checked($entreprise,$table)
+  {
+    $datas=type_reglement::get();
+    foreach ($datas as $key => $value) {
+      $data[$key][0]=$value['id'];
+      $data[$key][1]=$value['nom_display'];
+      $data[$key][2]=0;
+      if ($value['id'] == $table->type_reglement_id){
+        $data[$key][2]=1;
+      }
     }
     return $data;
   }

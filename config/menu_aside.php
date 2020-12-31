@@ -39,8 +39,8 @@ return [
                     'page' => 'ajouter/1/factures'
                 ],
                 [
-                    'title' => 'Paiements',
-                    'page' => 'ajouter/1/paiements'
+                    'title' => 'Réglements',
+                    'page' => 'ajouter/1/reglements'
                 ],
             ]
         ],
@@ -67,8 +67,8 @@ return [
                     'page' => 'tableau/1/factures'
                 ],
                 [
-                    'title' => 'Paiements',
-                    'page' => 'tableau/1/paiements'
+                    'title' => 'Réglements',
+                    'page' => 'tableau/1/reglements'
                 ],
             ]
         ],
@@ -100,8 +100,8 @@ return [
                     'page' => 'ajouter/2/factures'
                 ],
                 [
-                    'title' => 'Paiements',
-                    'page' => 'ajouter/2/paiements'
+                    'title' => 'Réglements',
+                    'page' => 'ajouter/2/reglements'
                 ],
             ]
         ],
@@ -128,8 +128,8 @@ return [
                     'page' => 'tableau/2/factures'
                 ],
                 [
-                    'title' => 'Paiements',
-                    'page' => 'tableau/2/paiements'
+                    'title' => 'Réglements',
+                    'page' => 'tableau/2/reglements'
                 ],
             ]
         ],

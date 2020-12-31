@@ -166,24 +166,22 @@ class ModifierController extends Controller
       }elseif ($table=='reglements') {
 
         //Selection de données nécessaire au formulaire
-        $facture                  = facture::with('type_facture','chantier','client','devi','collaborateur')->where('entreprise_id',$entreprise->id)->where('id',$id)->first();
-        $chantier_checked      = $this->formulaireRepository->select_chantiers_checked($entreprise,$facture);
-        $type_factures_checked     = $this->formulaireRepository->select_type_factures_checked($entreprise_id,$facture);
-        $collaborateur_checked = $this->formulaireRepository->select_collaborateurs_checked($entreprise,$facture);
-        $lien                  = '/tableau/'.$entreprise_id.'/'.$table;
+        $reglement               = reglement::with('client','facture','type_reglement')->where('entreprise_id',$entreprise->id)->where('id',$id)->first();
+        $chantier_checked        = $this->formulaireRepository->select_chantiers_checked($entreprise,$reglement);
+        $type_reglements_checked = $this->formulaireRepository->select_type_reglements_checked($entreprise_id,$reglement);
+        $client_checked          = $this->formulaireRepository->select_clients_checked($entreprise_id,$reglement);
+        $lien                    = '/tableau/'.$entreprise_id.'/'.$table;
+        // return view('test', ['test' =>  $type_reglements_checked, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
         return view($this->chemin_modifier.$table.'_modif2',[
-            'titre'          => $entreprise['nom'].' - Modifier une facture',
-            'descriptif'     => 'La facture sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
-            'facture'           => $facture,
-            'chantiers'      => $chantier_checked,
-            'type_factures'     => $type_factures_checked,
-            'collaborateurs' => $collaborateur_checked,
-            'entreprise'     => $entreprise,
-            'lien'           => $lien,
+            'titre'           => $entreprise['nom'].' - Modifier un réglement',
+            'descriptif'      => 'Le réglement sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+            'reglement'       => $reglement,
+            'clients'         => $client_checked,
+            'type_reglements' => $type_reglements_checked,
+            'entreprise'      => $entreprise,
+            'lien'            => $lien,
         ]);
-
-        // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
       }
       abort(404);

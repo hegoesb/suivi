@@ -6,8 +6,8 @@ use App\Models\client_entreprise;
 use App\Models\devi_facture;
 use App\Models\devi;
 use App\Models\facture;
-use App\Models\facture_paiement;
-use App\Models\paiement;
+use App\Models\facture_reglement;
+use App\Models\reglement;
 
 class QueryTableRepository {
 
@@ -69,15 +69,15 @@ class QueryTableRepository {
       return $table;
     }
 
-    // Table paiement
+    // Table reglement
 
-    public function save_paiement_ajouter($request,$entreprise_id)
+    public function save_reglement_ajouter($request,$entreprise_id)
     {
       //Sauvergarde de la facture
-      $table = new paiement;
+      $table = new reglement;
       $table->numero_releve_compte = $request->all()['numero_releve_compte'];
       $table->valeur_ttc           = $request->all()['valeur_ttc'];
-      $table->type_paiement_id     = $request->all()['type_paiement_id'];
+      $table->type_reglement_id     = $request->all()['type_reglement_id'];
       $table->entreprise_id        = $entreprise_id->id;
       $table->client_id            = $request->all()['client_id'];
       $table->date_paye            = $request->all()['date_paye'];
@@ -86,12 +86,12 @@ class QueryTableRepository {
       return $table;
     }
 
-    public function save_facture_paiement($facture_request,$paiement_id)
+    public function save_facture_reglement($facture_request,$reglement_id)
     {
       foreach ($facture_request as $key => $value) {
-        $table = new facture_paiement;
+        $table = new facture_reglement;
         $table->facture_id    = $key;
-        $table->paiement_id = $paiement_id;
+        $table->reglement_id = $reglement_id;
         $table->save();
       }
       return $table;
@@ -120,9 +120,9 @@ class QueryTableRepository {
       return $table;
     }
 
-    public function delete_facture_paiementId($paiement_id)
+    public function delete_facture_reglementId($reglement_id)
     {
-      $table = facture_paiement::where('paiement_id',$paiement_id)->delete();
+      $table = facture_reglement::where('reglement_id',$reglement_id)->delete();
       return $table;
     }
 

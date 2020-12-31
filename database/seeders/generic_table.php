@@ -135,14 +135,6 @@ class generic_table extends Seeder
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
             ),
-            3 =>
-            array (
-                'id' => 4,
-                'nom' => 'RG',
-                'nom_display' => 'Retenue de Garantie',
-                'created_at' => '2020-12-12 00:00:00',
-                'updated_at' => '2020-12-12 00:00:00',
-            ),
         ));
 
         \DB::table('type_reglements')->delete();

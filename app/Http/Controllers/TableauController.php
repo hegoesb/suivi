@@ -9,7 +9,7 @@ use App\Models\chantier;
 use App\Models\devi;
 use App\Models\facture;
 use App\Models\entreprise;
-use App\Models\paiement;
+use App\Models\reglement;
 use App\Models\type_client;
 
 class TableauController extends Controller
@@ -85,14 +85,14 @@ class TableauController extends Controller
               'ordre'         => "desc",
           ]);
 
-        }elseif($table=='paiements'){
+        }elseif($table=='reglements'){
 
-          $data=paiement::with('type_paiement','client','facture')->where('entreprise_id',$entreprise->id)->get();
+          $data=reglement::with('type_reglement','client','facture')->where('entreprise_id',$entreprise->id)->get();
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[
               'titre'         => $entreprise['nom'].' - Tableau Paiements',
-              'descriptif'    => 'Liste des paiements appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
+              'descriptif'    => 'Liste des reglements appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
               'entreprise'    => $entreprise,
               'table'         => $table,
               'data'          => $data,

@@ -36,7 +36,7 @@
                             <td>{{$value['date_paye']}}</td>
                             <td>{{$value['numero_releve_compte']}}</td>
                             <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_paiement']['nom_display']}}">{{$value['type_paiement']['nom']}}</td>
+                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_reglement']['nom_display']}}">{{$value['type_reglement']['nom']}}</td>
                             <td>{{$value['valeur_ttc']}}</td>
                             <td>fac</td>
                             <td>

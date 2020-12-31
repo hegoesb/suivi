@@ -232,6 +232,14 @@ class ModifierController extends Controller
 
           return redirect('/tableau/'.$entreprise_id.'/devis');
 
+      }elseif($table=='factures'){
+
+        $update_facture = $this->QueryTableRepository->update_factureId($request->except(['_token']),$id,$entreprises);
+          // return view('test', ['test' =>  $update_facture , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
+
+        return redirect('/modifier/'.$entreprise_id.'/devi_facture/'.$id);
+          // return redirect('/tableau/'.$entreprise_id.'/devis');
+
       }
         abort(404);
 

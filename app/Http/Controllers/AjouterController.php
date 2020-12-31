@@ -284,11 +284,11 @@ class AjouterController extends Controller
         ]);
 
         //Sauvergarde du nouveau devis
-        $table = $this->QueryTableRepository->save_facture_ajouter($request,$entreprise_id);
+        $table_save = $this->QueryTableRepository->save_facture_ajouter($request,$entreprise_id);
         // return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
         //rapprochement devis -> facture
-        return redirect('/modifier/'.$entreprise_id->id.'/devi_facture/'.$table->id);
+        return redirect('/modifier/'.$entreprise_id->id.'/devi_facture/'.$table_save->id);
 
       }elseif($table=='paiements'){
 
@@ -302,11 +302,11 @@ class AjouterController extends Controller
         // return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
         //Sauvergarde du nouveau paiement
-        $table = $this->QueryTableRepository->save_paiement_ajouter($request,$entreprise_id);
+        $table_save = $this->QueryTableRepository->save_paiement_ajouter($request,$entreprise_id);
         // return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
         //Rapprochement facture -> paiement
-        return redirect('/modifier/'.$entreprise_id->id.'/facture_paiement/'.$table->id);
+        return redirect('/modifier/'.$entreprise_id->id.'/facture_paiement/'.$table_save->id);
 
       }
 

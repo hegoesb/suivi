@@ -167,4 +167,11 @@ class QueryTableRepository {
       return $update;
     }
 
+    public function update_factureId($request,$id,$entreprises)
+    {
+
+      $update =  facture::where('id', $id)->update($request);
+
+      return $update;
+    }
 }

@@ -158,6 +158,20 @@ class FormulaireRepository {
     return $data;
   }
 
+  public function select_type_factures_checked($entreprise,$table)
+  {
+    $datas=type_facture::get();
+    foreach ($datas as $key => $value) {
+      $data[$key][0]=$value['id'];
+      $data[$key][1]=$value['nom_display'];
+      $data[$key][2]=0;
+      if ($value['id'] == $table->type_facture_id){
+        $data[$key][2]=1;
+      }
+    }
+    return $data;
+  }
+
   //-------------------------
   // Collaborateur
   //-------------------------

@@ -136,13 +136,34 @@ class ModifierController extends Controller
             'entreprise'     => $entreprise,
             'clients'        => $client_checked,
             'progbox'        => $progbox_checked,
-            'lien'         => $lien,
+            'lien'           => $lien,
+        ]);
+
+        // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+      }elseif ($table=='factures') {
+
+        //Selection de données nécessaire au formulaire
+        $facture                  = facture::with('type_facture','chantier','client','devi','collaborateur')->where('entreprise_id',$entreprise->id)->where('id',$id)->first();
+        $chantier_checked      = $this->formulaireRepository->select_chantiers_checked($entreprise,$facture);
+        $type_factures_checked     = $this->formulaireRepository->select_type_factures_checked($entreprise_id,$facture);
+        $collaborateur_checked = $this->formulaireRepository->select_collaborateurs_checked($entreprise,$facture);
+        $lien                  = '/tableau/'.$entreprise_id.'/'.$table;
+
+        return view($this->chemin_modifier.$table.'_modif2',[
+            'titre'          => $entreprise['nom'].' - Modifier une facture',
+            'descriptif'     => 'La facture sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+            'facture'           => $facture,
+            'chantiers'      => $chantier_checked,
+            'type_factures'     => $type_factures_checked,
+            'collaborateurs' => $collaborateur_checked,
+            'entreprise'     => $entreprise,
+            'lien'           => $lien,
         ]);
 
         // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
       }
-
       abort(404);
 
     }

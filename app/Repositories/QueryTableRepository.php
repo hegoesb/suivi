@@ -174,4 +174,13 @@ class QueryTableRepository {
 
       return $update;
     }
+
+    public function update_reglementId($request,$id,$entreprises)
+    {
+
+      $update = reglement::where('id', $id)->update($request);
+
+      return $update;
+    }
+
 }

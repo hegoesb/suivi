@@ -152,7 +152,7 @@ class ModifierController extends Controller
 
         return view($this->chemin_modifier.$table.'_modif2',[
             'titre'          => $entreprise['nom'].' - Modifier une facture',
-            'descriptif'     => 'La facture sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+            'descriptif'     => 'La facture sera associée à l\'entreprise '.$entreprise['nom_display'].'.',
             'facture'        => $facture,
             'chantiers'      => $chantier_checked,
             'type_factures'  => $type_factures_checked,
@@ -258,6 +258,13 @@ class ModifierController extends Controller
           // return view('test', ['test' =>  $update_facture , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
         return redirect('/modifier/'.$entreprise_id.'/devi_facture/'.$id);
+
+      }elseif($table=='reglements'){
+
+        $update_reglement = $this->QueryTableRepository->update_reglementId($request->except(['_token']),$id,$entreprises);
+          // return view('test', ['test' =>  $update_facture , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
+
+        return redirect('/modifier/'.$entreprise_id.'/facture_reglement/'.$id);
           // return redirect('/tableau/'.$entreprise_id.'/devis');
 
       }

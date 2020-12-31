@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FacturesTableSeeder::class);
         $this->call(ClientsTableSeeder::class);
         $this->call(ClientEntrepriseTableSeeder::class);
-        $this->call(PaiementsTableSeeder::class);
-        $this->call(FacturePaiementTableSeeder::class);
+        $this->call(ReglementsTableSeeder::class);
+        $this->call(FactureReglementTableSeeder::class);
     }
 }

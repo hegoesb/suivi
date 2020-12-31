@@ -13,8 +13,8 @@ use App\Models\chantier;
 use App\Models\devi;
 use App\Models\entreprise;
 use App\Models\facture;
-use App\Models\facture_paiement;
-use App\Models\paiement;
+use App\Models\facture_reglement;
+use App\Models\reglement;
 
 class ModifierController extends Controller
 {
@@ -55,10 +55,10 @@ class ModifierController extends Controller
             'entreprise' => $entreprise,
             'data' =>$data,
         ]);
-      }elseif($table=='facture_paiement'){
-        $paiement = paiement::with('client')->where('id',$id)->first();
-        $factures= facture::where('client_id',$paiement->client_id)->get();
-        // return view('test', ['test' => $paiement, 'imputs' => '$a', 'comp' => '$table']);
+      }elseif($table=='facture_reglement'){
+        $reglement = reglement::with('client')->where('id',$id)->first();
+        $factures= facture::where('client_id',$reglement->client_id)->get();
+        // return view('test', ['test' => $reglement, 'imputs' => '$a', 'comp' => '$table']);
 
         //Selection des devis clients et la liaison devi_facture existante
         $data = $this->formulaireRepository->select_facture_clientPaiement($factures);
@@ -66,11 +66,11 @@ class ModifierController extends Controller
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table']);
 
         return view($this->chemin_modifier.$table.'_modif2',[
-            'titre'      => $entreprise['nom'].' - Associer un paiement aux factures - [Paiement : '.$paiement['numero_releve_compte'].'-'.$paiement['client']['nom'].'-'.$paiement['valeur_ttc'].'€]',
-            'descriptif1' => "Associer le paiement",
-            'descriptif2' => $paiement['numero_releve_compte'].'-'.$paiement['client']['nom'].'-'.$paiement['valeur_ttc'].'€',
+            'titre'      => $entreprise['nom'].' - Associer un reglement aux factures - [Paiement : '.$reglement['numero_releve_compte'].'-'.$reglement['client']['nom'].'-'.$reglement['valeur_ttc'].'€]',
+            'descriptif1' => "Associer le reglement",
+            'descriptif2' => $reglement['numero_releve_compte'].'-'.$reglement['client']['nom'].'-'.$reglement['valeur_ttc'].'€',
             'descriptif3' => " aux factures ci-dessous. (Certaines factures peuvent déjà être rattachées).",
-            'paiement'    => $paiement,
+            'reglement'    => $reglement,
             'entreprise' => $entreprise,
             'data' =>$data,
         ]);
@@ -144,6 +144,28 @@ class ModifierController extends Controller
       }elseif ($table=='factures') {
 
         //Selection de données nécessaire au formulaire
+        $facture               = facture::with('type_facture','chantier','client','devi','collaborateur')->where('entreprise_id',$entreprise->id)->where('id',$id)->first();
+        $chantier_checked      = $this->formulaireRepository->select_chantiers_checked($entreprise,$facture);
+        $type_factures_checked = $this->formulaireRepository->select_type_factures_checked($entreprise_id,$facture);
+        $collaborateur_checked = $this->formulaireRepository->select_collaborateurs_checked($entreprise,$facture);
+        $lien                  = '/tableau/'.$entreprise_id.'/'.$table;
+
+        return view($this->chemin_modifier.$table.'_modif2',[
+            'titre'          => $entreprise['nom'].' - Modifier une facture',
+            'descriptif'     => 'La facture sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+            'facture'        => $facture,
+            'chantiers'      => $chantier_checked,
+            'type_factures'  => $type_factures_checked,
+            'collaborateurs' => $collaborateur_checked,
+            'entreprise'     => $entreprise,
+            'lien'           => $lien,
+        ]);
+
+        // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+      }elseif ($table=='reglements') {
+
+        //Selection de données nécessaire au formulaire
         $facture                  = facture::with('type_facture','chantier','client','devi','collaborateur')->where('entreprise_id',$entreprise->id)->where('id',$id)->first();
         $chantier_checked      = $this->formulaireRepository->select_chantiers_checked($entreprise,$facture);
         $type_factures_checked     = $this->formulaireRepository->select_type_factures_checked($entreprise_id,$facture);
@@ -190,16 +212,16 @@ class ModifierController extends Controller
         // return view('test', ['test' =>  $ajouter , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
         return redirect('/tableau/'.$entreprise_id.'/factures');
 
-      }elseif($table=='facture_paiement'){
-        //Supprimer les liaisons factures paiements
-        $supprimer = $this->QueryTableRepository->delete_facture_paiementId($id);
-        //Sauvergarde des nouvelles les liaisons factures paiements
+      }elseif($table=='facture_reglement'){
+        //Supprimer les liaisons factures reglements
+        $supprimer = $this->QueryTableRepository->delete_facture_reglementId($id);
+        //Sauvergarde des nouvelles les liaisons factures reglements
         if(!empty($request->except(['_token']))){
-          $ajouter = $this->QueryTableRepository->save_facture_paiement($request->except(['_token']),$id);
+          $ajouter = $this->QueryTableRepository->save_facture_reglement($request->except(['_token']),$id);
         }
 
         // return view('test', ['test' =>  $ajouter , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
-        return redirect('/tableau/'.$entreprise_id.'/paiements');
+        return redirect('/tableau/'.$entreprise_id.'/reglements');
 
       }elseif($table=='clients'){
 

@@ -243,9 +243,8 @@ class FormulaireRepository {
   //Selection des devis chantiers et la liaison devi_facture existante
   public function select_facture_clientPaiement($factures)
   {
-    //Selection des devis en rapport avec le client de la facture
-    // $factures = devi::where('client_id',$facture->chantier_id)->get();
     //Comparatif devis lié au chantier et les devis lié a la facture + préparation donné formulaire
+    $data=0;
     foreach ($factures as $key_devis => $value_factures) {
       $data[$key_devis]['id'] = $value_factures->id;
       $data[$key_devis]['nom'] = $value_factures->numero;

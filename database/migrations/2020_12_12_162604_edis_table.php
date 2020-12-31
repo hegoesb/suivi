@@ -77,7 +77,7 @@ class EdisTable extends Migration
             $table->string('nom_display',20);
             $table->timestamps();
         });
-        Schema::create('type_paiements', function (Blueprint $table) {
+        Schema::create('type_reglements', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom',4);
             $table->string('nom_display',20);
@@ -142,7 +142,7 @@ class EdisTable extends Migration
 
 
         //-------------------------
-        // paiements
+        // reglements
         //-------------------------
 
         Schema::create('factures', function (Blueprint $table) {
@@ -166,21 +166,21 @@ class EdisTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('paiements', function (Blueprint $table) {
+        Schema::create('reglements', function (Blueprint $table) {
             $table->increments('id');
             $table->string('numero_releve_compte',4);
             $table->integer('client_id');
             $table->integer('entreprise_id');
             $table->float('valeur_ttc', 10, 2);
             $table->date('date_paye');
-            $table->integer('type_paiement_id');
+            $table->integer('type_reglement_id');
             $table->timestamps();
             $table->softDeletes();
         });
 
-        Schema::create('facture_paiement', function (Blueprint $table) {
+        Schema::create('facture_reglement', function (Blueprint $table) {
             $table->integer('facture_id')->unsigned();
-            $table->integer('paiement_id')->unsigned();
+            $table->integer('reglement_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -222,7 +222,7 @@ class EdisTable extends Migration
         Schema::dropIfExists('type_clients');
         Schema::dropIfExists('type_devis');
         Schema::dropIfExists('type_factures');
-        Schema::dropIfExists('type_paiements');
+        Schema::dropIfExists('type_reglements');
 
         //-------------------------
         // Etat
@@ -239,12 +239,12 @@ class EdisTable extends Migration
         Schema::dropIfExists('devis');
 
         //-------------------------
-        // paiements
+        // reglements
         //-------------------------
 
         Schema::dropIfExists('factures');
-        Schema::dropIfExists('paiements');
-        Schema::dropIfExists('facture_paiement');
+        Schema::dropIfExists('reglements');
+        Schema::dropIfExists('facture_reglement');
         Schema::dropIfExists('devi_facture');
 
     }

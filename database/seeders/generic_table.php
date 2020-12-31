@@ -145,8 +145,8 @@ class generic_table extends Seeder
             ),
         ));
 
-        \DB::table('type_paiements')->delete();
-        \DB::table('type_paiements')->insert(array (
+        \DB::table('type_reglements')->delete();
+        \DB::table('type_reglements')->insert(array (
             0 =>
             array (
                 'id' => 1,

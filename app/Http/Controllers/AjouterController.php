@@ -117,19 +117,19 @@ class AjouterController extends Controller
 
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
-        }elseif ($table=='paiements') {
+        }elseif ($table=='reglements') {
 
           //Selection de données nécessaire au formulaire
           $client         = $this->formulaireRepository->select_clients($entreprise);
-          $type_paiement = $this->formulaireRepository->select_type_paiements();
+          $type_reglement = $this->formulaireRepository->select_type_reglements();
 
           // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_select2',[
-              'titre'          => $entreprise['nom'].'- Ajouter un paiement',
-              'descriptif'     => 'Le paiement sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+              'titre'          => $entreprise['nom'].'- Ajouter un reglement',
+              'descriptif'     => 'Le reglement sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
               'clients'        => $client,
-              'type_paiements' => $type_paiement,
+              'type_reglements' => $type_reglement,
               'entreprise'     => $entreprise,
           ]);
 
@@ -290,23 +290,23 @@ class AjouterController extends Controller
         //rapprochement devis -> facture
         return redirect('/modifier/'.$entreprise_id->id.'/devi_facture/'.$table_save->id);
 
-      }elseif($table=='paiements'){
+      }elseif($table=='reglements'){
 
         $this->validate($request, [
             'numero_releve_compte' => 'required|max:4',
             'valeur_ttc'           => 'required',
-            'type_paiement_id'     => 'required',
+            'type_reglement_id'     => 'required',
             'client_id'            => 'required',
             'date_paye'            => 'required',
         ]);
         // return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
-        //Sauvergarde du nouveau paiement
-        $table_save = $this->QueryTableRepository->save_paiement_ajouter($request,$entreprise_id);
+        //Sauvergarde du nouveau reglement
+        $table_save = $this->QueryTableRepository->save_reglement_ajouter($request,$entreprise_id);
         // return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
-        //Rapprochement facture -> paiement
-        return redirect('/modifier/'.$entreprise_id->id.'/facture_paiement/'.$table_save->id);
+        //Rapprochement facture -> reglement
+        return redirect('/modifier/'.$entreprise_id->id.'/facture_reglement/'.$table_save->id);
 
       }
 

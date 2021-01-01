@@ -42,29 +42,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $key => $value)
-                        {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
-                        <tr class="gradeX">
-                            <td>{{$value['id']}}</td>
-                            <td>{{$value['nom']}}</td>
-                            <td>{{$value['nom_display']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_client']['nom_display']}}">{{$value['type_client']['nom']}}</td>
-                            <td>
-                            @foreach ($value['entreprise'] as $key_2 => $value_2)
-                                @if($loop->first)
-                                    {{$value_2['nom']}}
-                                @else ($entreprises as $key_e => $entreprise)
-                                    {{$value_2['nom']}}
-                                @endif
-                            @endforeach
-                            </td>
-                            <td>
-                                <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
+                    @isset($data)
+                        @foreach ($data as $key => $value)
+                            {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
+                            <tr class="gradeX">
+                                <td>{{$value['id']}}</td>
+                                <td>{{$value['nom']}}</td>
+                                <td>{{$value['nom_display']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_client']['nom_display']}}">{{$value['type_client']['nom']}}</td>
+                                <td>
+                                @foreach ($value['entreprise'] as $key_2 => $value_2)
+                                    @if($loop->first)
+                                        {{$value_2['nom']}}
+                                    @else ($entreprises as $key_e => $entreprise)
+                                        {{$value_2['nom']}}
+                                    @endif
+                                @endforeach
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endisset
                 </tbody>
                 <tfoot>
                     <tr>

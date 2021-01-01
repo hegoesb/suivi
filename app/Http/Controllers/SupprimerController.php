@@ -8,8 +8,9 @@ use App\Models\chantier;
 use App\Models\devi;
 use App\Models\devi_facture;
 use App\Models\entreprise;
-use App\Models\facture_paiement;
+use App\Models\facture_reglement;
 use App\Models\facture;
+use App\Models\reglement;
 
 class SupprimerController extends Controller
 {
@@ -53,7 +54,7 @@ class SupprimerController extends Controller
       }elseif($table=='factures'){
 
         //Vérification qu'aucune facture n'exsite pour le devis, sinon on supprime pas.
-        $verif = facture_paiement::where('facture_id',$id)->first();
+        $verif = facture_reglement::where('facture_id',$id)->first();
         if(!isset($verif)){
           $facture_deleted = facture::where('entreprise_id',$entreprise->id)->where('id',$id)->first();
           if(isset($facture_deleted)){
@@ -61,13 +62,13 @@ class SupprimerController extends Controller
           }
         }
 
-      }elseif($table=='paiements'){
+      }elseif($table=='reglements'){
 
-        $paiement_deleted = paiement::where('entreprise_id',$entreprise->id)->where('id',$id)->first();
-        if(isset($paiement_deleted)){
-          $paiement_deleted->delete();
+        $reglement_deleted = reglement::where('entreprise_id',$entreprise->id)->where('id',$id)->first();
+        if(isset($reglement_deleted)){
+          $reglement_deleted->delete();
         }
-        $liaison_deleted = facture_paiement::where('paiement_id',$id)->get();
+        $liaison_deleted = facture_reglement::where('reglement_id',$id)->get();
         if(isset($liaison_deleted)){
           $liaison_deleted->delete();
         }

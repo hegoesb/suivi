@@ -33,32 +33,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $key => $value)
-                        {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
-                        <tr class="gradeX">
-                            <td>{{$value['id']}}</td>
-                            <td>{{$value['numero']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']->nom}}">{{$value['chantier']->identifiant}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['collaborateur']['nom_display']}}">{{$value['collaborateur']['nom']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_facture']['nom_display']}}">{{$value['type_facture']['nom']}}</td>
-                            <td>n</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="HT: {{$value['total_ht']}}€">{{$value['total_ttc']}}</td>
-                            <td>{{$value['date_envoie']}}</td>
-                            <td>{{$value['date_echeance']}}</td>
-                            <td>note</td>
-                            <td>
-                                <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                @if(isset($value['supprimer']))
-                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="{{$value['supprimer']}}" title="Supprimer">
-                                        <i class="fas fa-trash"></i>
+                    @isset($data)
+                        @foreach ($data as $key => $value)
+                            {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
+                            <tr class="gradeX">
+                                <td>{{$value['id']}}</td>
+                                <td>{{$value['numero']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']['identifiant']}}">{{$value['chantier']['nom'] }}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['collaborateur']['nom_display']}}">{{$value['collaborateur']['nom']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_facture']['nom_display']}}">{{$value['type_facture']['nom']}}</td>
+                                <td>n</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="HT: {{$value['total_ht']}}€">{{$value['total_ttc']}}</td>
+                                <td>{{$value['date_envoie']}}</td>
+                                <td>{{$value['date_echeance']}}</td>
+                                <td>note</td>
+                                <td>
+                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
+                                    @if(isset($value['supprimer']))
+                                        <a class="btn btn-sm btn-clean btn-icon mr-2" href="{{$value['supprimer']}}" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endisset
                 </tbody>
                 <tfoot>
                     <tr>

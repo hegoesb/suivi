@@ -73,7 +73,8 @@ class TableauController extends Controller
           ]);
         }elseif($table=='factures'){
 
-          $data=facture::with('type_facture','client','chantier','collaborateur','devi')->where('entreprise_id',$entreprise->id)->get();
+          $data=$this->tableauRepository->facture_table($entreprise);
+        // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[
               'titre'         => $entreprise['nom'].' - Tableau Factures',

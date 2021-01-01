@@ -52,35 +52,37 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $key => $value)
-                        {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
-                        <tr class="gradeX">
-                            <td>{{$value['id']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['lot']}}">{{$value['numero']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']['identifiant']}}">{{$value['chantier']['nom']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['collaborateur']['nom_display']}}">{{$value['collaborateur']['nom']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_devi']['nom_display']}}">{{$value['type_devi']['nom']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['etat_devi']['nom_display']}}">{{$value['etat_devi']['nom']}}</td>
-                            <td>{{$value['envoie']}}</td>
-                            <td>{{$value['signature']}}</td>
-                            <td>{{$value['progbox']}}</td>
-                            <td>{{$value['total_ht']}}</td>
-                            <td>-</td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                @if(isset($value['supprimer']))
-                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="{{$value['supprimer']}}" title="Supprimer">
-                                        <i class="fas fa-trash"></i>
+                    @isset($data)
+                        @foreach ($data as $key => $value)
+                            {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
+                            <tr class="gradeX">
+                                <td>{{$value['id']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['lot']}}">{{$value['numero']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']['identifiant']}}">{{$value['chantier']['nom']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['collaborateur']['nom_display']}}">{{$value['collaborateur']['nom']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_devi']['nom_display']}}">{{$value['type_devi']['nom']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['etat_devi']['nom_display']}}">{{$value['etat_devi']['nom']}}</td>
+                                <td>{{$value['envoie']}}</td>
+                                <td>{{$value['signature']}}</td>
+                                <td>{{$value['progbox']}}</td>
+                                <td>{{$value['total_ht']}}</td>
+                                <td>-</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
+                                    @if(isset($value['supprimer']))
+                                        <a class="btn btn-sm btn-clean btn-icon mr-2" href="{{$value['supprimer']}}" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endisset
                 </tbody>
                 <tfoot>
                     <tr>

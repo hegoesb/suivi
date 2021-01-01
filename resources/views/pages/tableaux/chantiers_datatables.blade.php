@@ -48,31 +48,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $key => $value)
-                        {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
-                        <tr class="gradeX">
-                            <td>{{$value['id']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['nom']}}">{{$value['identifiant']}}</td>
-                            <td>{{$value['libelle']}}</td>
-                            <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
-                            <td>{{$value['date_debut']}}</td>
-                            <td>modifier</td>
-                            <td>modifier</td>
-                            <td>modifier</td>
-                            <td>modifier</td>
-                            <td>modifier</td>
-                            <td>
-                                <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                @if(isset($value['supprimer']))
-                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="{{$value['supprimer']}}" title="Supprimer">
-                                        <i class="fas fa-trash"></i>
+                    @isset($data)
+                        @foreach ($data as $key => $value)
+                            {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
+                            <tr class="gradeX">
+                                <td>{{$value['id']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['nom']}}">{{$value['identifiant']}}</td>
+                                <td>{{$value['libelle']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
+                                <td>{{$value['date_debut']}}</td>
+                                <td>modifier</td>
+                                <td>modifier</td>
+                                <td>modifier</td>
+                                <td>modifier</td>
+                                <td>modifier</td>
+                                <td>
+                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
+                                    @if(isset($value['supprimer']))
+                                        <a class="btn btn-sm btn-clean btn-icon mr-2" href="{{$value['supprimer']}}" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endisset
+                    @isset($data)
                 </tbody>
                 <tfoot>
                     <tr>

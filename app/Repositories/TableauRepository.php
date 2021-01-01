@@ -34,7 +34,7 @@ class TableauRepository {
 
     $chantiers=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise->id)->get();
 
-    if(!isset($chantiers)){
+    if(isset($chantiers[0])){
       foreach ($chantiers as $key => $chantier) {
         $data[$key]['id']                    = $chantier->id;
         $data[$key]['identifiant']           = $chantier->identifiant;
@@ -64,7 +64,7 @@ class TableauRepository {
   {
 
     $devis=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
-    if(!isset($devis)){
+    if(isset($devis[0])){
       foreach ($devis as $key => $devi) {
         $data[$key]['id']                       = $devi->id;
         $data[$key]['lot']                      = $devi->lot;
@@ -108,7 +108,7 @@ class TableauRepository {
 
     $factures=facture::with('devi','type_facture','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
 
-    if(!isset($factures)){
+    if(isset($factures[0])){
       foreach ($factures as $key => $facture) {
         $data[$key]['id']                           = $facture->id;
         $data[$key]['numero']                       = $facture->numero;
@@ -151,7 +151,7 @@ class TableauRepository {
 
     $reglements=reglement::with('type_reglement','client','facture')->where('entreprise_id',$entreprise->id)->get();
 
-    if(!isset($reglements)){
+    if(isset($reglements[0])){
       foreach ($reglements as $key => $reglement) {
         $data[$key]['id']                            = $reglement->id;
         $data[$key]['numero_releve_compte']          = $reglement->numero_releve_compte;

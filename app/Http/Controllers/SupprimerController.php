@@ -70,7 +70,7 @@ class SupprimerController extends Controller
           $reglement_deleted->delete();
         }
         $liaison_deleted = facture_reglement::where('reglement_id',$id)->get();
-        if(!isset($liaison_deleted)){
+        if(isset($liaison_deleted[0])){
           $liaison_deleted->delete();
         }
       }

@@ -88,7 +88,7 @@ class TableauController extends Controller
 
         }elseif($table=='reglements'){
 
-          $data=reglement::with('type_reglement','client','facture')->where('entreprise_id',$entreprise->id)->get();
+          $data=$this->tableauRepository->reglement_table($entreprise);
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin.$table.'_datatables',[

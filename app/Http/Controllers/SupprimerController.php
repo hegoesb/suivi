@@ -65,11 +65,12 @@ class SupprimerController extends Controller
       }elseif($table=='reglements'){
 
         $reglement_deleted = reglement::where('entreprise_id',$entreprise->id)->where('id',$id)->first();
+          // return view('test', ['test' =>  $reglement_deleted , 'imputs' => $id, 'comp' => $entreprise->id]);
         if(isset($reglement_deleted)){
           $reglement_deleted->delete();
         }
         $liaison_deleted = facture_reglement::where('reglement_id',$id)->get();
-        if(isset($liaison_deleted)){
+        if(!isset($liaison_deleted)){
           $liaison_deleted->delete();
         }
       }

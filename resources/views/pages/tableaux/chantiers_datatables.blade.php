@@ -75,7 +75,6 @@
                             </tr>
                         @endforeach
                     @endisset
-                    @isset($data)
                 </tbody>
                 <tfoot>
                     <tr>

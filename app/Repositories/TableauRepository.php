@@ -149,35 +149,22 @@ class TableauRepository {
   public function reglement_table($entreprise)
   {
 
-    $reglements=reglement::with('devi','type_facture','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
+    $reglements=reglement::with('type_reglement','client','facture')->where('entreprise_id',$entreprise->id)->get();
 
     if(!isset($reglements)){
       foreach ($reglements as $key => $reglement) {
         $data[$key]['id']                            = $reglement->id;
-        $data[$key]['numero']                        = $reglement->numero;
-        $data[$key]['chantier']['identifiant']       = $reglement['chantier']->identifiant;
-        $data[$key]['chantier']['nom']               = $reglement['chantier']->nom;
-        $data[$key]['collaborateur']['nom_display']  = $reglement['collaborateur']->nom_display;
-        $data[$key]['collaborateur']['nom']          = $reglement['collaborateur']->nom;
+        $data[$key]['numero_releve_compte']          = $reglement->numero_releve_compte;
+        // $data[$key]['chantier']['identifiant']    = $reglement['chantier']->identifiant;
+        // $data[$key]['chantier']['nom']            = $reglement['chantier']->nom;
         $data[$key]['client']['nom']                 = $reglement['client']->nom;
         $data[$key]['client']['nom_display']         = $reglement['client']->nom_display;
         $data[$key]['type_reglement']['nom']         = $reglement['type_reglement']['nom'];
         $data[$key]['type_reglement']['nom_display'] = $reglement['type_reglement']['nom_display'];
-        $data[$key]['etat_devi']['nom']              = $reglement['etat_devi']['nom'];
-        $data[$key]['etat_devi']['nom_display']      = $reglement['etat_devi']['nom_display'];
-        $data[$key]['envoie']                        = $reglement->IfNull['envoie'];
-        $data[$key]['signature']                     = $reglement->IfNull['signature'];
-        $data[$key]['progbox']                       = $reglement->IfNull['progbox'];
-        $data[$key]['total_ht']                      = $reglement->total_ht;
-        $data[$key]['total_ttc']                     = $reglement->total_ttc;
-        $data[$key]['tva']                           = $reglement->tva;
+        $data[$key]['date_paye']                     = $reglement->date_paye;
+        $data[$key]['valeur_ttc']                    = $reglement->valeur_ttc;
 
-        $facture = reglement_facture::where('reglement_id',$reglement->id)->first();
-        if(!isset($facture)){
-          $data[$key]['supprimer']='/supprimer/'.$entreprise->id.'/reglements/'.$reglement->id;
-        }else{
-          $data[$key]['supprimer']=null;
-        }
+        $data[$key]['supprimer']='/supprimer/'.$entreprise->id.'/reglements/'.$reglement->id;
       }
     }else{
       $data=null;

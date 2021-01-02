@@ -262,7 +262,7 @@ class generic_table extends Seeder
                 'id' => 1,
                 'type' => 'Terrain',
                 'numero' => '311',
-                'libelle' => 'Pré-Etudes',
+                'libelle' => 'Pre-Etudes',
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),

@@ -65,6 +65,19 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
         ],
 
+        'webdav' => [
+            'driver'     => 'webdav',
+            'baseUri'    => 'https://next.hego.io/',
+            'userName'   => 'hegoesb',
+            'password'   => '2tsafch2',
+            // 'pathPrefix' => 'backups', // optional
+        ],
+
+        'EDIS' => [
+            'driver' => 'local',
+            'root' => env('APP_PATH_STORAGE'),
+            'url' => env('APP_URL_STORAGE'),
+        ],
     ],
 
     /*

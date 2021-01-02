@@ -42,6 +42,10 @@ return [
                     'title' => 'Réglements',
                     'page' => 'ajouter/1/reglements'
                 ],
+                [
+                    'title' => 'WebDav',
+                    'page' => 'ajouter/1/webdav'
+                ],
             ]
         ],
         [

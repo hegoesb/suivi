@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Repositories\GestionDossierEDISRepository;
+
 use App\Models\chantier;
 use App\Models\devi;
 use App\Models\devi_facture;
@@ -15,9 +17,10 @@ use App\Models\reglement;
 class SupprimerController extends Controller
 {
 
-    public function __construct()
+    public function __construct(GestionDossierEDISRepository $GestionDossierEDISRepository)
     {
         $this->chemin_supprimer      = 'pages.supprimer.';
+        $this->GD_EDIS              = $GestionDossierEDISRepository;
     }
 
 
@@ -36,6 +39,8 @@ class SupprimerController extends Controller
         if(!isset($verif)){
           $chantier_deleted = chantier::where('entreprise_id',$entreprise->id)->where('id',$id)->first();
           if(isset($chantier_deleted)){
+            //Suppression du dossier chantier
+            $data = $this->GD_EDIS->supprimerDossier(1,$table,$chantier_deleted,$entreprise);
             $chantier_deleted->delete();
           }
         }

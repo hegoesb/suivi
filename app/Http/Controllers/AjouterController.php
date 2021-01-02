@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Filesystem\Filesystem;
+// use Storage;
+use File;
+
 use App\Repositories\TableauRepository;
 use App\Repositories\FormulaireRepository;
 use App\Repositories\QueryTableRepository;
 use App\Repositories\TraitementRepository;
+use App\Repositories\GestionDossierEDISRepository;
 
 use App\Models\entreprise;
 use App\Models\type_client;
@@ -21,7 +28,7 @@ use Validator;
 
 class AjouterController extends Controller
 {
-    public function __construct(TableauRepository $TableauRepository, FormulaireRepository $FormulaireRepository, QueryTableRepository $QueryTableRepository, TraitementRepository $TraitementRepository)
+    public function __construct(TableauRepository $TableauRepository, FormulaireRepository $FormulaireRepository, QueryTableRepository $QueryTableRepository, TraitementRepository $TraitementRepository,GestionDossierEDISRepository $GestionDossierEDISRepository)
     {
         $this->chemin               = 'pages.ajouter.';
         $this->chemin_tableau       = 'pages.tableaux.';
@@ -30,6 +37,7 @@ class AjouterController extends Controller
         $this->formulaireRepository = $FormulaireRepository;
         $this->QueryTableRepository = $QueryTableRepository;
         $this->TraitementRepository = $TraitementRepository;
+        $this->GD_EDIS              = $GestionDossierEDISRepository;
     }
 
   //-------------------------
@@ -135,6 +143,84 @@ class AjouterController extends Controller
 
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
+        }elseif ($table=='webdav') {
+
+          $table_chantier = chantier::where('id',7)->first();
+          $data = $this->GD_EDIS->creerDossier(3,$table,$table_chantier,$entreprise);
+
+          // return view('test', ['test' => $data, 'imputs' => '$a', 'comp' => '']);
+
+
+          // $endpoint = "http://my.domain.com/test.php";
+          // $client = new \GuzzleHttp\Client();
+          // $id = 5;
+          // $value = "ABC";
+
+          // $response = $client->request('GET', $endpoint, ['query' => [
+          //     'key1' => $id,
+          //     'key2' => $value,
+          // ]]);
+
+          // // url will be: http://my.domain.com/test.php?key1=5&key2=ABC;
+
+          // $statusCode = $response->getStatusCode();
+          // $content = $response->getBody();
+
+          // $response = Storage::disk('EDIS')->makeDirectory('BDX_311_Pré-Etudes/Photo');
+          // $response = Storage::disk('EDIS')->makeDirectory('BDX_313_DOE/Photo/Plans');
+
+
+
+          // $response = Storage::disk('webdav')->moveDirectory('Test/test1','Test2/test1', $overwrite = true);
+          // $response = Storage::disk('webdav')->getDriver()->getAdapter();
+          // $response = Storage::disk('webdav')->copy('Test/test50.md','Test2/test50.md');
+          // $response = Storage::disk('EDIS')->allDirectories();
+          // $response = Storage::allDirectories();
+          // foreach ($response as $key => $value) {
+          //   $data[$key]=$value['type'];
+          // }
+        return view('test', ['test' =>  $data, 'imputs' => '$data', 'comp' => '$response']);
+
+        $full_path_source = Storage::disk('webdav')->getDriver()->getAdapter()->applyPathPrefix('Test/test1');
+        $full_path_dest = Storage::disk('webdav')->getDriver()->getAdapter()->applyPathPrefix('Test2/test1');
+
+        // return view('test', ['test' =>  $response , 'imputs' => '$response->json()', 'comp' => '$response']);
+
+
+// make destination folder
+        if (!File::exists(dirname($full_path_dest))) {
+            File::makeDirectory(dirname($full_path_dest), null, true);
+        }
+
+        File::move($full_path_source, $full_path_dest);
+
+          return view('test', ['test' =>  '$response->headers()' , 'imputs' => '$response->json()', 'comp' => '$response']);
+
+
+
+
+          $response = Http::withBasicAuth('hegoesb', '2tsafch2')
+                            ->withOptions([
+                                'debug' => true,])
+                          ->get('http://next.hego.io/nextcloud/remote.php/dav/files/hegoesb/WHC');
+          return view('test', ['test' =>  $response->headers() , 'imputs' => '$response->json()', 'comp' => $response]);
+
+          //Selection de données nécessaire au formulaire
+          $client         = $this->formulaireRepository->select_clients($entreprise);
+          $type_reglement = $this->formulaireRepository->select_type_reglements();
+
+          // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
+          return view($this->chemin.$table.'_select2',[
+              'titre'          => $entreprise['nom'].'- Ajouter un reglement',
+              'descriptif'     => 'Le reglement sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
+              'clients'        => $client,
+              'type_reglements' => $type_reglement,
+              'entreprise'     => $entreprise,
+          ]);
+
+          // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
+
         }
         abort(404);
 
@@ -153,7 +239,7 @@ class AjouterController extends Controller
 
 
       $entreprises=entreprise::get();
-      $entreprise_id=entreprise::where('id',$entreprise_id)->first();
+      $entreprise=entreprise::where('id',$entreprise_id)->first();
 
       if($table=='clients'){
         $this->validate($request, [
@@ -178,12 +264,12 @@ class AjouterController extends Controller
         $data=$this->tableauRepository->selection_clients();
 
         return view($this->chemin_tableau.$table.'_datatables',[
-            'titre'         => $entreprise_id['nom'].' - Tableau Client',
+            'titre'         => $entreprise['nom'].' - Tableau Client',
             'descriptif'    => 'Liste des clients appartenant aux deux entreprises',
             'data'          => $data,
             'type_clients'  => $type_clients,
             'entreprises'   => $entreprises,
-            'entreprise'    => $entreprise_id,
+            'entreprise'    => $entreprise,
             'table'         => $table,
             'colonne_order' => 0,
             'ordre'         => 'desc',
@@ -197,7 +283,7 @@ class AjouterController extends Controller
             'client_id'   => 'required',
             'date_debut'  => 'required',
         ]);
-        $identifiant   = $this->TraitementRepository->new_identifiant_chantier($entreprise_id);
+        $identifiant   = $this->TraitementRepository->new_identifiant_chantier($entreprise);
 
         //Sauvergarde du nouveau chantier
         $table_chantier = new chantier;
@@ -205,19 +291,24 @@ class AjouterController extends Controller
         $table_chantier->nom              = $request->all()['nom'];
         $table_chantier->libelle          = $request->all()['libelle'];
         $table_chantier->client_id        = $request->all()['client_id'];
-        $table_chantier->entreprise_id    = $entreprise_id->id;
+        $table_chantier->entreprise_id    = $entreprise->id;
         $table_chantier->date_debut       = $request->all()['date_debut'];
         $table_chantier->etat_chantier_id = 1;
         $table_chantier->save();
-        // return view('test', ['test' => '', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
-        $data=$this->tableauRepository->chantier_table($entreprise_id);
+        //Creation du dossier chantier
+        $data = $this->GD_EDIS->creerDossier(1,$table,$table_chantier,$entreprise);
+        // $this->GD_EDIS->creerDossier($table_chantier);
+
+        // return view('test', ['test' => $data, 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
+
+        $data=$this->tableauRepository->chantier_table($entreprise);
 
         return view($this->chemin_tableau.$table.'_datatables',[
-            'titre'        => $entreprise_id['nom'].' - Tableau Chantier',
-            'descriptif'   => 'Liste des chantiers appartenant à l\'entreprise '.$entreprise_id['nom_display'].'.',
+            'titre'        => $entreprise['nom'].' - Tableau Chantier',
+            'descriptif'   => 'Liste des chantiers appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
             'data'         => $data,
-            'entreprise'    => $entreprise_id,
+            'entreprise'    => $entreprise,
             'table'         => $table,
             'colonne_order' => 0,
             'ordre'         => "desc",
@@ -252,18 +343,18 @@ class AjouterController extends Controller
         if(isset($request->all()['date_envoie'])){
           $table_devi->date_envoie   = $request->all()['date_envoie'];
         }
-        $table_devi->entreprise_id = $entreprise_id->id;
+        $table_devi->entreprise_id = $entreprise->id;
         $table_devi->etat_devi_id  = 1;
         $table_devi->tva           = $request->all()['total_ttc']-$request->all()['total_ht'];
         $table_devi->save();
 
         // return view('test', ['test' =>  $table_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
-        $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise_id->id)->get();
+        $data=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
         // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
         return view($this->chemin_tableau.$table.'_datatables',[
-            'titre'        => $entreprise_id['nom'].' - Tableau Devis',
-            'descriptif'   => 'Liste des devis appartenant à l\'entreprise '.$entreprise_id['nom_display'].'.',
+            'titre'        => $entreprise['nom'].' - Tableau Devis',
+            'descriptif'   => 'Liste des devis appartenant à l\'entreprise '.$entreprise['nom_display'].'.',
             'data'         => $data,
             'colonne_order' => 0,
             'ordre'         => "desc",
@@ -284,11 +375,11 @@ class AjouterController extends Controller
         ]);
 
         //Sauvergarde du nouveau devis
-        $table_save = $this->QueryTableRepository->save_facture_ajouter($request,$entreprise_id);
+        $table_save = $this->QueryTableRepository->save_facture_ajouter($request,$entreprise);
         // return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
         //rapprochement devis -> facture
-        return redirect('/modifier/'.$entreprise_id->id.'/devi_facture/'.$table_save->id);
+        return redirect('/modifier/'.$entreprise->id.'/devi_facture/'.$table_save->id);
 
       }elseif($table=='reglements'){
 
@@ -302,13 +393,14 @@ class AjouterController extends Controller
         // return view('test', ['test' =>  '$data', 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
 
         //Sauvergarde du nouveau reglement
-        $table_save = $this->QueryTableRepository->save_reglement_ajouter($request,$entreprise_id);
+        $table_save = $this->QueryTableRepository->save_reglement_ajouter($request,$entreprise);
         // return view('test', ['test' =>  $table, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
         //Rapprochement facture -> reglement
-        return redirect('/modifier/'.$entreprise_id->id.'/facture_reglement/'.$table_save->id);
+        return redirect('/modifier/'.$entreprise->id.'/facture_reglement/'.$table_save->id);
 
       }
+
 
         abort(404);
 

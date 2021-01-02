@@ -24,6 +24,7 @@ class EdisTable extends Migration
             $table->string('prefixe_chantier',15);
             $table->string('prefixe_devis',15);
             $table->string('prefixe_facture',15);
+            $table->string('prefixe_dossier',15);
             $table->timestamps();
         });
 
@@ -84,6 +85,24 @@ class EdisTable extends Migration
             $table->timestamps();
         });
 
+        //-------------------------
+        // Dossier
+        //-------------------------
+
+        Schema::create('dossiers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('type',15);
+            $table->string('numero',20);
+            $table->string('libelle',20);
+            $table->timestamps();
+        });
+
+        Schema::create('sousdossiers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('dossier_id');
+            $table->string('libelle',20);
+            $table->timestamps();
+        });
         //-------------------------
         // Etat
         //-------------------------
@@ -246,6 +265,13 @@ class EdisTable extends Migration
         Schema::dropIfExists('reglements');
         Schema::dropIfExists('facture_reglement');
         Schema::dropIfExists('devi_facture');
+
+        //-------------------------
+        // Dossier
+        //-------------------------
+
+        Schema::dropIfExists('dossiers');
+        Schema::dropIfExists('sousdossiers');
 
     }
 }

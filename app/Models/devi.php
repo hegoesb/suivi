@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class devi extends Model
 {
-    use HasFactory;
+  use HasFactory;
   use SoftDeletes;
 
   public function type_devi()

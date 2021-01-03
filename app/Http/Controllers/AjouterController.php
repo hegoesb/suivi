@@ -146,13 +146,13 @@ class AjouterController extends Controller
         }elseif ($table=='webdav') {
 
           // $table_chantier = chantier::where('id',7)->first();
-          // $data = $this->GD_EDIS->creerDossier(3,$table,$table_chantier,$entreprise);
+          // $data = $this->GD_EDIS->creerDossier(1,$table_chantier,$entreprise);
 
           // return view('test', ['test' => $data, 'imputs' => '$a', 'comp' => '']);
 
           // exec('bash script/Scan_BDX_311_Pre-Etudes.sh', $output, $data);
           // exec('ls', $data1, $data);
-          $output  = $this->ScriptRepository->scanNextcloud();
+          $output  = $this->ScriptRepository->scanNextcloud(3, $entreprise);
 
 
           return view('test', ['test' =>  $output , 'imputs' => '$response->json()', 'comp' => '$response']);
@@ -258,7 +258,8 @@ class AjouterController extends Controller
         $table_chantier->save();
 
         //Creation du dossier chantier
-        $data = $this->GD_EDIS->creerDossier(1,$table,$table_chantier,$entreprise);
+        $data   = $this->GD_EDIS->creerDossier(1,$table_chantier,$entreprise);
+        $output = $this->ScriptRepository->scanNextcloud(1, $entreprise);
         // $this->GD_EDIS->creerDossier($table_chantier);
 
         // return view('test', ['test' => $data, 'imputs' => '$a', 'comp' => $request->except(['_token'])]);

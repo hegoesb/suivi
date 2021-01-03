@@ -43,4 +43,18 @@ And navigate to generated server link (http://127.0.0.1:8000)
 
 ### Copyright
 
+```bash
+
+git clone https://github.com/hegoesb/suivi.git
+cd suivi
+mv .env.example .env
+chown www-data:www-data /var/www/suivi/public/script/Nextcloud.sh
+chmod -R 777 storage
+composer install
+php artisan key:generate
+
+
+```
+
+
 ...

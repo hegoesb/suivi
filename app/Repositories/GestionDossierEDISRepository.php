@@ -14,20 +14,42 @@ class GestionDossierEDISRepository {
 	{
 
 	}
-  //-------------------------
-  // Entreprise
+
+   //-------------------------
+  // Nom
   //-------------------------
 
-  public function creerDossier($value,$table,$chantier, $entreprise)
+  public function nomDossier($value, $entreprise)
   {
     $dossier = dossier::where('id',$value)->first();
-    $sousdossier = sousdossier::where('dossier_id',$dossier->id)->get();
-    $client = client::where('id',$chantier->client_id)->first();
+    $data  = $entreprise->prefixe_dossier.'_'.$dossier->numero.'_'.$dossier->libelle;
+    return $data;
+  }
 
-    $nom_dossier = $entreprise->prefixe_dossier.'_'.$dossier->numero.'_'.$dossier->libelle.'/'.$chantier->identifiant.'_'.$client->nom.'_'.$chantier->nom;
+  public function nomProjet($chantier)
+  {
+    $client = client::where('id',$chantier->client_id)->first();
+    $data  = $chantier->identifiant.'_'.$client->nom.'_'.$chantier->nom;
+    return $data;
+  }
+
+  //-------------------------
+  // Action
+  //-------------------------
+
+
+  public function creerDossier($value,$chantier, $entreprise)
+  {
+    $dossier     = dossier::where('id',$value)->first();
+    $sousdossier = sousdossier::where('dossier_id',$dossier->id)->get();
+
+    $nom_dossier = $this->nomDossier($value, $entreprise);
+    $nom_projet  = $this->nomProjet($chantier);
+
+    $chemin = $nom_dossier.'/'.$nom_projet;
 
     foreach ($sousdossier as $key => $sd) {
-      $root_dossier[$key]=$nom_dossier.'/'.$sd->libelle;
+      $root_dossier[$key]=$chemin.'/'.$sd->libelle;
     }
 
     foreach ($root_dossier as $key => $rt) {

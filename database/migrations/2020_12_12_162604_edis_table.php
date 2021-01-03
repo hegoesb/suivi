@@ -110,10 +110,17 @@ class EdisTable extends Migration
         Schema::create('etape_chantiers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom',4);
-            $table->string('nom_display',20);
+            $table->string('nom_display',30);
             $table->string('color',25);
             $table->timestamps();
         });
+        Schema::create('possible_etape_chantiers', function (Blueprint $table) {
+            $table->integer('etape_chantier_id')->unsigned();
+            $table->integer('possible_id')->unsigned();
+            $table->timestamps();
+        });
+
+
         Schema::create('etat_devis', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom',4);
@@ -249,6 +256,7 @@ class EdisTable extends Migration
         //-------------------------
 
         Schema::dropIfExists('etape_chantiers');
+        Schema::dropIfExists('possible_etape_chantiers');
         Schema::dropIfExists('etat_devis');
 
         //-------------------------

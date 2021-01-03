@@ -192,7 +192,7 @@ class generic_table extends Seeder
             array (
                 'id' => 4,
                 'nom' => '4-TR',
-                'nom_display' => 'Terminé (Chantier)',
+                'nom_display' => 'Chantier Terminé',
                 'color' => 'dark',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
@@ -201,7 +201,7 @@ class generic_table extends Seeder
             array (
                 'id' => 5,
                 'nom' => '5-SD',
-                'nom_display' => 'Soldé (DOE)',
+                'nom_display' => 'Chantier Soldé (Archiver)',
                 'color' => 'light-dark',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',

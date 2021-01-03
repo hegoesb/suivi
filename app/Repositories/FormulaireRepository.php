@@ -7,6 +7,7 @@ use App\Models\devi;
 use App\Models\devi_facture;
 use App\Models\entreprise;
 use App\Models\etape_chantier;
+use App\Models\possible_etape_chantier;
 use App\Models\type_client;
 use App\Models\type_devi;
 use App\Models\type_facture;
@@ -119,12 +120,16 @@ class FormulaireRepository {
 
   public function select_etapes_chantier_checked($entreprise,$table)
   {
-    $datas=etape_chantier::get();
-    foreach ($datas as $key => $value) {
-      $data[$key][0]=$value['id'];
-      $data[$key][1]=$value['nom_display'];
+
+    // Etape chantier possible;
+    $datas = possible_etape_chantier::where('etape_chantier_id',$table->etape_chantier_id)->get();
+
+    foreach ($datas as $key => $d) {
+      $value = etape_chantier::where('id',$d->possible_id)->first();
+      $data[$key][0]=$value->id;
+      $data[$key][1]=$value->nom_display;
       $data[$key][2]=0;
-      if ($value['id'] == $table->etape_chantier_id){
+      if ($value->id == $table->etape_chantier_id){
         $data[$key][2]=1;
       }
     }

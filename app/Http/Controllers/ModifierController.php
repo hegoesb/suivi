@@ -102,7 +102,7 @@ class ModifierController extends Controller
         $choix_etapes_checked = $this->formulaireRepository->select_etapes_chantier_checked($entreprise_id,$chantier);
         $lien                 = '/tableau/'.$entreprise_id.'/'.$table;
 
-        // return view('test', ['test' =>  $choix_client_checked, 'imputs' => '', 'comp' => '$table'.' ']);
+        // return view('test', ['test' =>  $choix_etapes_checked, 'imputs' => '', 'comp' => '$table'.' ']);
 
         return view($this->chemin_modifier.$table.'_modif2',[
             'titre'        => $entreprise['nom'].' - Modifier un chantier',

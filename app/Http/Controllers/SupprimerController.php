@@ -40,7 +40,8 @@ class SupprimerController extends Controller
           $chantier_deleted = chantier::where('entreprise_id',$entreprise->id)->where('id',$id)->first();
           if(isset($chantier_deleted)){
             //Suppression du dossier chantier
-            $data = $this->GD_EDIS->supprimerDossier(1,$table,$chantier_deleted,$entreprise);
+            $data = $this->GD_EDIS->supprimerDossier(1,$chantier_deleted,$entreprise);
+        $output = $this->ScriptRepository->scanNextcloud(1, $entreprise);
             $chantier_deleted->delete();
           }
         }

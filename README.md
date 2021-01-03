@@ -52,6 +52,7 @@ chown www-data:www-data /var/www/suivi/public/script/Nextcloud.sh
 chmod -R 777 storage
 composer install
 php artisan key:generate
+ls
 
 
 ```

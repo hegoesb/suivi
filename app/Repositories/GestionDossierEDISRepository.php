@@ -61,14 +61,17 @@ class GestionDossierEDISRepository {
     return $data;
   }
 
-  public function supprimerDossier($value,$table,$chantier,$entreprise)
+  public function supprimerDossier($value,$chantier,$entreprise)
   {
-    $dossier = dossier::where('id',$value)->first();
-    $client = client::where('id',$chantier->client_id)->first();
 
-    $nom_dossier = $entreprise->prefixe_dossier.'_'.$dossier->numero.'_'.$dossier->libelle.'/'.$chantier->identifiant.'_'.$client->nom.'_'.$chantier->nom;
+    $nom_dossier = $this->nomDossier($value, $entreprise);
+    $nom_projet  = $this->nomProjet($chantier);
 
-    Storage::disk('EDIS')->deleteDirectory($nom_dossier);
+    Storage::disk('EDIS')->deleteDirectory($chemin);
+
+    $chemin = $nom_dossier.'/'.$nom_projet;
+
+    Storage::disk('EDIS')->deleteDirectory($chemin);
 
     $data = Storage::disk('EDIS')->allDirectories();
 

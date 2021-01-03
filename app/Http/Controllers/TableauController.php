@@ -54,7 +54,7 @@ class TableauController extends Controller
               'entreprise'    => $entreprise,
               'table'         => $table,
               'data'          => $data,
-              'colonne_order' => 1,
+              'colonne_order' => 2,
               'ordre'         => "desc",
           ]);
         }elseif($table=='devis'){

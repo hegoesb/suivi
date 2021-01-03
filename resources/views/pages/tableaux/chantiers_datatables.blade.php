@@ -35,6 +35,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Etat</th>
                         <th>Identifiant</th>
                         <th>Libellé</th>
                         <th>Chantier</th>
@@ -52,11 +53,14 @@
                         @foreach ($data as $key => $value)
                             {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
                             <tr class="gradeX">
-                                <td>{{$value['id']}}</td>
+                                <td><span class="font-weight-bold text-{{$value['etat_chantier']['color']}}">{{$value['id']}}</span></td>
+                                <td class="font-weight-bold text-{{$value['etat_chantier']['color']}}" data-toggle="tooltip" data-theme="dark" title="{{$value['etat_chantier']['nom_display']}}">{{$value['etat_chantier']['nom']}}</td>
                                 <td data-toggle="tooltip" data-theme="dark" title="{{$value['nom']}}">{{$value['identifiant']}}</td>
                                 <td>{{$value['libelle']}}</td>
                                 <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
+                                {{-- <td class="{{$value['etat_chantier']['bg_color']}}" data-toggle="tooltip" data-theme="dark" title="{{$value['etat_chantier']['nom_display']}}">{{$value['etat_chantier']['nom']}}</td> --}}
                                 <td>{{$value['date_debut']}}</td>
+
                                 <td>modifier</td>
                                 <td>modifier</td>
                                 <td>modifier</td>
@@ -79,6 +83,7 @@
                 <tfoot>
                     <tr>
                         <th>ID</th>
+                        <th>Etat</th>
                         <th>Identifiant</th>
                         <th>Libellé</th>
                         <th>Chantier</th>
@@ -173,7 +178,7 @@
                             select.append( '<option value="'+d+'">'+d+'</option>' )
                         } );
                     } );
-                }
+                },
             });
         });
         $('[data-toggle="tooltip"]').tooltip({container:"body"})

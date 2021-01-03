@@ -111,6 +111,7 @@ class EdisTable extends Migration
             $table->increments('id');
             $table->string('nom',4);
             $table->string('nom_display',20);
+            $table->string('color',25);
             $table->timestamps();
         });
         Schema::create('etat_devis', function (Blueprint $table) {

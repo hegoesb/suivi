@@ -54,7 +54,9 @@ composer install
 php artisan key:generate
 ls
 
-
+cd #
+php composer.phar
+alias composer='php ~/composer.phar'
 ```
 
 

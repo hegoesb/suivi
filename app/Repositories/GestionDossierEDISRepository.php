@@ -156,9 +156,10 @@ class GestionDossierEDISRepository {
         if($possible->possible_id==$chantier_update->etape_chantier_id){
           foreach ($dossier_actuel as $key_da => $da) {
             if($da['dossier']->id!=5){
-              $nom_dossier_actuel      = $this->nomDossier($da['dossier']->id, $entreprise);
-              $nom_projet_actuel       = $this->nomProjet($chantier_actuel);
-              $chemin['chemin_actuel'] = $nom_dossier_actuel.'/'.$nom_projet_actuel;
+              $nom_dossier_actuel       = $this->nomDossier($da['dossier']->id, $entreprise);
+              $nom_projet_actuel        = $this->nomProjet($chantier_actuel);
+              $chemin['chemin_actuel']  = $nom_dossier_actuel.'/'.$nom_projet_actuel;
+              $chemin['dossier_actuel'] = $nom_dossier_actuel;
             }
           }
           foreach ($dossier_update as $key_da => $da) {
@@ -172,6 +173,7 @@ class GestionDossierEDISRepository {
           }
           $data=$this->ScriptRepository->mvNextcloud($chemin, $entreprise);
           $data=$this->ScriptRepository->scanNextcloud($chemin['dossier']);
+          $data=$this->ScriptRepository->scanNextcloud($chemin['dossier_actuel']);
           $data=$this->creerDossier($chemin['dossier_id'],$chantier_update, $entreprise);
         }
       }

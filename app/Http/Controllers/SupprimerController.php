@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Repositories\GestionDossierEDISRepository;
+use App\Repositories\ScriptRepository;
 
 use App\Models\chantier;
 use App\Models\devi;
@@ -17,10 +18,11 @@ use App\Models\reglement;
 class SupprimerController extends Controller
 {
 
-    public function __construct(GestionDossierEDISRepository $GestionDossierEDISRepository)
+    public function __construct(GestionDossierEDISRepository $GestionDossierEDISRepository,ScriptRepository $ScriptRepository)
     {
         $this->chemin_supprimer      = 'pages.supprimer.';
         $this->GD_EDIS              = $GestionDossierEDISRepository;
+        $this->ScriptRepository     = $ScriptRepository;
     }
 
 

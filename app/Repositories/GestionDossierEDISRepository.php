@@ -67,8 +67,6 @@ class GestionDossierEDISRepository {
     $nom_dossier = $this->nomDossier($value, $entreprise);
     $nom_projet  = $this->nomProjet($chantier);
 
-    Storage::disk('EDIS')->deleteDirectory($chemin);
-
     $chemin = $nom_dossier.'/'.$nom_projet;
 
     Storage::disk('EDIS')->deleteDirectory($chemin);

@@ -6,6 +6,7 @@ use App\Models\collaborateur;
 use App\Models\devi;
 use App\Models\devi_facture;
 use App\Models\entreprise;
+use App\Models\etape_chantier;
 use App\Models\type_client;
 use App\Models\type_devi;
 use App\Models\type_facture;
@@ -110,6 +111,20 @@ class FormulaireRepository {
       $data[$key][1]=$value['identifiant'].' - '.$value['nom'].' ('.$value['libelle'].')';
       $data[$key][2]=0;
       if ($value['id'] == $table->chantier_id){
+        $data[$key][2]=1;
+      }
+    }
+    return $data;
+  }
+
+  public function select_etapes_chantier_checked($entreprise,$table)
+  {
+    $datas=etape_chantier::get();
+    foreach ($datas as $key => $value) {
+      $data[$key][0]=$value['id'];
+      $data[$key][1]=$value['nom_display'];
+      $data[$key][2]=0;
+      if ($value['id'] == $table->etape_chantier_id){
         $data[$key][2]=1;
       }
     }

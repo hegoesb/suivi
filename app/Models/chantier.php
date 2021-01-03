@@ -20,9 +20,9 @@ class chantier extends Model
   {
       return $this->belongsTo('App\Models\client');
   }
-  public function etat_chantier()
+  public function etape_chantier()
   {
-      return $this->belongsTo('App\Models\etat_chantier');
+      return $this->belongsTo('App\Models\etape_chantier');
   }
   public function getNomChantierAttribute(){
     $identifiant = $this->identifiant;

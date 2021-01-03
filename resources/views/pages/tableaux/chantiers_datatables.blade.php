@@ -53,12 +53,12 @@
                         @foreach ($data as $key => $value)
                             {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
                             <tr class="gradeX">
-                                <td><span class="font-weight-bold text-{{$value['etat_chantier']['color']}}">{{$value['id']}}</span></td>
-                                <td class="font-weight-bold text-{{$value['etat_chantier']['color']}}" data-toggle="tooltip" data-theme="dark" title="{{$value['etat_chantier']['nom_display']}}">{{$value['etat_chantier']['nom']}}</td>
+                                <td><span class="font-weight-bold text-{{$value['etape_chantier']['color']}}">{{$value['id']}}</span></td>
+                                <td class="font-weight-bold text-{{$value['etape_chantier']['color']}}" data-toggle="tooltip" data-theme="dark" title="{{$value['etape_chantier']['nom_display']}}">{{$value['etape_chantier']['nom']}}</td>
                                 <td data-toggle="tooltip" data-theme="dark" title="{{$value['nom']}}">{{$value['identifiant']}}</td>
                                 <td>{{$value['libelle']}}</td>
                                 <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
-                                {{-- <td class="{{$value['etat_chantier']['bg_color']}}" data-toggle="tooltip" data-theme="dark" title="{{$value['etat_chantier']['nom_display']}}">{{$value['etat_chantier']['nom']}}</td> --}}
+                                {{-- <td class="{{$value['etape_chantier']['bg_color']}}" data-toggle="tooltip" data-theme="dark" title="{{$value['etape_chantier']['nom_display']}}">{{$value['etape_chantier']['nom']}}</td> --}}
                                 <td>{{$value['date_debut']}}</td>
 
                                 <td>modifier</td>

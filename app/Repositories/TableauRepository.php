@@ -32,20 +32,21 @@ class TableauRepository {
   public function chantier_table($entreprise)
   {
 
-    $chantiers=chantier::with('client','etat_chantier')->where('entreprise_id',$entreprise->id)->get();
+    $chantiers=chantier::with('client','etape_chantier')->where('entreprise_id',$entreprise->id)->get();
 
     if(isset($chantiers[0])){
       foreach ($chantiers as $key => $chantier) {
-        $data[$key]['id']                          = $chantier->id;
-        $data[$key]['identifiant']                 = $chantier->identifiant;
-        $data[$key]['nom']                         = $chantier->nom;
-        $data[$key]['libelle']                     = $chantier->libelle;
-        $data[$key]['client']['nom']               = $chantier['client']['nom'];
-        $data[$key]['client']['nom_display']       = $chantier['client']['nom_display'];
-        $data[$key]['etat_chantier']['nom']        = $chantier['etat_chantier']['nom'];
-        $data[$key]['etat_chantier']['nom_display'] = $chantier['etat_chantier']['nom_display'];
-        $data[$key]['etat_chantier']['color'] = $chantier['etat_chantier']['color'];
-        $data[$key]['date_debut']                  = $chantier->date_debut;
+        $data[$key]['id']                             = $chantier->id;
+        $data[$key]['identifiant']                    = $chantier->identifiant;
+        $data[$key]['nom']                            = $chantier->nom;
+        $data[$key]['libelle']                        = $chantier->libelle;
+        $data[$key]['client']['nom']                  = $chantier['client']['nom'];
+        $data[$key]['client']['nom_display']          = $chantier['client']['nom_display'];
+        $data[$key]['etape_chantier']['nom']           = $chantier['etape_chantier']['nom'];
+        $data[$key]['etape_chantier']['nom_display']   = $chantier['etape_chantier']['nom_display'];
+        $data[$key]['etape_chantier']['color']         = $chantier['etape_chantier']['color'];
+        $data[$key]['etape_chantier']['lien_modifier'] = '/supprimer/'.$entreprise->id.'/etape_chantier/'.$chantier->id;
+        $data[$key]['date_debut']                     = $chantier->date_debut;
         $devi = devi::where('entreprise_id',$entreprise->id)->where('chantier_id',$chantier->id)->first();
         if(!isset($devi)){
           $data[$key]['supprimer']='/supprimer/'.$entreprise->id.'/chantiers/'.$chantier->id;

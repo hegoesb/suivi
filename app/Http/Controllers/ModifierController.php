@@ -96,10 +96,10 @@ class ModifierController extends Controller
       }elseif($table=='chantiers'){
 
         //Selection de données nécessaire au formulaire
-        $client               = $this->formulaireRepository->select_clients($entreprise);
-        $chantier             = chantier::with('entreprise', 'etat_chantier')->where('id',$id)->first();
+        $chantier             = chantier::with('entreprise', 'etape_chantier')->where('id',$id)->first();
         $type_client          = $this->formulaireRepository->select_type_clients();
         $choix_client_checked = $this->formulaireRepository->select_clients_checked($entreprise_id,$chantier);
+        $choix_etapes_checked = $this->formulaireRepository->select_etapes_chantier_checked($entreprise_id,$chantier);
         $lien                 = '/tableau/'.$entreprise_id.'/'.$table;
 
         // return view('test', ['test' =>  $choix_client_checked, 'imputs' => '', 'comp' => '$table'.' ']);
@@ -107,12 +107,12 @@ class ModifierController extends Controller
         return view($this->chemin_modifier.$table.'_modif2',[
             'titre'        => $entreprise['nom'].' - Modifier un chantier',
             'descriptif'   => 'Le chantier sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
-            'clients'      => $client,
             'chantier'     => $chantier,
             'entreprise'   => $entreprise,
             'lien'         => $lien,
             'type_client'  => $type_client,
             'choix_client' => $choix_client_checked,
+            'choix_etape'  => $choix_etapes_checked,
         ]);
 
       }elseif ($table=='devis') {

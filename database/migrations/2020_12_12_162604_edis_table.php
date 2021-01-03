@@ -107,7 +107,7 @@ class EdisTable extends Migration
         // Etat
         //-------------------------
 
-        Schema::create('etat_chantiers', function (Blueprint $table) {
+        Schema::create('etape_chantiers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom',4);
             $table->string('nom_display',20);
@@ -131,7 +131,7 @@ class EdisTable extends Migration
             $table->string('libelle',50)->nullable();
             $table->integer('client_id');
             $table->integer('entreprise_id');
-            $table->integer('etat_chantier_id');
+            $table->integer('etape_chantier_id');
             $table->date('date_debut')->nullable();
             $table->date('date_fin')->nullable();
             $table->timestamps();
@@ -248,7 +248,7 @@ class EdisTable extends Migration
         // Etat
         //-------------------------
 
-        Schema::dropIfExists('etat_chantiers');
+        Schema::dropIfExists('etape_chantiers');
         Schema::dropIfExists('etat_devis');
 
         //-------------------------

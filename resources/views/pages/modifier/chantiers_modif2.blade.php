@@ -29,6 +29,7 @@
             {!!Form::validation_text_disabled('identifiant', 'Identifiant',$chantier->identifiant,true,4)!!}
             {!!Form::validation_text_maxLength_value('libelle', 'Libellé',$chantier->libelle,50,true,4)!!}
             {!!Form::validation_selected($choix_client, 'client_id', 'Client',true,4)!!}
+            {!!Form::validation_selected($choix_etape, 'etape_chantier_id', 'Etape du chantier',true,4)!!}
             {!!Form::validation_date_value('date_debut', 'Date début', $chantier->date_debut,true,4)!!}
         </div>
         {!!Form::modifier($lien)!!}

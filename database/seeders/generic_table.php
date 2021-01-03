@@ -159,8 +159,8 @@ class generic_table extends Seeder
             ),
         ));
 
-        \DB::table('etat_chantiers')->delete();
-        \DB::table('etat_chantiers')->insert(array (
+        \DB::table('etape_chantiers')->delete();
+        \DB::table('etape_chantiers')->insert(array (
             0 =>
             array (
                 'id' => 1,

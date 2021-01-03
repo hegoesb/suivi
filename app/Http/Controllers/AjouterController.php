@@ -7,14 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Filesystem\Filesystem;
-// use Storage;
-use File;
 
 use App\Repositories\TableauRepository;
 use App\Repositories\FormulaireRepository;
 use App\Repositories\QueryTableRepository;
 use App\Repositories\TraitementRepository;
 use App\Repositories\GestionDossierEDISRepository;
+use App\Repositories\ScriptRepository;
 
 use App\Models\entreprise;
 use App\Models\type_client;
@@ -28,7 +27,7 @@ use Validator;
 
 class AjouterController extends Controller
 {
-    public function __construct(TableauRepository $TableauRepository, FormulaireRepository $FormulaireRepository, QueryTableRepository $QueryTableRepository, TraitementRepository $TraitementRepository,GestionDossierEDISRepository $GestionDossierEDISRepository)
+    public function __construct(TableauRepository $TableauRepository, FormulaireRepository $FormulaireRepository, QueryTableRepository $QueryTableRepository, TraitementRepository $TraitementRepository,GestionDossierEDISRepository $GestionDossierEDISRepository, ScriptRepository $ScriptRepository)
     {
         $this->chemin               = 'pages.ajouter.';
         $this->chemin_tableau       = 'pages.tableaux.';
@@ -38,6 +37,7 @@ class AjouterController extends Controller
         $this->QueryTableRepository = $QueryTableRepository;
         $this->TraitementRepository = $TraitementRepository;
         $this->GD_EDIS              = $GestionDossierEDISRepository;
+        $this->ScriptRepository     = $ScriptRepository;
     }
 
   //-------------------------
@@ -145,56 +145,17 @@ class AjouterController extends Controller
 
         }elseif ($table=='webdav') {
 
-          $table_chantier = chantier::where('id',7)->first();
-          $data = $this->GD_EDIS->creerDossier(3,$table,$table_chantier,$entreprise);
+          // $table_chantier = chantier::where('id',7)->first();
+          // $data = $this->GD_EDIS->creerDossier(3,$table,$table_chantier,$entreprise);
 
           // return view('test', ['test' => $data, 'imputs' => '$a', 'comp' => '']);
 
-
-          // $endpoint = "http://my.domain.com/test.php";
-          // $client = new \GuzzleHttp\Client();
-          // $id = 5;
-          // $value = "ABC";
-
-          // $response = $client->request('GET', $endpoint, ['query' => [
-          //     'key1' => $id,
-          //     'key2' => $value,
-          // ]]);
-
-          // // url will be: http://my.domain.com/test.php?key1=5&key2=ABC;
-
-          // $statusCode = $response->getStatusCode();
-          // $content = $response->getBody();
-
-          // $response = Storage::disk('EDIS')->makeDirectory('BDX_311_Pré-Etudes/Photo');
-          // $response = Storage::disk('EDIS')->makeDirectory('BDX_313_DOE/Photo/Plans');
+          // exec('bash script/Scan_BDX_311_Pre-Etudes.sh', $output, $data);
+          // exec('ls', $data1, $data);
+          $output  = $this->ScriptRepository->scanNextcloud();
 
 
-
-          // $response = Storage::disk('webdav')->moveDirectory('Test/test1','Test2/test1', $overwrite = true);
-          // $response = Storage::disk('webdav')->getDriver()->getAdapter();
-          // $response = Storage::disk('webdav')->copy('Test/test50.md','Test2/test50.md');
-          // $response = Storage::disk('EDIS')->allDirectories();
-          // $response = Storage::allDirectories();
-          // foreach ($response as $key => $value) {
-          //   $data[$key]=$value['type'];
-          // }
-        return view('test', ['test' =>  $data, 'imputs' => '$data', 'comp' => '$response']);
-
-        $full_path_source = Storage::disk('webdav')->getDriver()->getAdapter()->applyPathPrefix('Test/test1');
-        $full_path_dest = Storage::disk('webdav')->getDriver()->getAdapter()->applyPathPrefix('Test2/test1');
-
-        // return view('test', ['test' =>  $response , 'imputs' => '$response->json()', 'comp' => '$response']);
-
-
-// make destination folder
-        if (!File::exists(dirname($full_path_dest))) {
-            File::makeDirectory(dirname($full_path_dest), null, true);
-        }
-
-        File::move($full_path_source, $full_path_dest);
-
-          return view('test', ['test' =>  '$response->headers()' , 'imputs' => '$response->json()', 'comp' => '$response']);
+          return view('test', ['test' =>  $output , 'imputs' => '$response->json()', 'comp' => '$response']);
 
 
 

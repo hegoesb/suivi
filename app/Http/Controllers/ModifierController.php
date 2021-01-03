@@ -7,24 +7,28 @@ use Illuminate\Http\Request;
 use App\Repositories\FormulaireRepository;
 use App\Repositories\QueryTableRepository;
 use App\Repositories\TraitementRepository;
+use App\Repositories\GestionDossierEDISRepository;
 
 use App\Models\client;
 use App\Models\chantier;
 use App\Models\devi;
+use App\Models\dossier_etape_chantier;
 use App\Models\entreprise;
 use App\Models\facture;
 use App\Models\facture_reglement;
+use App\Models\possible_etape_chantier;
 use App\Models\reglement;
 
 class ModifierController extends Controller
 {
 
-    public function __construct(FormulaireRepository $FormulaireRepository,QueryTableRepository $QueryTableRepository, TraitementRepository $TraitementRepository)
+    public function __construct(FormulaireRepository $FormulaireRepository,QueryTableRepository $QueryTableRepository,GestionDossierEDISRepository $GestionDossierEDISRepository, TraitementRepository $TraitementRepository)
     {
         $this->chemin_modifier      = 'pages.modifier.';
         $this->formulaireRepository = $FormulaireRepository;
         $this->QueryTableRepository = $QueryTableRepository;
         $this->TraitementRepository = $TraitementRepository;
+        $this->GD_EDIS              = $GestionDossierEDISRepository;
     }
 
     //-------------------------
@@ -196,6 +200,7 @@ class ModifierController extends Controller
     {
 
       $entreprises=entreprise::get();
+      $entreprise=entreprise::where('id',$entreprise_id)->first();
 
 
       if($table=='devi_facture'){
@@ -240,11 +245,29 @@ class ModifierController extends Controller
           return redirect('/modifier/'.$entreprise_id.'/clients/'.$id);
         }
 
+        //-------------------------
+        // Post - Chantier
+        //-------------------------
+
       }elseif($table=='chantiers'){
 
-          $update_chantier = $this->QueryTableRepository->update_chantierId($request->except(['_token']),$id,$entreprises);
+        $chantier_actuel = chantier::where('id',$id)->first();
+          // return view('test', ['test' =>  $chantier_actuel , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
+        //On test si la possiblité existe de passer à l'autre etape
+        $test = possible_etape_chantier::where('etape_chantier_id',$chantier_actuel->etape_chantier_id)->where('possible_id',$request->all()['etape_chantier_id'])->first();
+        if(isset($test)){
+            $update_chantier = $this->QueryTableRepository->update_chantierId($request->except(['_token']),$id,$entreprises);
+            //Gestion des fichiers sur nextcloud
+            $data = $this->GD_EDIS->deplacementDossier($chantier_actuel,$entreprise);
+          // return view('test', ['test' =>  $data , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
+            return redirect('/tableau/'.$entreprise_id.'/chantiers');
+        }else{
+            return redirect('/tableau/'.$entreprise_id.'/chantiers');
+        }
 
-          return redirect('/tableau/'.$entreprise_id.'/chantiers');
+        //-------------------------
+        // Post - Devis
+        //-------------------------
 
       }elseif($table=='devis'){
 

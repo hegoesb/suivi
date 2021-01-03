@@ -254,12 +254,13 @@ class AjouterController extends Controller
         $table_chantier->client_id        = $request->all()['client_id'];
         $table_chantier->entreprise_id    = $entreprise->id;
         $table_chantier->date_debut       = $request->all()['date_debut'];
-        $table_chantier->etat_chantier_id = 1;
+        $table_chantier->etape_chantier_id = 1;
         $table_chantier->save();
 
         //Creation du dossier chantier
-        $data   = $this->GD_EDIS->creerDossier(1,$table_chantier,$entreprise);
-        $output = $this->ScriptRepository->scanNextcloud(1, $entreprise);
+        $data        = $this->GD_EDIS->creerDossier(1,$table_chantier,$entreprise);
+        $nom_dossier = $this->GD_EDIS->nomDossier(1, $entreprise);
+        $output      = $this->ScriptRepository->scanNextcloud($nom_dossier);
         // $this->GD_EDIS->creerDossier($table_chantier);
 
         // return view('test', ['test' => $data, 'imputs' => '$a', 'comp' => $request->except(['_token'])]);

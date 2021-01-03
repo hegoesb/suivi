@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd /var/www/nextcloud/
-sudo -u www-data php occ files:scan --path='Edis/files/BDX_313_DOE' Edis
+mv ../storage/EDIS/BDX_311_Pre-Etudes/EBX_PJ2101-0015_MCC_Bonjour ../storage/EDIS/BDX_312_Etudes-Chantiers/EBX_PJ2101-0015_MCC_Bonjour
+ls ../storage/EDIS/BDX_312_Etudes-Chantiers

@@ -119,7 +119,11 @@ class EdisTable extends Migration
             $table->integer('possible_id')->unsigned();
             $table->timestamps();
         });
-
+        Schema::create('dossier_etape_chantiers', function (Blueprint $table) {
+            $table->integer('etape_chantier_id')->unsigned();
+            $table->integer('dossier_id')->unsigned();
+            $table->timestamps();
+        });
 
         Schema::create('etat_devis', function (Blueprint $table) {
             $table->increments('id');
@@ -257,6 +261,7 @@ class EdisTable extends Migration
 
         Schema::dropIfExists('etape_chantiers');
         Schema::dropIfExists('possible_etape_chantiers');
+        Schema::dropIfExists('dossier_etape_chantiers');
         Schema::dropIfExists('etat_devis');
 
         //-------------------------

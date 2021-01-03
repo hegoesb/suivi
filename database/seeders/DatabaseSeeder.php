@@ -23,5 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ReglementsTableSeeder::class);
         $this->call(FactureReglementTableSeeder::class);
         $this->call(PossibleEtapeChantiersTableSeeder::class);
+        $this->call(SousdossiersTableSeeder::class);
+        $this->call(DossiersTableSeeder::class);
+        $this->call(DossierEtapeChantiersTableSeeder::class);
     }
 }

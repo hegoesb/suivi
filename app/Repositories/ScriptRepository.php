@@ -3,24 +3,25 @@
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
-use App\Repositories\GestionDossierEDISRepository;
+// use App\Repositories\GestionDossierEDISRepository;
 
 class ScriptRepository {
 
 	protected $parametre;
 
-	public function __construct(GestionDossierEDISRepository $GestionDossierEDISRepository)
+	public function __construct()
 	{
-        $this->GD_EDIS = $GestionDossierEDISRepository;
+        // $this->GD_EDIS = $GestionDossierEDISRepository;
 	}
+
   //-------------------------
-  // Nextcloud
+  // Nextcloud - Scan
   //-------------------------
 
-  public function scanNextcloud($value, $entreprise)
+  public function scanNextcloud($nom_dossier)
   {
 
-    $nom_dossier = $this->GD_EDIS->nomDossier($value, $entreprise);
+    // $nom_dossier = $this->GD_EDIS->nomDossier($value, $entreprise);
 
     $ecrire = fopen('script/Nextcloud.sh',"w");
     ftruncate($ecrire,0);
@@ -54,8 +55,82 @@ class ScriptRepository {
     return $process->getOutput();
   }
 
+  public function lsNextcloud_arrayChemin($chemin, $entreprise)
+  {
+
+    // return $chemin;
+
+    foreach ($chemin as $key_c => $c) {
+      $ecrire = fopen('script/Nextcloud.sh',"w");
+      ftruncate($ecrire,0);
+      fputs($ecrire, "#!/bin/bash\n\n");
+      fputs($ecrire, "ls ".env('APP_PATH_STORAGE')."/".$c['dossier']);
+      fclose($ecrire);
+      exec('bash script/Nextcloud.sh', $data[$key_c][0], $data[$key_c][1]);
+    }
+
+    return $data;
+  }
+
+  public function lsNextcloud_arrayChemin2($chemin, $entreprise)
+  {
+
+    // return $chemin;
+    foreach ($chemin as $key_c => $c) {
+
+      $ecrire = fopen('script/Nextcloud.sh',"w");
+      ftruncate($ecrire,0);
+      fputs($ecrire, "#!/bin/bash\n\n");
+      fputs($ecrire, "ls ".env('APP_PATH_STORAGE')."/".$c['dossier']."\n");
+      fclose($ecrire);
+
+      $process = new Process(['bash', 'script/Nextcloud.sh']);
+      $process->run();
+
+      if (!$process->isSuccessful()) {
+          throw new ProcessFailedException($process);
+      }
+      $data[$key_c]=$process->getOutput();
+
+    }
+
+    return $data;
+
+  }
 
 
+
+  //-------------------------
+  // Nextcloud - Renommer Dossier ou déplacer
+  //-------------------------
+
+  public function mvNextcloud($chemin, $entreprise)
+  {
+    $ecrire = fopen('script/Nextcloud.sh',"w");
+    ftruncate($ecrire,0);
+    fputs($ecrire, "#!/bin/bash\n\n");
+    fputs($ecrire, "mv ".env('APP_PATH_STORAGE')."/".$chemin['chemin_actuel']." ".env('APP_PATH_STORAGE')."/".$chemin['chemin_update']."\n");
+    fputs($ecrire, "ls ".env('APP_PATH_STORAGE')."/".$chemin['dossier']."\n");
+    fclose($ecrire);
+    exec('bash script/Nextcloud.sh', $data[0], $data[1]);
+    return $data;
+  }
+
+  //-------------------------
+  // Nextcloud - Déplacer
+  //-------------------------
+
+  public function deplacerNextcloud($chemin, $entreprise)
+  {
+    $ecrire = fopen('script/Nextcloud.sh',"w");
+    ftruncate($ecrire,0);
+    fputs($ecrire, "#!/bin/bash\n\n");
+    fputs($ecrire, "mv ".env('APP_PATH_STORAGE')."/".$chemin['chemin_actuel']." ".env('APP_PATH_STORAGE')."/".$chemin['chemin_update']."\n");
+    fputs($ecrire, "ls ".env('APP_PATH_STORAGE')."/".$chemin['dossier']."\n");
+    fclose($ecrire);
+    exec('bash script/Nextcloud.sh', $data[0], $data[1]);
+    return $data;
+  }
 
 
 }

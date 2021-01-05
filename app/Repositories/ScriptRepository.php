@@ -120,13 +120,13 @@ class ScriptRepository {
   // Nextcloud - Déplacer
   //-------------------------
 
-  public function deplacerNextcloud($chemin, $entreprise)
+  public function deplacerNextcloud($chemin_actuel,$chemin_update, $entreprise)
   {
     $ecrire = fopen('script/Nextcloud.sh',"w");
     ftruncate($ecrire,0);
     fputs($ecrire, "#!/bin/bash\n\n");
-    fputs($ecrire, "mv ".env('APP_PATH_STORAGE')."/".$chemin['chemin_actuel']." ".env('APP_PATH_STORAGE')."/".$chemin['chemin_update']."\n");
-    fputs($ecrire, "ls ".env('APP_PATH_STORAGE')."/".$chemin['dossier']."\n");
+    fputs($ecrire, "mv ".env('APP_PATH_STORAGE')."/".$chemin_actuel['chemin']." ".env('APP_PATH_STORAGE')."/".$chemin_update['chemin']."\n");
+    fputs($ecrire, "ls ".env('APP_PATH_STORAGE')."/".$chemin_update['dossier']."\n");
     fclose($ecrire);
     exec('bash script/Nextcloud.sh', $data[0], $data[1]);
     return $data;

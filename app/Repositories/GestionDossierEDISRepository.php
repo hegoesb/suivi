@@ -38,6 +38,17 @@ class GestionDossierEDISRepository {
     return $data;
   }
 
+  public function nomChemin($dossier_id,$chantier,$entreprise)
+  {
+    $nom_dossier           = $this->nomDossier($dossier_id, $entreprise);
+    $nom_projet            = $this->nomProjet($chantier);
+    $chemin['dossier_id']  = $dossier_id;
+    $chemin['dossier_nom'] = $nom_dossier;
+    $chemin['chemin']      = $nom_dossier.'/'.$nom_projet;
+    return $chemin;
+  }
+
+
   //-------------------------
   // Action
   //-------------------------
@@ -155,15 +166,26 @@ class GestionDossierEDISRepository {
       foreach ($possibles as $key_p => $possible) {
         if($possible->possible_id==$chantier_update->etape_chantier_id){
           foreach ($dossier_actuel as $key_da => $da) {
-            if($da['dossier']->id!=5){
-              $nom_dossier_actuel       = $this->nomDossier($da['dossier']->id, $entreprise);
-              $nom_projet_actuel        = $this->nomProjet($chantier_actuel);
-              $chemin['chemin_actuel']  = $nom_dossier_actuel.'/'.$nom_projet_actuel;
-              $chemin['dossier_actuel'] = $nom_dossier_actuel;
+            if($da['dossier']->id!=5){ // Construction du chemin de dossier existant
+              $chemin_actuel = $this->nomChemin($da['dossier']->id, $chantier_actuel, $entreprise);
             }
           }
-          foreach ($dossier_update as $key_da => $da) {
+          foreach ($dossier_update as $key_da => $da) { // Construction du nouveau chemin de dossier
             if($da['dossier']->id!=5){
+              $chemin_update = $this->nomChemin($da['dossier']->id, $chantier_actuel, $entreprise);
+            }
+          }
+          //Déplacement du dossier
+          $data=$this->ScriptRepository->mvNextcloud($chemin_actuel,$chemin_update, $entreprise);
+          //Scan de l'ancien dossier parent et du nouveau dossier parent
+          $data=$this->ScriptRepository->scanNextcloud($chemin_update['dossier']);
+          $data=$this->ScriptRepository->scanNextcloud($chemin_actuel['dossier']);
+          //Création des dossiers qu'implique le nouveau dossier parent
+          $data=$this->creerDossier($chemin_update'dossier_id'],$chantier_update, $entreprise);
+          //Si etape_chantier_id = 3: en cours
+        if($chantier_update->etape_chantier_id==3){
+          foreach ($dossier_update as $key_da => $da) { // Construction du nouveau chemin de dossier
+            if($da['dossier']->id==5){
               $nom_dossier_update      = $this->nomDossier($da['dossier']->id, $entreprise);
               $nom_projet_update       = $this->nomProjet($chantier_update);
               $chemin['dossier_id']    = $da['dossier']->id;
@@ -171,10 +193,6 @@ class GestionDossierEDISRepository {
               $chemin['chemin_update'] = $nom_dossier_update.'/'.$nom_projet_update;
             }
           }
-          $data=$this->ScriptRepository->mvNextcloud($chemin, $entreprise);
-          $data=$this->ScriptRepository->scanNextcloud($chemin['dossier']);
-          $data=$this->ScriptRepository->scanNextcloud($chemin['dossier_actuel']);
-          $data=$this->creerDossier($chemin['dossier_id'],$chantier_update, $entreprise);
         }
       }
     }

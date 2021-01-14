@@ -3,6 +3,8 @@
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 
+use Illuminate\Support\Facades\Storage;
+
 // use App\Repositories\GestionDossierEDISRepository;
 
 class ScriptRepository {
@@ -104,7 +106,7 @@ class ScriptRepository {
   // Nextcloud - Renommer Dossier ou déplacer
   //-------------------------
 
-  public function mvNextcloud($chemin, $entreprise)
+  public function mvNomNextcloud($chemin, $entreprise)
   {
     $ecrire = fopen('script/Nextcloud.sh',"w");
     ftruncate($ecrire,0);
@@ -120,18 +122,40 @@ class ScriptRepository {
   // Nextcloud - Déplacer
   //-------------------------
 
-  public function deplacerNextcloud($chemin_actuel,$chemin_update, $entreprise)
+  public function mvNextcloud($chemin_actuel,$chemin_update, $entreprise)
   {
     $ecrire = fopen('script/Nextcloud.sh',"w");
     ftruncate($ecrire,0);
     fputs($ecrire, "#!/bin/bash\n\n");
     fputs($ecrire, "mv ".env('APP_PATH_STORAGE')."/".$chemin_actuel['chemin']." ".env('APP_PATH_STORAGE')."/".$chemin_update['chemin']."\n");
-    fputs($ecrire, "ls ".env('APP_PATH_STORAGE')."/".$chemin_update['dossier']."\n");
+    fputs($ecrire, "ls ".env('APP_PATH_STORAGE')."/".$chemin_update['dossier_nom']."\n");
     fclose($ecrire);
     exec('bash script/Nextcloud.sh', $data[0], $data[1]);
     return $data;
   }
 
+  //-------------------------
+  // Nextcloud - Suivi dernier plan pour chantier
+  //-------------------------
+
+
+  public function suiviDernierPlanNextcloud()
+  {
+    // $ecrire = fopen('script/Nextcloud.sh',"w");
+    // ftruncate($ecrire,0);
+    // fputs($ecrire, "#!/bin/bash\n\n");
+    // fputs($ecrire, "ls -R ".env('APP_PATH_STORAGE')."\n");
+    // fclose($ecrire);
+    // exec('bash script/Nextcloud.sh', $data[0], $data[1]);
+
+    $data = Storage::disk('EDIS')->allDirectories('/BDX_312_Etudes-Chantiers');
+
+    foreach ($data as $key_d => $d) {
+      # code...
+    }
+
+    return $data;
+  }
 
 }
 

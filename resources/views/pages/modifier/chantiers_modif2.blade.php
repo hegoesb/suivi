@@ -27,6 +27,7 @@
                 </div>
             </div>
             {!!Form::validation_text_disabled('identifiant', 'Identifiant',$chantier->identifiant,true,4)!!}
+            {!!Form::validation_text_maxLength_value('nom', 'Nom',$chantier->nom,15,true,4)!!}
             {!!Form::validation_text_maxLength_value('libelle', 'Libellé',$chantier->libelle,50,true,4)!!}
             {!!Form::validation_selected($choix_client, 'client_id', 'Client',true,4)!!}
             {!!Form::validation_selected($choix_etape, 'etape_chantier_id', 'Etape du chantier',true,4)!!}

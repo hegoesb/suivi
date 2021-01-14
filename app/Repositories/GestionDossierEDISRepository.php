@@ -129,7 +129,7 @@ class GestionDossierEDISRepository {
       foreach ($chemin_array as $key_c => $c) {//Boucle du dossier d'origine
         //Si le dossier existe on change de nom
         if($c['projet_actuel_exist'] ==1){
-          $data=$this->ScriptRepository->mvNextcloud($c,$entreprise);
+          $data=$this->ScriptRepository->mvNomNextcloud($c,$entreprise);
           $data=$this->ScriptRepository->scanNextcloud($c['dossier']);
         }else{//Sinon on crée un dossier
           $data = $this->creerDossier($c['dossier_id'],$chantier_update, $entreprise);
@@ -178,19 +178,16 @@ class GestionDossierEDISRepository {
           //Déplacement du dossier
           $data=$this->ScriptRepository->mvNextcloud($chemin_actuel,$chemin_update, $entreprise);
           //Scan de l'ancien dossier parent et du nouveau dossier parent
-          $data=$this->ScriptRepository->scanNextcloud($chemin_update['dossier']);
-          $data=$this->ScriptRepository->scanNextcloud($chemin_actuel['dossier']);
+          $data=$this->ScriptRepository->scanNextcloud($chemin_update['dossier_nom']);
+          $data=$this->ScriptRepository->scanNextcloud($chemin_actuel['dossier_nom']);
           //Création des dossiers qu'implique le nouveau dossier parent
-          $data=$this->creerDossier($chemin_update'dossier_id'],$chantier_update, $entreprise);
+          $data=$this->creerDossier($chemin_update['dossier_id'],$chantier_update, $entreprise);
           //Si etape_chantier_id = 3: en cours
-        if($chantier_update->etape_chantier_id==3){
-          foreach ($dossier_update as $key_da => $da) { // Construction du nouveau chemin de dossier
-            if($da['dossier']->id==5){
-              $nom_dossier_update      = $this->nomDossier($da['dossier']->id, $entreprise);
-              $nom_projet_update       = $this->nomProjet($chantier_update);
-              $chemin['dossier_id']    = $da['dossier']->id;
-              $chemin['dossier']       = $nom_dossier_update;
-              $chemin['chemin_update'] = $nom_dossier_update.'/'.$nom_projet_update;
+          if($chantier_update->etape_chantier_id==3){
+            foreach ($dossier_update as $key_da => $da) { // Construction du nouveau chemin de dossier
+              if($da['dossier']->id==5){
+                $data=$this->creerDossier($da['dossier']->id,$chantier_update, $entreprise);
+              }
             }
           }
         }

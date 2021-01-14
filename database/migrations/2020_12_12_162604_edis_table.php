@@ -103,6 +103,15 @@ class EdisTable extends Migration
             $table->string('libelle',20);
             $table->timestamps();
         });
+        Schema::create('bigrammes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nom',3);
+            $table->string('nom_display',35);
+            $table->integer('sousdossier_id');
+            $table->timestamps();
+        });
+
+
         //-------------------------
         // Etat
         //-------------------------
@@ -286,6 +295,7 @@ class EdisTable extends Migration
 
         Schema::dropIfExists('dossiers');
         Schema::dropIfExists('sousdossiers');
+        Schema::dropIfExists('bigrammes');
 
     }
 }

@@ -14,12 +14,12 @@ class DossiersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('dossiers')->delete();
-        
+
         \DB::table('dossiers')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'type' => 'Terrain',
@@ -28,7 +28,7 @@ class DossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'type' => 'Terrain',
@@ -37,7 +37,7 @@ class DossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'type' => 'Terrain',
@@ -46,16 +46,16 @@ class DossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'type' => 'Terrain',
-                'numero' => '321',
+                'numero' => '314',
                 'libelle' => 'Projets_Perdus',
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'type' => 'Terrain',
@@ -65,7 +65,5 @@ class DossiersTableSeeder extends Seeder
                 'updated_at' => '2021-01-02 00:00:00',
             ),
         ));
-        
-        
     }
 }

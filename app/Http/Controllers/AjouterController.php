@@ -145,42 +145,11 @@ class AjouterController extends Controller
 
         }elseif ($table=='webdav') {
 
-          // $table_chantier = chantier::where('id',7)->first();
-          // $data = $this->GD_EDIS->creerDossier(1,$table_chantier,$entreprise);
 
-          // return view('test', ['test' => $data, 'imputs' => '$a', 'comp' => '']);
-
-          // exec('bash script/Scan_BDX_311_Pre-Etudes.sh', $output, $data);
-          // exec('ls', $data1, $data);
-          $output  = $this->ScriptRepository->scanNextcloud(3, $entreprise);
+          $output  = $this->ScriptRepository->suiviDernierPlanNextcloud();
 
 
           return view('test', ['test' =>  $output , 'imputs' => '$response->json()', 'comp' => '$response']);
-
-
-
-
-          $response = Http::withBasicAuth('hegoesb', '2tsafch2')
-                            ->withOptions([
-                                'debug' => true,])
-                          ->get('http://next.hego.io/nextcloud/remote.php/dav/files/hegoesb/WHC');
-          return view('test', ['test' =>  $response->headers() , 'imputs' => '$response->json()', 'comp' => $response]);
-
-          //Selection de données nécessaire au formulaire
-          $client         = $this->formulaireRepository->select_clients($entreprise);
-          $type_reglement = $this->formulaireRepository->select_type_reglements();
-
-          // return view('test', ['test' =>  $type_devi, 'imputs' => '$a', 'comp' => '$table'.' ']);
-
-          return view($this->chemin.$table.'_select2',[
-              'titre'          => $entreprise['nom'].'- Ajouter un reglement',
-              'descriptif'     => 'Le reglement sera associé à l\'entreprise '.$entreprise['nom_display'].'.',
-              'clients'        => $client,
-              'type_reglements' => $type_reglement,
-              'entreprise'     => $entreprise,
-          ]);
-
-          // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
         }
         abort(404);

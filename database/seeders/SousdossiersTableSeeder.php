@@ -14,12 +14,12 @@ class SousdossiersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('sousdossiers')->delete();
-        
+
         \DB::table('sousdossiers')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'dossier_id' => 1,
@@ -27,7 +27,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'dossier_id' => 1,
@@ -35,7 +35,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'dossier_id' => 1,
@@ -43,7 +43,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'dossier_id' => 2,
@@ -51,7 +51,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'dossier_id' => 2,
@@ -59,7 +59,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'dossier_id' => 2,
@@ -67,7 +67,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'dossier_id' => 2,
@@ -75,7 +75,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'dossier_id' => 2,
@@ -83,7 +83,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'dossier_id' => 3,
@@ -91,7 +91,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'dossier_id' => 3,
@@ -99,7 +99,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'dossier_id' => 3,
@@ -107,7 +107,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'dossier_id' => 3,
@@ -115,7 +115,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'dossier_id' => 3,
@@ -123,7 +123,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'dossier_id' => 3,
@@ -131,7 +131,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'dossier_id' => 3,
@@ -139,7 +139,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'dossier_id' => 4,
@@ -147,7 +147,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 17,
                 'dossier_id' => 4,
@@ -155,7 +155,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 18,
                 'dossier_id' => 4,
@@ -163,7 +163,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 19,
                 'dossier_id' => 5,
@@ -171,7 +171,7 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 20,
                 'dossier_id' => 5,
@@ -179,8 +179,16 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
+            20 =>
+            array (
+                'id' => 21,
+                'dossier_id' => 5,
+                'libelle' => '21_Plans_Client',
+                'created_at' => '2021-01-05 00:00:00',
+                'updated_at' => '2021-01-05 00:00:00',
+            ),
         ));
-        
-        
+
+
     }
 }

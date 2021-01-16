@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DossiersTableSeeder::class);
         $this->call(DossierEtapeChantiersTableSeeder::class);
         $this->call(BigrammesTableSeeder::class);
+        $this->call(DossierSousdossierTableSeeder::class);
     }
 }

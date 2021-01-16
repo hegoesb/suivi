@@ -134,29 +134,6 @@ class ScriptRepository {
     return $data;
   }
 
-  //-------------------------
-  // Nextcloud - Suivi dernier plan pour chantier
-  //-------------------------
-
-
-  public function suiviDernierPlanNextcloud()
-  {
-    // $ecrire = fopen('script/Nextcloud.sh',"w");
-    // ftruncate($ecrire,0);
-    // fputs($ecrire, "#!/bin/bash\n\n");
-    // fputs($ecrire, "ls -R ".env('APP_PATH_STORAGE')."\n");
-    // fclose($ecrire);
-    // exec('bash script/Nextcloud.sh', $data[0], $data[1]);
-
-    $data = Storage::disk('EDIS')->allDirectories('/BDX_312_Etudes-Chantiers');
-
-    foreach ($data as $key_d => $d) {
-      # code...
-    }
-
-    return $data;
-  }
-
 }
 
 

@@ -12,6 +12,13 @@ return [
             'new-tab' => false,
         ],
 
+        [
+            'title' => 'Test',
+            'root' => true,
+            'icon' => 'media/svg/icons/Design/Layers.svg', // or can be 'flaticon-home' or any flaticon-*
+            'page' => '/test',
+            'new-tab' => false,
+        ],
         // Edis Bordeaux
         [
             'section' => 'EDIS Bordeaux',
@@ -41,10 +48,6 @@ return [
                 [
                     'title' => 'Réglements',
                     'page' => 'ajouter/1/reglements'
-                ],
-                [
-                    'title' => 'WebDav',
-                    'page' => 'ajouter/1/webdav'
                 ],
             ]
         ],

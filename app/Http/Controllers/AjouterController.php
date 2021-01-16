@@ -143,15 +143,8 @@ class AjouterController extends Controller
 
           // return view('test', ['test' =>  $choix_entreprise, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
-        }elseif ($table=='webdav') {
-
-
-          $output  = $this->ScriptRepository->suiviDernierPlanNextcloud();
-
-
-          return view('test', ['test' =>  $output , 'imputs' => '$response->json()', 'comp' => '$response']);
-
         }
+
         abort(404);
 
     }

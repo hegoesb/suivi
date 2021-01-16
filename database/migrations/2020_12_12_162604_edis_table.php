@@ -99,10 +99,17 @@ class EdisTable extends Migration
 
         Schema::create('sousdossiers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('dossier_id');
             $table->string('libelle',20);
             $table->timestamps();
         });
+
+        Schema::create('dossier_sousdossier', function (Blueprint $table) {
+            $table->integer('dossier_id')->unsigned();
+            $table->integer('sousdossier_id')->unsigned();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+
         Schema::create('bigrammes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom',3);
@@ -295,6 +302,7 @@ class EdisTable extends Migration
 
         Schema::dropIfExists('dossiers');
         Schema::dropIfExists('sousdossiers');
+        Schema::dropIfExists('dossier_sousdossier');
         Schema::dropIfExists('bigrammes');
 
     }

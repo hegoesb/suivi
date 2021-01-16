@@ -9,7 +9,7 @@ use App\Models\chantier;
 use App\Models\dossier;
 use App\Models\dossier_etape_chantier;
 use App\Models\possible_etape_chantier;
-use App\Models\sousdossier;
+use App\Models\dossier_sousdossier;
 
 class GestionDossierEDISRepository {
 
@@ -57,7 +57,7 @@ class GestionDossierEDISRepository {
   public function creerDossier($dossier_id,$chantier, $entreprise)
   {
     $dossier     = dossier::where('id',$dossier_id)->first();
-    $sousdossier = sousdossier::where('dossier_id',$dossier->id)->get();
+    $sousdossier = dossier_sousdossier::with('sousdossier')->where('dossier_id',$dossier->id)->get();
 
     $nom_dossier = $this->nomDossier($dossier_id, $entreprise);
     $nom_projet  = $this->nomProjet($chantier);
@@ -65,7 +65,7 @@ class GestionDossierEDISRepository {
     $chemin = $nom_dossier.'/'.$nom_projet;
 
     foreach ($sousdossier as $key => $sd) {
-      $root_dossier[$key]=$chemin.'/'.$sd->libelle;
+      $root_dossier[$key]=$chemin.'/'.$sd['sousdossier']->libelle;
     }
 
     foreach ($root_dossier as $key => $rt) {

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'PagesController@index');
-Route::get('/test', 'CronController@copiePlanChantier');
+Route::get('/copierDeplacerPlan', 'CronController@copiePlanChantier');
 
 /*
 |--------------------------------------------------------------------------

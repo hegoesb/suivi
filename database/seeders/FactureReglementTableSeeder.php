@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class FactureReglementTableSeeder extends Seeder
@@ -13,11 +14,11 @@ class FactureReglementTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('facture_reglement')->delete();
-
-
-
+        
+        
+        
     }
 }

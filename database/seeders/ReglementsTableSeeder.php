@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class ReglementsTableSeeder extends Seeder
@@ -13,11 +14,11 @@ class ReglementsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('reglements')->delete();
-
-
-
+        
+        
+        
     }
 }

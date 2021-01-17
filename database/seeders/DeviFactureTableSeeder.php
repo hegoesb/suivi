@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class DeviFactureTableSeeder extends Seeder
@@ -13,12 +14,12 @@ class DeviFactureTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('devi_facture')->delete();
-
+        
         \DB::table('devi_facture')->insert(array (
-            0 =>
+            0 => 
             array (
                 'devi_id' => 1,
                 'facture_id' => 2,
@@ -27,7 +28,7 @@ class DeviFactureTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

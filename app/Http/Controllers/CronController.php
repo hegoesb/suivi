@@ -90,7 +90,7 @@ class CronController extends Controller
                     $nom_fichier = $this->TraitementRepository->echapeCaractereLinux($array_fichiers[$tf['array_id']]);
 
                     //Création des chemins
-                    $chemin_actuel['chemin']      = $chemin_etude.'/'.$nom_fichier;
+                    $chemin_actuel['chemin']     = $chemin_etude.'/'.$nom_fichier;
                     $chemin_copie['chemin']      = $chemin_chantier.'/'.$nom_fichier;
                     $chemin_copie['dossier_nom'] = $chemin_chantier;
 
@@ -101,57 +101,13 @@ class CronController extends Controller
 
                 }
 
-
-                // $data = $this->ScriptRepository->mvArrayNextcloud($chemin_nextcloud,$dossier_nom, $entreprise[$chantier->entreprise_id]);
-
-
-
-        return view('test', ['test' =>  $array_fichiers, 'imputs' => $tri_fichiers, 'comp' => $data]);
-
-
-
               }
+              $data=$this->ScriptRepository->scanNextcloud($chemin_etude);
+              $data=$this->ScriptRepository->scanNextcloud($chemin_chantier);
 
-              # code...
             }
-          // }
         }
-        return view('test', ['test' =>  $explode_fichiers, 'imputs' => $array_explode_fichiers, 'comp' => $array_sort]);
       }
-
-
-
-
-    // $data = Storage::disk('EDIS')->allDirectories($nom_dossier['chemin']);
-
-
-      return view('test', ['test' =>  '$nom_dossier ', 'imputs' => '$response->json()', 'comp' => '$response']);
-  // //-------------------------
-  // // Nextcloud - Suivi dernier plan pour chantier
-  // //-------------------------
-
-
-  // public function suiviDernierPlanNextcloud()
-  // {
-  //   // $ecrire = fopen('script/Nextcloud.sh',"w");
-  //   // ftruncate($ecrire,0);
-  //   // fputs($ecrire, "#!/bin/bash\n\n");
-  //   // fputs($ecrire, "ls -R ".env('APP_PATH_STORAGE')."\n");
-  //   // fclose($ecrire);
-  //   // exec('bash script/Nextcloud.sh', $data[0], $data[1]);
-
-  //   $data = Storage::disk('EDIS')->allDirectories('/BDX_312_Etudes-Chantiers');
-
-  //   foreach ($data as $key_d => $d) {
-  //     # code...
-  //   }
-
-  //   return $data;
-  // }
-
-
-        abort(404);
-
+      return redirect('/');
     }
-
 }

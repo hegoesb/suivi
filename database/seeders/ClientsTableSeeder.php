@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class ClientsTableSeeder extends Seeder
@@ -13,12 +14,12 @@ class ClientsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('clients')->delete();
-
+        
         \DB::table('clients')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'type_client_id' => 1,
@@ -28,7 +29,7 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'type_client_id' => 1,
@@ -38,7 +39,7 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'type_client_id' => 1,
@@ -48,7 +49,7 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'type_client_id' => 2,
@@ -58,7 +59,7 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'type_client_id' => 1,
@@ -68,7 +69,7 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'type_client_id' => 2,
@@ -78,7 +79,7 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'type_client_id' => 1,
@@ -88,7 +89,7 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 8,
                 'type_client_id' => 2,
@@ -98,7 +99,7 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 9,
                 'type_client_id' => 2,
@@ -108,7 +109,7 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 10,
                 'type_client_id' => 2,
@@ -118,7 +119,7 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 11,
                 'type_client_id' => 1,
@@ -129,7 +130,7 @@ class ClientsTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

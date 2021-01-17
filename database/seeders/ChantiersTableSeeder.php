@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class ChantiersTableSeeder extends Seeder
@@ -13,12 +14,12 @@ class ChantiersTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('chantiers')->delete();
-
+        
         \DB::table('chantiers')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'identifiant' => 'EBX_PJ2012-0014',
@@ -26,14 +27,14 @@ class ChantiersTableSeeder extends Seeder
                 'libelle' => 'Ballanger-Antenne',
                 'client_id' => 10,
                 'entreprise_id' => 1,
-                'etape_chantier_id' => 1,
+                'etape_chantier_id' => 3,
                 'date_debut' => '2020-12-14',
                 'date_fin' => NULL,
                 'created_at' => '2020-12-18 10:21:40',
-                'updated_at' => '2020-12-18 10:21:40',
+                'updated_at' => '2021-01-16 15:38:22',
                 'deleted_at' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'identifiant' => 'EBX_PJ2001-0044',
@@ -48,7 +49,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:32:49',
                 'deleted_at' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'identifiant' => 'EBX_PJ2003-0066',
@@ -63,7 +64,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:33:53',
                 'deleted_at' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'identifiant' => 'EBX_PJ2004-0067',
@@ -78,7 +79,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:34:31',
                 'deleted_at' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'identifiant' => 'EBX_PJ2005-0071',
@@ -93,7 +94,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:35:22',
                 'deleted_at' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'identifiant' => 'EBX_PJ2005-0074',
@@ -108,7 +109,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:41:55',
                 'deleted_at' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'identifiant' => 'EBX_PJ2009-0089',
@@ -123,7 +124,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:42:44',
                 'deleted_at' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 8,
                 'identifiant' => 'EBX_PJ2010-0001',
@@ -138,7 +139,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:43:33',
                 'deleted_at' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 9,
                 'identifiant' => 'EBX_PJ2010-0002',
@@ -153,7 +154,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:44:08',
                 'deleted_at' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 10,
                 'identifiant' => 'EBX_PJ2010-0003',
@@ -168,7 +169,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:44:41',
                 'deleted_at' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 11,
                 'identifiant' => 'EBX_PJ2010-0004',
@@ -183,7 +184,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:45:25',
                 'deleted_at' => NULL,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 12,
                 'identifiant' => 'EBX_PJ2011-0006',
@@ -198,7 +199,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:46:07',
                 'deleted_at' => NULL,
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 13,
                 'identifiant' => 'EBX_PJ2011-0007',
@@ -213,7 +214,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:46:39',
                 'deleted_at' => NULL,
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 14,
                 'identifiant' => 'EBX_PJ2011-0009',
@@ -228,7 +229,7 @@ class ChantiersTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:47:22',
                 'deleted_at' => NULL,
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 15,
                 'identifiant' => 'EBX_PJ2012-0010',
@@ -236,15 +237,15 @@ class ChantiersTableSeeder extends Seeder
                 'libelle' => 'Moles',
                 'client_id' => 1,
                 'entreprise_id' => 1,
-                'etape_chantier_id' => 1,
+                'etape_chantier_id' => 3,
                 'date_debut' => '2020-12-07',
                 'date_fin' => NULL,
                 'created_at' => '2020-12-18 11:47:45',
-                'updated_at' => '2020-12-18 11:47:45',
+                'updated_at' => '2021-01-17 09:01:57',
                 'deleted_at' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
 class DevisTableSeeder extends Seeder
@@ -13,12 +14,12 @@ class DevisTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('devis')->delete();
-
+        
         \DB::table('devis')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'numero' => 'EBX_DE2012-0021',
@@ -41,7 +42,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:49:33',
                 'deleted_at' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'numero' => 'EBX_DE2012-0023',
@@ -64,7 +65,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 11:50:56',
                 'deleted_at' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'numero' => 'EBX_DE2011-0011',
@@ -87,7 +88,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:13:09',
                 'deleted_at' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'numero' => 'EBX_DE2011-0012',
@@ -110,7 +111,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:15:05',
                 'deleted_at' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'numero' => 'EBX_DE2011-0009',
@@ -133,7 +134,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:16:17',
                 'deleted_at' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'numero' => 'EBX_DE2011-0010',
@@ -156,7 +157,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:17:52',
                 'deleted_at' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'numero' => 'EBX_DE2011-0008',
@@ -179,7 +180,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:18:58',
                 'deleted_at' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 8,
                 'numero' => 'EBX_DE2011-0007',
@@ -202,7 +203,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:20:22',
                 'deleted_at' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 9,
                 'numero' => 'EBX_DE2011-0002',
@@ -225,7 +226,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:22:01',
                 'deleted_at' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 10,
                 'numero' => 'EBX_DE2011-0001',
@@ -248,7 +249,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:23:19',
                 'deleted_at' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 11,
                 'numero' => 'EBX_DE2012-0019',
@@ -271,7 +272,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:25:19',
                 'deleted_at' => NULL,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 12,
                 'numero' => 'EBX_DE2012-0018',
@@ -294,7 +295,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:29:16',
                 'deleted_at' => NULL,
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 13,
                 'numero' => 'EBX_DE2012-0017',
@@ -317,7 +318,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:30:37',
                 'deleted_at' => NULL,
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 14,
                 'numero' => 'EBX_DE2001-0044',
@@ -340,7 +341,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:31:51',
                 'deleted_at' => NULL,
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 15,
                 'numero' => 'EBX_DE2012-0014',
@@ -363,7 +364,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:32:56',
                 'deleted_at' => NULL,
             ),
-            15 =>
+            15 => 
             array (
                 'id' => 16,
                 'numero' => 'EBX_DE2012-0013',
@@ -386,7 +387,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:34:06',
                 'deleted_at' => NULL,
             ),
-            16 =>
+            16 => 
             array (
                 'id' => 17,
                 'numero' => 'EBX_DE2012-0022',
@@ -409,7 +410,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:35:18',
                 'deleted_at' => NULL,
             ),
-            17 =>
+            17 => 
             array (
                 'id' => 18,
                 'numero' => 'EBX_DE2012-0025',
@@ -432,7 +433,7 @@ class DevisTableSeeder extends Seeder
                 'updated_at' => '2020-12-18 12:38:29',
                 'deleted_at' => NULL,
             ),
-            18 =>
+            18 => 
             array (
                 'id' => 19,
                 'numero' => 'EBX_DE2012-0024',
@@ -456,7 +457,7 @@ class DevisTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

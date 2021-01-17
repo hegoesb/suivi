@@ -13,10 +13,10 @@ return [
         ],
 
         [
-            'title' => 'Test',
+            'title' => 'Copier/Deplacer Plan',
             'root' => true,
-            'icon' => 'media/svg/icons/Design/Layers.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/test',
+            'icon' => 'media/svg/icons/Design/Bezier-curve.svg', // or can be 'flaticon-home' or any flaticon-*
+            'page' => '/copierDeplacerPlan',
             'new-tab' => false,
         ],
         // Edis Bordeaux

@@ -68,7 +68,20 @@ class SousdossiersTableSeeder extends Seeder
                 'created_at' => '2021-01-02 00:00:00',
                 'updated_at' => '2021-01-02 00:00:00',
             ),
-
+            7 =>
+            array (
+                'id' => 8,
+                'libelle' => '21_Plans_Client/_old',
+                'created_at' => '2021-01-02 00:00:00',
+                'updated_at' => '2021-01-02 00:00:00',
+            ),
+            8 =>
+            array (
+                'id' => 9,
+                'libelle' => '22_Plans_EDIS/_old',
+                'created_at' => '2021-01-02 00:00:00',
+                'updated_at' => '2021-01-02 00:00:00',
+            ),
         ));
 
 

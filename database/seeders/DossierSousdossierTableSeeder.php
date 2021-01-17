@@ -187,8 +187,22 @@ class DossierSousdossierTableSeeder extends Seeder
                 'updated_at' => '2021-01-16 00:00:00',
                 'deleted_at' => NULL,
             ),
-
-
+            21 =>
+            array (
+                'dossier_id' => 2,
+                'sousdossier_id' => 8,
+                'created_at' => '2021-01-16 00:00:00',
+                'updated_at' => '2021-01-16 00:00:00',
+                'deleted_at' => NULL,
+            ),
+            22 =>
+            array (
+                'dossier_id' => 2,
+                'sousdossier_id' => 9,
+                'created_at' => '2021-01-16 00:00:00',
+                'updated_at' => '2021-01-16 00:00:00',
+                'deleted_at' => NULL,
+            ),
 
         ));
 

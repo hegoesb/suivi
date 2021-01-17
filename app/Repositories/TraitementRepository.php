@@ -66,6 +66,53 @@ class TraitementRepository {
   }
 
 
+  //-------------------------
+  // Tri Version plan
+  //-------------------------
+
+  public function triVersionPlan($liste_plans)
+  {
+    foreach ($liste_plans as $key_lp => $lp) {//Bloucle liste plan
+      $explode_nom_plan        = explode("_", $lp);
+      $explode_version         = str_split($explode_nom_plan[3]);
+      $explode_nom_plan['diffusion'] = array_shift($explode_version);
+      $version_travail         = array_shift($explode_version);
+      if(empty($explode_version)){
+        $explode_nom_plan['travail'] = 0;
+
+      }else{
+        $explode_nom_plan['travail'] = implode($explode_version);
+
+      }
+      $array[$key_lp] = $explode_nom_plan;
+    }
+
+      //Tri par version
+      $diffusion = array_column($array, 'diffusion');
+      $travail   = array_column($array, 'travail');
+      array_multisort($diffusion, SORT_DESC, $travail, SORT_ASC, $array);
+
+      foreach ($array as $key_a => $a) {
+        if($array[0]['travail']==0){
+          if($key_a==0){
+            $array[$key_a]['deplacer']=false;
+          }else{
+            $array[$key_a]['deplacer']=true;
+          }
+        }else{
+          if($array[0]['diffusion']==$a['diffusion']){
+            $array[$key_a]['deplacer']=false;
+          }else{
+            $array[$key_a]['deplacer']=true;
+          }
+        }
+      }
+
+    return $array;
+  }
+
+
+
 }
 
 

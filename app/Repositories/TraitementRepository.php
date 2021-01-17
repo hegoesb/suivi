@@ -1,7 +1,9 @@
 <?php namespace App\Repositories;
 
+use App\Models\bigramme;
 use App\Models\chantier;
 use App\Models\entreprise;
+
 use Carbon\Carbon;
 
 class TraitementRepository {
@@ -72,46 +74,120 @@ class TraitementRepository {
 
   public function triVersionPlan($liste_plans)
   {
-    foreach ($liste_plans as $key_lp => $lp) {//Bloucle liste plan
-      $explode_nom_plan        = explode("_", $lp);
-      $explode_version         = str_split($explode_nom_plan[3]);
-      $explode_nom_plan['diffusion'] = array_shift($explode_version);
-      $version_travail         = array_shift($explode_version);
-      if(empty($explode_version)){
-        $explode_nom_plan['travail'] = 0;
 
-      }else{
-        $explode_nom_plan['travail'] = implode($explode_version);
+    foreach ($liste_plans as $key_lp => $lp) {//Bloucle liste plan
+
+      $explode_nom_plan        = explode("_", $lp);
+      if(isset($explode_nom_plan[3])){
+        $explode_nom_plan['array_id']  = $key_lp;
+        $explode_nom_plan['nom_plan']  = $explode_nom_plan[2];
+        $explode_version               = str_split($explode_nom_plan[3]);
+        $explode_nom_plan['diffusion'] = array_shift($explode_version);
+        $version_travail               = array_shift($explode_version);
+        if(empty($explode_version)){
+          $explode_nom_plan['travail'] = false;
+
+        }else{
+          $explode_nom_plan['travail'] = implode($explode_version);
+
+        }
+        $array[$key_lp] = $explode_nom_plan;
 
       }
-      $array[$key_lp] = $explode_nom_plan;
     }
 
-      //Tri par version
-      $diffusion = array_column($array, 'diffusion');
-      $travail   = array_column($array, 'travail');
-      array_multisort($diffusion, SORT_DESC, $travail, SORT_ASC, $array);
+    //Contrôle si le nom du fichier est formaté
+    foreach ($array as $key_a => $plan_courant) {
+      if($this->controleNomFichierFormat($plan_courant)==true){
+        unset($array[$key_a]);
+      }
+    }
 
-      foreach ($array as $key_a => $a) {
-        if($array[0]['travail']==0){
-          if($key_a==0){
+    //Tri par version
+    $nom_plan = array_column($array, 'nom_plan');
+    $diffusion = array_column($array, 'diffusion');
+    $travail   = array_column($array, 'travail');
+    array_multisort($nom_plan, SORT_ASC, $diffusion, SORT_DESC, $travail, SORT_DESC, $array);
+
+    $plan_reference = $array[0];
+    $key_reference  = 0;
+    $plan_a_diffuser = 1;
+    foreach ($array as $key_a => $plan_courant) {
+
+      if($plan_reference['nom_plan'] == $plan_courant['nom_plan']){
+        if($plan_courant['travail']==false){
+          if($plan_a_diffuser==1){// Si version de diffusion existe
             $array[$key_a]['deplacer']=false;
+            $plan_a_diffuser = 0;
           }else{
             $array[$key_a]['deplacer']=true;
           }
         }else{
-          if($array[0]['diffusion']==$a['diffusion']){
+          if($plan_reference['diffusion']==$plan_courant['diffusion']){ //On garde les versions travail de la futur version de diffusion
             $array[$key_a]['deplacer']=false;
           }else{
             $array[$key_a]['deplacer']=true;
           }
         }
+      }else{
+        $plan_reference  = $plan_courant;
+        $key_reference   = $key_a;
+        $plan_a_diffuser = 1;
+        if($plan_reference['travail']==0){
+          if($plan_a_diffuser==1){// Si version de diffusion existe
+            $array[$key_a]['deplacer']=false;
+            $plan_a_diffuser = 0;
+          }else{
+            $array[$key_a]['deplacer']=true;
+          }
+        }else{
+          if($plan_reference['diffusion']==$plan_courant['diffusion']){ //On garde les versions travail de la futur version de diffusion
+            $array[$key_a]['deplacer']=false;
+          }else{
+            $array[$key_a]['deplacer']=true;
+          }
+        }
+
       }
+    }
 
     return $array;
   }
 
+  //-------------------------
+  // Controle intégrité du format du nom fichier
+  //-------------------------
 
+  public function controleNomFichierFormat($plan_courant){
+
+    $verif_projet = chantier::where('identifiant',$plan_courant[0].'_'.$plan_courant[1])->first();
+    if(!empty($verif_projet)){
+      $bigramme = str_split($plan_courant[2],3);
+      $verif_birgamme = bigramme::where('nom',$bigramme[0])->first();
+      if(!empty($verif_birgamme)){
+        return false;
+      }
+      return true;
+    }else{
+      return true;
+    }
+  }
+
+  //-------------------------
+  // Echappement Caractère Linux
+  //-------------------------
+
+  public function echapeCaractereLinux($data){
+    $data = str_replace(" ","\ ",$data);
+    $data = str_replace("&","\&",$data);
+    $data = str_replace("(","\(",$data);
+    $data = str_replace(")","\)",$data);
+    $data = str_replace("$","\$",$data);
+    $data = str_replace("!","\!",$data);
+    $data = str_replace(":","\:",$data);
+    $data = str_replace("*","\*",$data);
+    return $data;
+  }
 
 }
 

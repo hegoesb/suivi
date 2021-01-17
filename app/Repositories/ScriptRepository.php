@@ -134,6 +134,22 @@ class ScriptRepository {
     return $data;
   }
 
+  //-------------------------
+  // Nextcloud - Copier
+  //-------------------------
+
+  public function cpNextcloud($chemin_actuel,$chemin_copie, $entreprise)
+  {
+    $ecrire = fopen('script/Nextcloud.sh',"w");
+    ftruncate($ecrire,0);
+    fputs($ecrire, "#!/bin/bash\n\n");
+    fputs($ecrire, "cp ".env('APP_PATH_STORAGE')."/".$chemin_actuel['chemin']." ".env('APP_PATH_STORAGE')."/".$chemin_copie['chemin']."\n");
+    fputs($ecrire, "ls ".env('APP_PATH_STORAGE')."/".$chemin_copie['dossier_nom']."\n");
+    fclose($ecrire);
+    exec('bash script/Nextcloud.sh', $data[0], $data[1]);
+    return $data;
+  }
+
 }
 
 

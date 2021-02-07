@@ -51,7 +51,14 @@ Route::post('supprimer/{entreprise_id}/{table}/{id}', 'SupprimerController@postS
 */
 Route::get('tableau/{entreprise_id}/{table}', 'TableauController@viewTable');
 
+/*
+|--------------------------------------------------------------------------
+| Upload
+|--------------------------------------------------------------------------
+*/
 
+Route::get('upload/{entreprise_id}/{table}/{id}', 'UploadController@viewUpload');
+Route::post('upload/{entreprise_id}/{table}/{id}', 'UploadController@postUpload');
 
 // Demo routes
 Route::get('/datatables', 'PagesController@datatables');

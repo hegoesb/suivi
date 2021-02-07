@@ -71,6 +71,12 @@
                                 <td></td>
                                 <td></td>
                                 <td>
+                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="/upload/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Upload Fichier">
+                                        <i class="fas fa-upload"></i>
+                                    </a>
+                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="/telechargement/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Téléchargement Fichier">
+                                        <i class="fas fa-download"></i>
+                                    </a>
                                     <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
                                         <i class="fas fa-edit"></i>
                                     </a>

@@ -377,5 +377,25 @@ class FormMacroProvider extends ServiceProvider
             );
         });
 
+    //--------------------------------------------------//
+    //                                                  //
+    //                     upload                       //
+    //                                                  //
+    //--------------------------------------------------//
+
+        Form::macro('upload', function($name, $label,$col=4,$checked=true)
+        {
+
+            return sprintf('
+                <div class="form-group row">
+                    <label class="col-form-label col-lg-2 col-sm-12">%s</label>
+                    <div class=" col-lg-%s col-md-9 col-sm-12">
+                        <input type="file" class="file-input" name="%s" />
+                    </div>
+                </div>
+                ',  $label, $col, $name
+            );
+        });
+
     }
 }

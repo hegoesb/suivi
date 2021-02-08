@@ -1,9 +1,14 @@
 <?php namespace App\Repositories;
 
+use Illuminate\Support\Facades\Storage;
+
+use App\Repositories\ScriptRepository;
+
 use App\Models\chantier;
 use App\Models\client;
 use App\Models\devi;
 use App\Models\devi_facture;
+use App\Models\dossier;
 use App\Models\facture;
 use App\Models\facture_reglement;
 use App\Models\reglement;
@@ -12,9 +17,9 @@ class TableauRepository {
 
 	protected $parametre;
 
-	public function __construct()
+	public function __construct(ScriptRepository $ScriptRepository)
 	{
-
+      $this->ScriptRepository = $ScriptRepository;
 	}
 
 	public function selection_clients()
@@ -66,8 +71,8 @@ class TableauRepository {
 
   public function devi_table($entreprise)
   {
-
-    $devis=devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
+    $dossier = dossier::where('famille',2)
+    $devis   = devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
     if(isset($devis[0])){
       foreach ($devis as $key => $devi) {
         $data[$key]['id']                       = $devi->id;
@@ -100,6 +105,13 @@ class TableauRepository {
     }else{
       $data=null;
     }
+
+
+        // $data = Storage::disk('EDIS')->allFiles('BDX_222_Client_Devis/2021/');
+        $data = $this->ScriptRepository->findNextcloud_arrayChemin2();
+        $data = $entreprise->prefixe_dossier;
+        return $data;
+
     return $data;
   }
 
@@ -139,6 +151,7 @@ class TableauRepository {
         }else{
           $data[$key]['supprimer']=null;
         }
+
       }
     }else{
       $data=null;

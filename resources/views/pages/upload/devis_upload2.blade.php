@@ -16,7 +16,7 @@
         </div>
     </div>
     <!--begin::Form-->
-    {!! Form::open(['url' => url('upload/'.$entreprise_id.'/devis/'.$devis_id), 'id'=>'form_validation']) !!}
+    {!! Form::open(['url' => url('upload/'.$entreprise_id.'/devis/'.$devis_id), 'id'=>'form_validation', 'enctype' => 'multipart/form-data']) !!}
         <div class="card-body">
             <div class="form-group mb-8">
                 <div class="alert alert-custom alert-default" role="alert">
@@ -35,13 +35,8 @@
                     </div>
                 @endif
             </div>
-            {{-- {!!Form::validation_select($type_client, 'type_client_id', 'Type',true,4)!!} --}}
-            {!!Form::validation_text_maxLength('nom', 'Nom',10,true,6)!!}
-            {!!Form::validation_text_maxLength('nom_display', 'Nom Complet',40,true,6)!!}
-{{--             @foreach ($choix_entreprise as $key => $value)
-                {!!Form::switch('entreprise_'.$value[0], $value[1],4,)!!}
-            @endforeach --}}
-            {!!Form::upload('file', 'Choisir un fichier',40)!!}
+            {!!Form::validation_select($type_documents, 'type_document_id', 'Type document signé',true,4)!!}
+            {!!Form::upload('fichier', 'Choisir un fichier',40)!!}
 
         </div>
         {!!Form::valider()!!}

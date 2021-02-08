@@ -150,6 +150,49 @@ class ScriptRepository {
     return $data;
   }
 
+  //-------------------------
+  // Nextcloud - Trouver un fichier
+  //-------------------------
+
+  public function findNextcloud($chemin)
+  {
+    $ecrire = fopen('script/Nextcloud.sh',"w");
+    ftruncate($ecrire,0);
+    fputs($ecrire, "#!/bin/bash\n\n");
+    fputs($ecrire, "find ".env('APP_PATH_STORAGE')."/".$chemin['dossier']." -iname EBX_DE2102-0018.pdf \n");
+    fclose($ecrire);
+    exec('bash script/Nextcloud.sh', $data[0], $data[1]);
+    return $data;
+  }
+
+  public function findNextcloud_arrayChemin2()
+  // public function findNextcloud_arrayChemin2($chemin, $entreprise)
+  {
+
+    // return $chemin;
+    // foreach ($chemin as $key_c => $c) {
+
+      $ecrire = fopen('script/Nextcloud.sh',"w");
+      ftruncate($ecrire,0);
+      fputs($ecrire, "#!/bin/bash\n\n");
+      fputs($ecrire, "find ".env('APP_PATH_STORAGE')." -iname EBX_DE2102-0018.pdf \n");
+      // fputs($ecrire, "find ".env('APP_PATH_STORAGE')."/".$c['dossier']." -iname \n");
+      fclose($ecrire);
+
+      $process = new Process(['bash', 'script/Nextcloud.sh']);
+      $process->run();
+
+      if (!$process->isSuccessful()) {
+          throw new ProcessFailedException($process);
+      }
+      $data['$key_c']=$process->getOutput();
+
+    // }
+
+    return $data;
+
+  }
+
 }
 
 

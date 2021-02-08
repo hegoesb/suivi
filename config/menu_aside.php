@@ -79,7 +79,22 @@ return [
                 ],
             ]
         ],
-
+        [
+            'title' => 'Documents',
+            'icon' => 'media/svg/icons/Files/Folder-cloud.svg',
+            'bullet' => 'dot',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Devis',
+                    'page' => 'document/1/devis'
+                ],
+                [
+                    'title' => 'Factures',
+                    'page' => 'document/1/factures'
+                ],
+            ]
+        ],
         // Edis Pays-Basque
         [
             'section' => 'EDIS Pays-Basque',
@@ -140,7 +155,22 @@ return [
                 ],
             ]
         ],
-
+        [
+            'title' => 'Documents',
+            'icon' => 'media/svg/icons/Files/Folder-cloud.svg',
+            'bullet' => 'dot',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Devis',
+                    'page' => 'document/1/devis'
+                ],
+                [
+                    'title' => 'Factures',
+                    'page' => 'document/1/factures'
+                ],
+            ]
+        ],
 
     ]
 

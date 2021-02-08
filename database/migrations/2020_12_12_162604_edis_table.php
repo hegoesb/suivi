@@ -84,6 +84,12 @@ class EdisTable extends Migration
             $table->string('nom_display',20);
             $table->timestamps();
         });
+        Schema::create('type_documents', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('nom',4);
+            $table->string('nom_display',20);
+            $table->timestamps();
+        });
 
         //-------------------------
         // Dossier
@@ -91,6 +97,7 @@ class EdisTable extends Migration
 
         Schema::create('dossiers', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('famille',1);
             $table->string('type',15);
             $table->string('numero',20);
             $table->string('libelle',20);
@@ -270,6 +277,7 @@ class EdisTable extends Migration
         Schema::dropIfExists('type_devis');
         Schema::dropIfExists('type_factures');
         Schema::dropIfExists('type_reglements');
+        Schema::dropIfExists('type_documents');
 
         //-------------------------
         // Etat

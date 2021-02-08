@@ -1,3 +1,3 @@
 #!/bin/bash
 
-find ../storage/EDIS -iname EBX_DE2102-0018.pdf 
+find ../storage/EDIS/BDX_221_Client_Situations -iname EBX_FA2012-0010-S.pdf 

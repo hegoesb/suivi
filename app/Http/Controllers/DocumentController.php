@@ -25,7 +25,7 @@ public function __construct(TableauRepository $TableauRepository )
         if($table=='devis'){
 
           $data=$this->tableauRepository->devi_table($entreprise);
-          return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
+          // return view('test', ['test' =>  $data, 'imputs' => '$a', 'comp' => '$table'.' ']);
 
           return view($this->chemin_document.$table.'_datatables',[
               'titre'         => $entreprise['nom'].' - Tableau Devis',

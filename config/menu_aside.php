@@ -163,11 +163,11 @@ return [
             'submenu' => [
                 [
                     'title' => 'Devis',
-                    'page' => 'document/1/devis'
+                    'page' => 'document/2/devis'
                 ],
                 [
                     'title' => 'Factures',
-                    'page' => 'document/1/factures'
+                    'page' => 'document/2/factures'
                 ],
             ]
         ],

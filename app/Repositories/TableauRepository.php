@@ -71,7 +71,6 @@ class TableauRepository {
 
   public function devi_table($entreprise)
   {
-    $dossier = dossier::where('famille',2)
     $devis   = devi::with('etat_devi','type_devi','client','chantier','collaborateur')->where('entreprise_id',$entreprise->id)->get();
     if(isset($devis[0])){
       foreach ($devis as $key => $devi) {
@@ -101,16 +100,37 @@ class TableauRepository {
         }else{
           $data[$key]['supprimer']=null;
         }
+
+        //Recherche devis sauvergardé
+        $dossier = dossier::where('numero',222)->first();
+        $recherche_fichier= $this->ScriptRepository->findNextcloud($entreprise->prefixe_dossier."_".$dossier->numero."_".$dossier->libelle,$devi->numero.'.pdf');
+        if(!empty($recherche_fichier[0])){
+          $data[$key]['devis_sauvegarder'] = 1;
+        }else{
+          $data[$key]['devis_sauvegarder'] = 0;
+        }
+
+        //Recherche des devis signé sauvergardés
+        $dossier = dossier::where('numero',223)->first();
+        $recherche_fichier= $this->ScriptRepository->findNextcloud($entreprise->prefixe_dossier."_".$dossier->numero."_".$dossier->libelle,$devi->numero.'-S.pdf');
+        if(!empty($recherche_fichier[0])){
+          $data[$key]['devis_signer_sauvegarder'] = 1;
+        }else{
+          $data[$key]['devis_signer_sauvegarder'] = 0;
+        }
+        //Recherche des contats sauvergardés
+        $dossier = dossier::where('numero',224)->first();
+        $recherche_fichier= $this->ScriptRepository->findNextcloud($entreprise->prefixe_dossier."_".$dossier->numero."_".$dossier->libelle,$devi->numero.'-C.pdf');
+        if(!empty($recherche_fichier[0])){
+          $data[$key]['contrat_sauvegarder'] = 1;
+        }else{
+          $data[$key]['contrat_sauvegarder'] = 0;
+        }
+
       }
     }else{
       $data=null;
     }
-
-
-        // $data = Storage::disk('EDIS')->allFiles('BDX_222_Client_Devis/2021/');
-        $data = $this->ScriptRepository->findNextcloud_arrayChemin2();
-        $data = $entreprise->prefixe_dossier;
-        return $data;
 
     return $data;
   }
@@ -151,6 +171,26 @@ class TableauRepository {
         }else{
           $data[$key]['supprimer']=null;
         }
+
+        //Recherche factures sauvergardés
+        $dossier = dossier::where('numero',220)->first();
+        $recherche_fichier= $this->ScriptRepository->findNextcloud($entreprise->prefixe_dossier."_".$dossier->numero."_".$dossier->libelle,$facture->numero.'.pdf');
+        if(!empty($recherche_fichier[0])){
+          $data[$key]['facture_sauvegarder'] = 1;
+        }else{
+          $data[$key]['facture_sauvegarder'] = 0;
+        }
+
+        //Recherche situations sauvergardés
+        $dossier = dossier::where('numero',221)->first();
+        $recherche_fichier= $this->ScriptRepository->findNextcloud($entreprise->prefixe_dossier."_".$dossier->numero."_".$dossier->libelle,$facture->numero.'-S.pdf');
+        if(!empty($recherche_fichier[0])){
+          $data[$key]['situation_sauvegarder'] = 1;
+        }else{
+          $data[$key]['situation_sauvegarder'] = 0;
+        }
+
+
 
       }
     }else{

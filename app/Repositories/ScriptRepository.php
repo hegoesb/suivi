@@ -154,12 +154,12 @@ class ScriptRepository {
   // Nextcloud - Trouver un fichier
   //-------------------------
 
-  public function findNextcloud($chemin)
+  public function findNextcloud($chemin, $fichier)
   {
     $ecrire = fopen('script/Nextcloud.sh',"w");
     ftruncate($ecrire,0);
     fputs($ecrire, "#!/bin/bash\n\n");
-    fputs($ecrire, "find ".env('APP_PATH_STORAGE')."/".$chemin['dossier']." -iname EBX_DE2102-0018.pdf \n");
+    fputs($ecrire, "find ".env('APP_PATH_STORAGE')."/".$chemin." -iname ".$fichier." \n");
     fclose($ecrire);
     exec('bash script/Nextcloud.sh', $data[0], $data[1]);
     return $data;

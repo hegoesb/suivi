@@ -1,21 +1,6 @@
 {{-- Extends layout --}}
 @extends('layout.default')
 
-{{-- Styles Section --}}
-@section('styles')
-    {{-- fontawesome --}}
-    <link href="{{ asset('/your-path-to-fontawesome/css/fontawesome.css') }}" rel="stylesheet" type="text/css"/>
-
-    {{-- datatable --}}
-    <link href="{{ asset('https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
-        {{-- boutton --}}
-        <link href="{{ asset('https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
-        {{-- Responsive --}}
-        <link href="{{ asset('https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
-
-    {{-- <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/> --}}
-@endsection
-
 {{-- Content --}}
 @section('content')
 
@@ -24,7 +9,6 @@
             <div class="card-title">
                 <h3 class="card-label">{{$titre}}
                     <div class="text-muted pt-2 font-size-sm">{{$descriptif}}</div>
-
                 </h3>
             </div>
         </div>
@@ -40,12 +24,9 @@
                         <th>Client</th>
                         <th>Géré par</th>
                         <th>Type</th>
-                        <th>Etat</th>
-                        <th>Envoie</th>
-                        <th>Signature</th>
-                        <th data-toggle="tooltip" data-theme="dark" title="Devis sauvergardé sur next.hego.io">D</th>
-                        <th data-toggle="tooltip" data-theme="dark" title="Devis signé sauvergardé sur next.hego.io">DS</th>
-                        <th data-toggle="tooltip" data-theme="dark" title="Contrat sauvergardé sur next.hego.io">C</th>
+                        <th>Création</th>
+                        <th data-toggle="tooltip" data-theme="dark" title="Facture sauvergardée sur next.hego.io">Fac Sauv</th>
+                        <th data-toggle="tooltip" data-theme="dark" title="Situation sauvergardée sur next.hego.io">Sit Sauv</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -55,24 +36,23 @@
                             {{-- <tr class="gradeX {{ $value['justificatif']==1 ? '' : 'text-danger' }}"> --}}
                             <tr class="gradeX">
                                 <td>{{$value['id']}}</td>
-                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['lot']}}">{{$value['numero']}}</td>
-                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']['identifiant']}}">{{$value['chantier']['nom']}}</td>
+                                <td>{{$value['numero']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['chantier']['identifiant']}}">{{$value['chantier']['nom'] }}</td>
                                 <td data-toggle="tooltip" data-theme="dark" title="{{$value['client']['nom_display']}}">{{$value['client']['nom']}}</td>
                                 <td data-toggle="tooltip" data-theme="dark" title="{{$value['collaborateur']['nom_display']}}">{{$value['collaborateur']['nom']}}</td>
-                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_devi']['nom_display']}}">{{$value['type_devi']['nom']}}</td>
-                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['etat_devi']['nom_display']}}">{{$value['etat_devi']['nom']}}</td>
-                                <td>{{$value['envoie']}}</td>
-                                <td>{{$value['signature']}}</td>
-                                <td>{{$value['devis_sauvegarder']}}</td>
-                                <td>{{$value['devis_signer_sauvegarder']}}</td>
-                                <td>{{$value['contrat_sauvegarder']}}</td>
+                                <td data-toggle="tooltip" data-theme="dark" title="{{$value['type_facture']['nom_display']}}">{{$value['type_facture']['nom']}}</td>
+                                <td>{{$value['date_envoie']}}</td>
+                                <td>{{$value['facture_sauvegarder']}}</td>
+                                <td>{{$value['situation_sauvegarder']}}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="/upload/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Upload Fichier">
-                                        <i class="fas fa-upload"></i>
+                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="/modifier/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Modifier">
+                                        <i class="fas fa-edit"></i>
                                     </a>
-                                    <a class="btn btn-sm btn-clean btn-icon mr-2" href="/telechargement/{{$entreprise->id}}/{{$table}}/{{$value['id']}}" title="Téléchargement Fichier">
-                                        <i class="fas fa-download"></i>
-                                    </a>
+                                    @if(isset($value['supprimer']))
+                                        <a class="btn btn-sm btn-clean btn-icon mr-2" href="{{$value['supprimer']}}" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -86,12 +66,9 @@
                         <th>Client</th>
                         <th>Géré par</th>
                         <th>Type</th>
-                        <th>Etat</th>
-                        <th>Envoie</th>
-                        <th>Signature</th>
-                        <th>P</th>
-                        <th>Total HT</th>
-                        <th>Facturé</th>
+                        <th>Création</th>
+                        <th>Fac Sauv</th>
+                        <th>Sit Sauv/th>
                         <th></th>
                     </tr>
                 </tfoot>
@@ -103,6 +80,19 @@
     </div>
 
 @endsection
+
+{{-- Styles Section --}}
+@section('styles')
+
+    {{-- datatable --}}
+    <link href="{{ asset('https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
+        {{-- boutton --}}
+        <link href="{{ asset('https://cdn.datatables.net/buttons/1.6.5/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
+        {{-- Responsive --}}
+        <link href="{{ asset('https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css') }}" rel="stylesheet" type="text/css"/>
+    {{-- <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css"/> --}}
+@endsection
+
 
 {{-- Scripts Section --}}
 @section('scripts')
@@ -157,7 +147,7 @@
                   "sUrl": "//cdn.datatables.net/plug-ins/1.10.16/i18n/French.json"
                 },
                 initComplete: function () {
-                    this.api().columns([1,2,3,4,5,6,7,8,9,10,11]).every( function () {
+                    this.api().columns([1,2,3,4,5,6,7,8]).every( function () {
                         var column = this;
                         var select = $('<select><option value=""></option></select>')
                             .appendTo( $(column.footer()).empty() )

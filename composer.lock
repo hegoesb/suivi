@@ -1857,21 +1857,21 @@
         },
         {
             "name": "orangehill/iseed",
-            "version": "v3.0",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orangehill/iseed.git",
-                "reference": "a6c54d2ed9ee0adad46ca7d0c38ffe5a56bd98c9"
+                "reference": "874f77a20d49aa4c6c5fec2daf0daa070514e013"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orangehill/iseed/zipball/a6c54d2ed9ee0adad46ca7d0c38ffe5a56bd98c9",
-                "reference": "a6c54d2ed9ee0adad46ca7d0c38ffe5a56bd98c9",
+                "url": "https://api.github.com/repos/orangehill/iseed/zipball/874f77a20d49aa4c6c5fec2daf0daa070514e013",
+                "reference": "874f77a20d49aa4c6c5fec2daf0daa070514e013",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
-                "php": "^7.2"
+                "php": "^7.3|^8.0"
             },
             "require-dev": {
                 "illuminate/filesystem": "~5.5.0|~5.6.0|~5.7.0|~5.8.0|^6.0|^7.0|^8.0",
@@ -1914,9 +1914,9 @@
             ],
             "support": {
                 "issues": "https://github.com/orangehill/iseed/issues",
-                "source": "https://github.com/orangehill/iseed/tree/v3.0"
+                "source": "https://github.com/orangehill/iseed/tree/v3.0.1"
             },
-            "time": "2020-12-14T11:29:13+00:00"
+            "time": "2021-01-14T15:34:12+00:00"
         },
         {
             "name": "pbmedia/laravel-webdav",
@@ -8028,5 +8028,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

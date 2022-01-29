@@ -40,8 +40,8 @@ class TableauController extends Controller
               'entreprises'   => $entreprises,
               'entreprise'    => $entreprise,
               'table'         => $table,
-              'colonne_order' => 1,
-              'ordre'         => "asc",
+              'colonne_order' => 0,
+              'ordre'         => "desc",
           ]);
         }elseif($table=='chantiers'){
 

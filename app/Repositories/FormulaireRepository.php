@@ -65,6 +65,21 @@ class FormulaireRepository {
     return $data;
   }
 
+  public function selected_type_clients($table)
+  {
+    $datas=type_client::get();
+        // return view('test', ['test' =>  $datas, 'imputs' => 0, 'comp' => 0]);
+    foreach ($datas as $key_1 => $value) {
+      $data[$key_1][0]=$value['id'];
+      $data[$key_1][1]=$value['nom_display'];
+      $data[$key_1][2]=0;
+      if ($value['id'] == $table->type_client_id){
+        $data[$key_1][2]=1;
+      }
+    }
+    return $data;
+  }
+
   public function select_clients($entreprise)
   {
     $datas=entreprise::with('client')->where('id',$entreprise->id)->first();

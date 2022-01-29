@@ -81,19 +81,19 @@ class ModifierController extends Controller
       }elseif($table=='clients'){
 
         //Selection de données nécessaire au formulaire
-        $type_client              = $this->formulaireRepository->select_type_clients();
         $client                   = client::with('entreprise', 'type_client')->where('id',$id)->first();
+        $type_client_s            = $this->formulaireRepository->selected_type_clients($client);
         $choix_entreprise_checked = $this->formulaireRepository->select_entreprises_checked($client);
         $lien                     = '/tableau/'.$entreprise_id.'/'.$table;
 
-        // return view('test', ['test' =>  $choix_entreprise_checked, 'imputs' => $client['entreprise'][0], 'comp' => '$table'.' ']);
+        // return view('test', ['test' =>  $type_client_s, 'imputs' => $client, 'comp' => '$table'.' ']);
 
         return view($this->chemin_modifier.$table.'_modif2',[
             'titre'            => $entreprise['nom'].' - Modifier un client',
             'descriptif'       => 'Le client sera modifié à la table client commune aux deux entreprises. Un client peut appartenir aux deux entreprises',
             'client'           => $client,
             'lien'             => $lien,
-            'type_client'      => $type_client,
+            'type_client'      => $type_client_s,
             'choix_entreprise' => $choix_entreprise_checked,
             'entreprise_id'    => $entreprise->id,
         ]);

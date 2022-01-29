@@ -258,7 +258,7 @@ class ModifierController extends Controller
         if(isset($test)){
             $update_chantier = $this->QueryTableRepository->update_chantierId($request->except(['_token']),$id,$entreprises);
             //Gestion des fichiers sur nextcloud
-            $data = $this->GD_EDIS->deplacementDossier($chantier_actuel,$entreprise);
+            // $data = $this->GD_EDIS->deplacementDossier($chantier_actuel,$entreprise);
           // return view('test', ['test' =>  $data , 'imputs' => '$a', 'comp' => $request->except(['_token'])]);
             return redirect('/tableau/'.$entreprise_id.'/chantiers');
         }else{

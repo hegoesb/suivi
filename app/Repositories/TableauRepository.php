@@ -94,6 +94,7 @@ class TableauRepository {
         $data[$key]['total_ttc']                = $devi->total_ttc;
         $data[$key]['tva']                      = $devi->tva;
 
+
         $facture = devi_facture::where('devi_id',$devi->id)->first();
         if(!isset($facture)){
           $data[$key]['supprimer']='/supprimer/'.$entreprise->id.'/devis/'.$devi->id;

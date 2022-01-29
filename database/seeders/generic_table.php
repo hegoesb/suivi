@@ -40,6 +40,14 @@ class generic_table extends Seeder
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
             ),
+            3 =>
+            array (
+                'id' => 4,
+                'nom' => 'FBI',
+                'nom_display' => 'Farid Bejaoui',
+                'created_at' => '2020-12-12 00:00:00',
+                'updated_at' => '2020-12-12 00:00:00',
+            ),
         ));
 
 
@@ -66,6 +74,18 @@ class generic_table extends Seeder
                 'prefixe_devis' => 'EPB_DE',
                 'prefixe_facture' => 'EPB_FA',
                 'prefixe_dossier' => 'PB',
+                'created_at' => '2020-12-12 00:00:00',
+                'updated_at' => '2020-12-12 00:00:00',
+            ),
+            2 =>
+            array (
+                'id' => 3,
+                'nom' => 'BFEG',
+                'nom_display' => 'BFEG',
+                'prefixe_chantier' => 'BFEG_PJ',
+                'prefixe_devis' => 'EBX_DE',
+                'prefixe_facture' => 'EBX_FA',
+                'prefixe_dossier' => 'BFEG',
                 'created_at' => '2020-12-12 00:00:00',
                 'updated_at' => '2020-12-12 00:00:00',
             ),

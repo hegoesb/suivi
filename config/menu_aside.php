@@ -39,15 +39,18 @@ return [
                 ],
                 [
                     'title' => 'Devis',
-                    'page' => 'ajouter/1/devis'
+                    // 'page' => 'ajouter/1/devis'
+                    'page' => '#'
                 ],
                 [
                     'title' => 'Factures',
-                    'page' => 'ajouter/1/factures'
+                    // 'page' => 'ajouter/1/factures'
+                    'page' => '#'
                 ],
                 [
                     'title' => 'Réglements',
-                    'page' => 'ajouter/1/reglements'
+                    // 'page' => 'ajouter/1/reglements'
+                    'page' => '#'
                 ],
             ]
         ],
@@ -67,15 +70,18 @@ return [
                 ],
                 [
                     'title' => 'Devis',
-                    'page' => 'tableau/1/devis'
+                    // 'page' => 'tableau/1/devis'
+                    'page' => '#'
                 ],
                 [
                     'title' => 'Factures',
-                    'page' => 'tableau/1/factures'
+                    // 'page' => 'tableau/1/factures'
+                    'page' => '#'
                 ],
                 [
                     'title' => 'Réglements',
-                    'page' => 'tableau/1/reglements'
+                    // 'page' => 'tableau/1/reglements'
+                    'page' => '#'
                 ],
             ]
         ],
@@ -87,17 +93,19 @@ return [
             'submenu' => [
                 [
                     'title' => 'Devis',
-                    'page' => 'document/1/devis'
+                    'page' => '#'
+                    // 'page' => 'document/1/devis'
                 ],
                 [
                     'title' => 'Factures',
-                    'page' => 'document/1/factures'
+                    // 'page' => 'document/1/factures'
+                    'page' => '#'
                 ],
             ]
         ],
-        // Edis Pays-Basque
+        // Edis Bordeaux
         [
-            'section' => 'EDIS Pays-Basque',
+            'section' => 'BFEG',
         ],
         [
             'title' => 'Ajouter',
@@ -107,23 +115,11 @@ return [
             'submenu' => [
                 [
                     'title' => 'Clients',
-                    'page' => 'ajouter/2/clients'
+                    'page' => 'ajouter/3/clients'
                 ],
                 [
-                    'title' => 'Chantier',
-                    'page' => 'ajouter/2/chantiers'
-                ],
-                [
-                    'title' => 'Devis',
-                    'page' => 'ajouter/2/devis'
-                ],
-                [
-                    'title' => 'Factures',
-                    'page' => 'ajouter/2/factures'
-                ],
-                [
-                    'title' => 'Réglements',
-                    'page' => 'ajouter/2/reglements'
+                    'title' => 'Chantiers',
+                    'page' => 'ajouter/3/chantiers'
                 ],
             ]
         ],
@@ -135,42 +131,91 @@ return [
             'submenu' => [
                 [
                     'title' => 'Clients',
-                    'page' => 'tableau/2/clients'
+                    'page' => 'tableau/3/clients'
                 ],
                 [
-                    'title' => 'Chantier',
-                    'page' => 'tableau/2/chantiers'
-                ],
-                [
-                    'title' => 'Devis',
-                    'page' => 'tableau/2/devis'
-                ],
-                [
-                    'title' => 'Factures',
-                    'page' => 'tableau/2/factures'
-                ],
-                [
-                    'title' => 'Réglements',
-                    'page' => 'tableau/2/reglements'
+                    'title' => 'Chantiers',
+                    'page' => 'tableau/3/chantiers'
                 ],
             ]
         ],
-        [
-            'title' => 'Documents',
-            'icon' => 'media/svg/icons/Files/Folder-cloud.svg',
-            'bullet' => 'dot',
-            'root' => true,
-            'submenu' => [
-                [
-                    'title' => 'Devis',
-                    'page' => 'document/2/devis'
-                ],
-                [
-                    'title' => 'Factures',
-                    'page' => 'document/2/factures'
-                ],
-            ]
-        ],
+
+        // Edis Pays-Basque
+        // [
+        //     'section' => 'EDIS Pays-Basque',
+        // ],
+        // [
+        //     'title' => 'Ajouter',
+        //     'icon' => 'media/svg/icons/Design/PenAndRuller.svg',
+        //     'bullet' => 'dot',
+        //     'root' => true,
+        //     'submenu' => [
+        //         [
+        //             'title' => 'Clients',
+        //             'page' => 'ajouter/2/clients'
+        //         ],
+        //         [
+        //             'title' => 'Chantier',
+        //             'page' => 'ajouter/2/chantiers'
+        //         ],
+        //         [
+        //             'title' => 'Devis',
+        //             'page' => 'ajouter/2/devis'
+        //         ],
+        //         [
+        //             'title' => 'Factures',
+        //             'page' => 'ajouter/2/factures'
+        //         ],
+        //         [
+        //             'title' => 'Réglements',
+        //             'page' => 'ajouter/2/reglements'
+        //         ],
+        //     ]
+        // ],
+        // [
+        //     'title' => 'Tableaux',
+        //     'icon' => 'media/svg/icons/Layout/Layout-left-panel-2.svg',
+        //     'bullet' => 'dot',
+        //     'root' => true,
+        //     'submenu' => [
+        //         [
+        //             'title' => 'Clients',
+        //             'page' => 'tableau/2/clients'
+        //         ],
+        //         [
+        //             'title' => 'Chantier',
+        //             'page' => 'tableau/2/chantiers'
+        //         ],
+        //         [
+        //             'title' => 'Devis',
+        //             'page' => 'tableau/2/devis'
+        //         ],
+        //         [
+        //             'title' => 'Factures',
+        //             'page' => 'tableau/2/factures'
+        //         ],
+        //         [
+        //             'title' => 'Réglements',
+        //             'page' => 'tableau/2/reglements'
+        //         ],
+        //     ]
+        // ],
+        // [
+        //     'title' => 'Documents',
+        //     'icon' => 'media/svg/icons/Files/Folder-cloud.svg',
+        //     'bullet' => 'dot',
+        //     'root' => true,
+        //     'submenu' => [
+        //         [
+        //             'title' => 'Devis',
+        //             'page' => 'document/2/devis'
+        //         ],
+        //         [
+        //             'title' => 'Factures',
+        //             'page' => 'document/2/factures'
+        //         ],
+        //     ]
+        // ],
 
     ]
 

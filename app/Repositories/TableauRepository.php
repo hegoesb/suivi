@@ -42,7 +42,7 @@ class TableauRepository {
     if(isset($chantiers[0])){
       foreach ($chantiers as $key => $chantier) {
         $data[$key]['id']                             = $chantier->id;
-        $data[$key]['identifiant']                    = $chantier->identifiant;
+        $data[$key]['identifiant']                    = $chantier->identifiant.' - '.$chantier['client']['nom'].' - '.$chantier->nom;
         $data[$key]['nom']                            = $chantier->nom;
         $data[$key]['libelle']                        = $chantier->libelle;
         $data[$key]['client']['nom']                  = $chantier['client']['nom'];

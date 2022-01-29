@@ -45,7 +45,15 @@ class TraitementRepository {
     $chantier = chantier::where('entreprise_id',$entreprise->id)->orderBy('identifiant', 'desc')->first();
 
     if(isset($chantier)){
-      $numero_chantier = str_split($chantier->identifiant,11)[1]+1;
+      if($chantier->entreprise_id ==3 ){
+       $numero_chantier = str_split($chantier->identifiant,14)[1]+1;
+      }elseif($chantier->entreprise_id == 4){
+       $numero_chantier = str_split($chantier->identifiant,16)[1]+1;
+      }elseif($chantier->entreprise_id == 5){
+       $numero_chantier = str_split($chantier->identifiant,12)[1]+1;
+      }else{
+       $numero_chantier = str_split($chantier->identifiant,11)[1]+1;
+      }
       $array_numero = str_split($numero_chantier,1);
       $i=0;
       foreach ($array_numero as $key => $value) {

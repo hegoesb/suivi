@@ -20,7 +20,7 @@ class EdisTable extends Migration
         Schema::create('entreprises', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom',10);
-            $table->string('nom_display',20);
+            $table->string('nom_display',25);
             $table->string('prefixe_chantier',15);
             $table->string('prefixe_devis',15);
             $table->string('prefixe_facture',15);
@@ -160,7 +160,7 @@ class EdisTable extends Migration
 
         Schema::create('chantiers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('identifiant',15);
+            $table->string('identifiant',25);
             $table->string('nom',15);
             $table->string('libelle',50)->nullable();
             $table->integer('client_id');

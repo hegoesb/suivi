@@ -16,7 +16,8 @@ return [
             'title' => 'Copier/Deplacer Plan',
             'root' => true,
             'icon' => 'media/svg/icons/Design/Bezier-curve.svg', // or can be 'flaticon-home' or any flaticon-*
-            'page' => '/copierDeplacerPlan',
+            // 'page' => '/copierDeplacerPlan',
+            'page' => '#',
             'new-tab' => false,
         ],
         // Edis Bordeaux
@@ -105,7 +106,7 @@ return [
         ],
         // Edis Bordeaux
         [
-            'section' => 'BFEG',
+            'section' => 'EDIS ENR PV',
         ],
         [
             'title' => 'Ajouter',
@@ -136,6 +137,80 @@ return [
                 [
                     'title' => 'Chantiers',
                     'page' => 'tableau/3/chantiers'
+                ],
+            ]
+        ],
+
+        // Edis Bordeaux
+        [
+            'section' => 'EDIS ENR CLIM',
+        ],
+        [
+            'title' => 'Ajouter',
+            'icon' => 'media/svg/icons/Design/PenAndRuller.svg',
+            'bullet' => 'dot',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Clients',
+                    'page' => 'ajouter/4/clients'
+                ],
+                [
+                    'title' => 'Chantiers',
+                    'page' => 'ajouter/4/chantiers'
+                ],
+            ]
+        ],
+        [
+            'title' => 'Tableaux',
+            'icon' => 'media/svg/icons/Layout/Layout-left-panel-2.svg',
+            'bullet' => 'dot',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Clients',
+                    'page' => 'tableau/4/clients'
+                ],
+                [
+                    'title' => 'Chantiers',
+                    'page' => 'tableau/4/chantiers'
+                ],
+            ]
+        ],
+
+        // Edis Bordeaux
+        [
+            'section' => 'BFEG',
+        ],
+        [
+            'title' => 'Ajouter',
+            'icon' => 'media/svg/icons/Design/PenAndRuller.svg',
+            'bullet' => 'dot',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Clients',
+                    'page' => 'ajouter/5/clients'
+                ],
+                [
+                    'title' => 'Chantiers',
+                    'page' => 'ajouter/5/chantiers'
+                ],
+            ]
+        ],
+        [
+            'title' => 'Tableaux',
+            'icon' => 'media/svg/icons/Layout/Layout-left-panel-2.svg',
+            'bullet' => 'dot',
+            'root' => true,
+            'submenu' => [
+                [
+                    'title' => 'Clients',
+                    'page' => 'tableau/5/clients'
+                ],
+                [
+                    'title' => 'Chantiers',
+                    'page' => 'tableau/5/chantiers'
                 ],
             ]
         ],

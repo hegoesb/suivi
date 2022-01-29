@@ -80,14 +80,38 @@ class generic_table extends Seeder
             2 =>
             array (
                 'id' => 3,
+                'nom' => 'ENR_PV',
+                'nom_display' => 'EDIS ENR Photovoltaïque',
+                'prefixe_chantier' => 'ENR_PV_PJ',
+                'prefixe_devis' => 'ENR_DE',
+                'prefixe_facture' => 'ENR_FA',
+                'prefixe_dossier' => 'ENR_PV',
+                'created_at' => '2022-01-29 00:00:00',
+                'updated_at' => '2022-01-29 00:00:00',
+            ),
+            3 =>
+            array (
+                'id' => 4,
+                'nom' => 'ENR_CLIM',
+                'nom_display' => 'EDIS ENR Climatisation',
+                'prefixe_chantier' => 'ENR_CLIM_PJ',
+                'prefixe_devis' => 'ENR_DE',
+                'prefixe_facture' => 'ENR_FA',
+                'prefixe_dossier' => 'ENR_CLIM',
+                'created_at' => '2022-01-29 00:00:00',
+                'updated_at' => '2022-01-29 00:00:00',
+            ),
+            4 =>
+            array (
+                'id' => 5,
                 'nom' => 'BFEG',
                 'nom_display' => 'BFEG',
                 'prefixe_chantier' => 'BFEG_PJ',
                 'prefixe_devis' => 'EBX_DE',
                 'prefixe_facture' => 'EBX_FA',
                 'prefixe_dossier' => 'BFEG',
-                'created_at' => '2020-12-12 00:00:00',
-                'updated_at' => '2020-12-12 00:00:00',
+                'created_at' => '2022-01-29 00:00:00',
+                'updated_at' => '2022-01-29 00:00:00',
             ),
         ));
 

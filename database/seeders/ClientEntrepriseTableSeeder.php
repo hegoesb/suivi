@@ -107,6 +107,38 @@ class ClientEntrepriseTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
+            11 => 
+            array (
+                'client_id' => 12,
+                'entreprise_id' => 1,
+                'created_at' => '2021-03-01 16:39:22',
+                'updated_at' => '2021-03-01 16:39:22',
+                'deleted_at' => NULL,
+            ),
+            12 => 
+            array (
+                'client_id' => 13,
+                'entreprise_id' => 1,
+                'created_at' => '2021-03-01 16:41:06',
+                'updated_at' => '2021-03-01 16:41:06',
+                'deleted_at' => NULL,
+            ),
+            13 => 
+            array (
+                'client_id' => 14,
+                'entreprise_id' => 1,
+                'created_at' => '2021-03-01 16:41:54',
+                'updated_at' => '2021-03-01 16:41:54',
+                'deleted_at' => NULL,
+            ),
+            14 => 
+            array (
+                'client_id' => 14,
+                'entreprise_id' => 2,
+                'created_at' => '2021-03-01 16:41:54',
+                'updated_at' => '2021-03-01 16:41:54',
+                'deleted_at' => NULL,
+            ),
         ));
         
         

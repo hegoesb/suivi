@@ -129,6 +129,36 @@ class ClientsTableSeeder extends Seeder
                 'updated_at' => '2020-12-11 23:00:00',
                 'deleted_at' => NULL,
             ),
+            11 => 
+            array (
+                'id' => 12,
+                'type_client_id' => 1,
+                'nom' => 'Xixons',
+                'nom_display' => 'Fredrec Xixons',
+                'created_at' => '2021-03-01 16:39:22',
+                'updated_at' => '2021-03-01 16:39:22',
+                'deleted_at' => NULL,
+            ),
+            12 => 
+            array (
+                'id' => 13,
+                'type_client_id' => 2,
+                'nom' => 'Durand',
+                'nom_display' => 'Durand',
+                'created_at' => '2021-03-01 16:41:06',
+                'updated_at' => '2021-03-01 16:41:06',
+                'deleted_at' => NULL,
+            ),
+            13 => 
+            array (
+                'id' => 14,
+                'type_client_id' => 1,
+                'nom' => 'SCI FRAMER',
+                'nom_display' => 'SCI FRAMER',
+                'created_at' => '2021-03-01 16:41:54',
+                'updated_at' => '2021-03-01 16:41:54',
+                'deleted_at' => NULL,
+            ),
         ));
         
         
